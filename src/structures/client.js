@@ -30,7 +30,7 @@ class KitsoClient extends AkairoClient {
 			allowMention: true,
 			defaultCooldown: 3000,
 			aliasReplacement: /-/g,
-			prefix: ['a@', 'a>'],
+			prefix: message => this.settings.get(message.guild.id, 'prefix', 'a@'),
 			blockBots: true
 		});
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
