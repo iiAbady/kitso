@@ -1,4 +1,4 @@
-# Kitso <img src="https://i.imgur.com/gole4Uz.jpg" align="right" height="300" width="256">
+# Kitso <img src="https://i.imgur.com/4VL1lQr.jpg" align="right" width="256">
 > Stupid bitch
 
 # Notice
