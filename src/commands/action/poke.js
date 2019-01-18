@@ -1,6 +1,6 @@
 const { Command } = require('discord-akairo');
-const nekoclient = require('nekos.life');
-const neko = new nekoclient();
+const NekosClient = require('nekos.life');
+const neko = new NekosClient();
 
 class PokeCommand extends Command {
 	constructor() {

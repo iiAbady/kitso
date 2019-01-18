@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { Message } = require('discord.js');
+const { Message } = require('discord.js'); // eslint-disable-line no-unused-vars
 
 class PrefixCommand extends Command {
 	constructor() {
@@ -15,7 +15,8 @@ class PrefixCommand extends Command {
 					'id': 'newPrefix',
 					'default': null,
 					'index': 0,
-					'match': 'phrase'
+					'match': 'phrase',
+					'type': 'lowercase'
 				}
 			]
 		});
@@ -31,6 +32,7 @@ class PrefixCommand extends Command {
 			this.client.settings.set(message.guild.id, 'prefix', newPrefix);
 			return message.channel.send(`👍 Alright, I've changed the prefix for thig guild to: \`${newPrefix.toLowerCase()}\``);
 		}
+		return message.channel.send(`The prefix for this guild is: ${newPrefix}`);
 	}
 }
 
