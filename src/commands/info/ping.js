@@ -7,7 +7,7 @@ class PingCommand extends Command {
 			cooldown: 5000,
 			ratelimit: 1,
 			category: 'info',
-			channelRestriction: 'guild',
+			channel: 'guild',
 			description: {
 				content: 'Shows the bot ping.'
 			}

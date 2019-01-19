@@ -9,7 +9,7 @@ class TicketCommand extends Command {
 			cooldown: 5000,
 			ratelimit: 3,
 			category: 'ulti',
-			channelRestriction: 'guild',
+			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
 			description: {
 				content: 'Ticekt System.',

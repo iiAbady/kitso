@@ -9,7 +9,7 @@ class KissCommand extends Command {
 			cooldown: 5000,
 			ratelimit: 3,
 			category: 'action',
-			channelRestriction: 'guild',
+			channel: 'guild',
 			description: {
 				content: 'Kisses the specified user/users.',
 				examples: ['@Abady', '@Abady @Flart'],
