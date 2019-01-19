@@ -28,11 +28,11 @@ class NPMCommand extends Command {
 	async exec(message, { pkg }) {
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 		if (res.status === 404) {
-			return message.util.reply("Kitso couldn't find the requested information. Maybe look for something that actually exists the next time!");
+			return message.channel.reply("Kitso couldn't find the requested information. Maybe look for something that actually exists the next time!");
 		}
 		const body = await res.json();
 		if (body.time.unpublished) {
-			return message.util.reply('whoever was the Commander of this package decided to unpublish it, what a fool.');
+			return message.channel.reply('whoever was the Commander of this package decided to unpublish it, what a fool.');
 		}
 		const version = body.versions[body['dist-tags'].latest];
 		const maintainers = this.trimArray(body.maintainers.map(user => user.name));

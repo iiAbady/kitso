@@ -30,7 +30,7 @@ class TagSourceCommand extends Command {
 	}
 
 	exec(message, { tag, file }) {
-		return message.util.send(tag.content, {
+		return message.channel.send(tag.content, {
 			code: 'md',
 			// eslint-disable-next-line multiline-ternary
 			files: file ? [{

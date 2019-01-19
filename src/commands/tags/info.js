@@ -50,7 +50,7 @@ class TagInfoCommand extends Command {
 			embed.addField('❯ Last modified by', lastModifiedBy ? `${lastModifiedBy.tag} (ID: ${lastModifiedBy.id})` : "Couldn't fetch user.");
 		}
 
-		return message.util.send(embed);
+		return message.channel.send(embed);
 	}
 }
 

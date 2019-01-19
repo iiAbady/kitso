@@ -41,7 +41,7 @@ class TagShowCommand extends Command {
 		if (!tag) return;
 		tag.increment('uses');
 
-		return message.util.send(tag.content);
+		return message.channel.send(tag.content);
 	}
 }
 
