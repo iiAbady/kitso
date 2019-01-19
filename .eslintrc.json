@@ -12,5 +12,8 @@
         "new-cap": "warn",
         "valid-jsdoc": "off",
         "quote-props": "off"
-    }
+    },
+    "plugins": [
+        "jsdoc"
+    ]
 }
