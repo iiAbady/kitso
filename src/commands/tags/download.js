@@ -30,7 +30,7 @@ class TagDownloadCommand extends Command {
 			return out;
 		}, '');
 
-		return message.channel.send('Haiiiii~', { files: [{ attachment: Buffer.from(output, 'utf8'), name: `${member ? `${member.displayName}s_tags` : 'all_tags'}.txt` }] });
+		return message.channel.send('Give 5$ for that bitch https://paypal.me/NBODYYT, or nvm fk u:', { files: [{ attachment: Buffer.from(output, 'utf8'), name: `${member ? `${member.displayName}s_tags` : 'all_tags'}.txt` }] });
 	}
 }
 

@@ -23,7 +23,8 @@
   "scripts": {
     "start": "node index.js",
     "lint": "eslint . --fix",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "logs": "heroku logs -t --app kitsoo"
   },
   "author": "Abady",
   "license": "ISC"
