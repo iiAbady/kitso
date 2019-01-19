@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { MessageEmbed, Util } = require('discord.js');
+const { RichEmbed, Util } = require('discord.js');
 const { Op } = require('sequelize');
 
 class SearchTagCommand extends Command {
@@ -29,20 +29,20 @@ class SearchTagCommand extends Command {
 	async exec(message, { name }) {
 		name = Util.cleanContent(name, message);
 		const tags = await this.client.db.models.tags.findAll({ where: { name: { [Op.like]: `%${name}%` }, guild: message.guild.id } });
-		if (!tags.length) return message.util.reply(`No results found with query ${name}.`);
+		if (!tags.length) return message.reply(`No results found with query ${name}.`);
 		const search = tags
 			.map(tag => `\`${tag.name}\``)
 			.sort()
 			.join(', ');
 		if (search.length >= 1950) {
-			return message.util.reply('the output is way too big to display, make your search more specific and try again!');
+			return message.reply('the output is way too big to display, make your search more specific and try again!');
 		}
-		const embed = new MessageEmbed()
+		const embed = new RichEmbed()
 			.setColor(0x30a9ed)
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL)
 			.setDescription(search);
 
-		return message.util.send(embed);
+		return message.channel.send(embed);
 	}
 }
 

@@ -8,7 +8,7 @@ class HelpCommand extends Command {
 			cooldown: 5000,
 			ratelimit: 1,
 			category: 'info',
-			channelRestriction: 'guild',
+			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
 			description: {
 				content: 'Shows the bot help list.'

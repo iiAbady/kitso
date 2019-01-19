@@ -8,8 +8,8 @@ class TicketCommand extends Command {
 			aliases: ['ticket', 't'],
 			cooldown: 5000,
 			ratelimit: 3,
-			category: 'ulti',
-			channelRestriction: 'guild',
+			category: 'util',
+			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
 			description: {
 				content: 'Ticekt System.',

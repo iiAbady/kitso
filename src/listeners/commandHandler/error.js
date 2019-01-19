@@ -1,6 +1,7 @@
 const { Listener } = require('discord-akairo');
 const { channels, emojis } = require('../../structures/bot');
 const { RichEmbed } = require('discord.js');
+
 class ErrorListner extends Listener {
 	constructor() {
 		super('error', {

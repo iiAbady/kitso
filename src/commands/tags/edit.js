@@ -1,5 +1,5 @@
 const { Command, Control } = require('discord-akairo');
-const { Util } = require('discord.js');
+const { cleanContent } = require('../../util/util');
 
 class TagEditCommand extends Command {
 	constructor() {
@@ -52,24 +52,24 @@ class TagEditCommand extends Command {
 	}
 
 	async exec(message, { tag, hoist, unhoist, content }) {
-		const staffRole = message.member.roles.has(this.client.settings.get(message.guild, 'modRole'));
+		const staffRole = message.member.roles.has(this.client.settings.get(message.guild.id, 'modRole', false));
 		if (tag.user !== message.author.id && !staffRole) {
-			return message.util.reply('Losers are only allowed to edit their own tags! Hah hah hah!');
+			return message.reply('Losers are only allowed to edit their own tags! Hah hah hah!');
 		}
 		if (content && content.length >= 1950) {
-			return message.util.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
+			return message.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
 		}
 		if (hoist) hoist = true;
 		else if (unhoist) hoist = false;
 		if (staffRole) tag.hoisted = hoist;
 		if (content) {
-			content = Util.cleanContent(content, message);
+			content = cleanContent(content, message);
 			tag.content = content;
 		}
 		tag.last_modified = message.author.id; // eslint-disable-line camelcase
 		await tag.save();
 
-		return message.util.reply(`successfully edited **${tag.name}**${hoist && staffRole ? ' to be hoisted.' : '.'}`);
+		return message.reply(`successfully edited **${tag.name}**${hoist && staffRole ? ' to be hoisted.' : '.'}`);
 	}
 }
 

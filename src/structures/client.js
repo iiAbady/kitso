@@ -1,16 +1,15 @@
 const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = require('discord-akairo');
-const { staff, tokens } = require('./bot');
 const { createLogger, transports, format } = require('winston');
 const { join } = require('path');
-const { Util } = require('discord.js');
+const { cleanContent } = require('../util/util');
 const { Op } = require('sequelize');
 const database = require('./database');
 const SettingsProvider = require('./SettingsProvider');
 
 class KitsoClient extends AkairoClient {
-	constructor() {
+	constructor(config) {
 		super({
-			ownerID: staff
+			ownerID: config.owner
 		}, {
 			messageCacheMaxSize: 1000,
 			disableEveryone: true,
@@ -32,17 +31,26 @@ class KitsoClient extends AkairoClient {
 		this.commandHandler = new CommandHandler(this, {
 			directory: join(__dirname, '..', 'commands'),
 			allowMention: true,
-			defaultCooldown: 3000,
 			aliasReplacement: /-/g,
 			prefix: message => this.settings.get(message.guild.id, 'prefix', 'a@'),
 			blockBots: true,
 			commandUtil: true,
-			commandUtilLifetime: 3e5
+			commandUtilLifetime: 5000,
+			defaultCooldown: 3000,
+			defaultPrompt: {
+				modifyStart: str => `${str}\n\nType \`cancel\` to cancel the command.`,
+				modifyRetry: str => `${str}\n\nType \`cancel\` to cancel the command.`,
+				timeout: 'You took too long! timeout :x:',
+				ended: 'You used 3/3 of your tries! cancelled :x:',
+				cancel: 'Alright! cancelled :x:',
+				retries: 3,
+				time: 30000
+			}
 		});
 
 		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
 			if (!phrase) return null;
-			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			phrase = cleanContent(phrase.toLowerCase(), message);
 			const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
@@ -58,7 +66,7 @@ class KitsoClient extends AkairoClient {
 
 		this.commandHandler.resolver.addType('existingTag', async (phrase, message) => {
 			if (!phrase) return null;
-			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			phrase = cleanContent(phrase.toLowerCase(), message);
 			const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
@@ -74,7 +82,7 @@ class KitsoClient extends AkairoClient {
 
 		this.commandHandler.resolver.addType('tagContent', (phrase, message) => {
 			if (!phrase) phrase = '';
-			phrase = Util.cleanContent(phrase, message);
+			phrase = cleanContent(phrase, message);
 			if (message.attachments.first()) phrase += `\n${message.attachments.first().url}`;
 
 			return phrase || null;
@@ -82,9 +90,11 @@ class KitsoClient extends AkairoClient {
 
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
 		this.InhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
+
+		this.config = config;
 	}
 
-	init() {
+	async _init() {
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
@@ -94,13 +104,15 @@ class KitsoClient extends AkairoClient {
 		this.commandHandler.loadAll();
 		this.listenerHandler.loadAll();
 		this.InhibitorHandler.loadAll();
+
+		this.logger.info(`[DATABASE] Connecting to the database...`);
+		await this.db.sync().then(this.logger.info(`[DATABASE] Connected!`)).catch(err => this.logger(`[DATABASE] Error while connecting ${err}`));
+		await this.settings.init().catch(err => `[DATABASE: TABLE] ${err}`);
 	}
 
 	async start() {
-		await this.settings.init().then(this.logger.info(`[DATABASE] Connecting to database`)).catch(err => this.logger.error(`[DATABASE] An error occur while connecting ${err}`))
-			.then(this.logger.info(`[DATABASE] Connected!`));
-		await this.init();
-		return this.login(tokens.bot);
+		await this._init();
+		return this.login(this.config.token);
 	}
 }
 module.exports = KitsoClient;

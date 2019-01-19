@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { MessageEmbed } = require('discord.js');
+const { RichEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const moment = require('moment');
 require('moment-duration-format');
@@ -19,7 +19,7 @@ class NPMCommand extends Command {
 				{
 					id: 'pkg',
 					prompt: {
-						start: message => `${message.author}, what would you like to search for?`
+						start: message => `${message.author}, What npm package are you searching for?`
 					},
 					match: 'content',
 					type: pkg => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null // eslint-disable-line no-confusing-arrow
@@ -31,16 +31,16 @@ class NPMCommand extends Command {
 	async exec(message, { pkg }) {
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 		if (res.status === 404) {
-			return message.util.reply("Kitso couldn't find the requested information. Maybe look for something that actually exists the next time!");
+			return message.reply("Kitso couldn't find the requested information. Maybe look for something that actually exists the next time!");
 		}
 		const body = await res.json();
 		if (body.time.unpublished) {
-			return message.util.reply('whoever was the Commander of this package decided to unpublish it, what a fool.');
+			return message.reply('whoever was the Commander of this package decided to unpublish it, what a fool.');
 		}
 		const version = body.versions[body['dist-tags'].latest];
 		const maintainers = this.trimArray(body.maintainers.map(user => user.name));
 		const dependencies = version.dependencies ? this.trimArray(Object.keys(version.dependencies)) : null;
-		const embed = new MessageEmbed()
+		const embed = new RichEmbed()
 			.setColor(0xCB0000)
 			.setAuthor('NPM', 'https://i.imgur.com/ErKf5Y0.png', 'https://www.npmjs.com/')
 			.setTitle(body.name)
@@ -55,7 +55,7 @@ class NPMCommand extends Command {
 			.addField('❯ Dependencies', dependencies && dependencies.length ? dependencies.join(', ') : 'None')
 			.addField('❯ Maintainers', maintainers.join(', '));
 
-		return message.util.send(embed);
+		return message.channel.send(embed);
 	}
 
 	trimArray(arr) {

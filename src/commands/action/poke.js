@@ -9,7 +9,7 @@ class PokeCommand extends Command {
 			cooldown: 5000,
 			ratelimit: 3,
 			category: 'action',
-			channelRestriction: 'guild',
+			channel: 'guild',
 			description: {
 				content: 'Pokes the specified user/users.',
 				examples: ['@Abady', '@Abady @Flart'],

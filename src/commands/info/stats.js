@@ -1,9 +1,9 @@
 const { Command } = require('discord-akairo');
 const { RichEmbed } = require('discord.js');
+const { stripIndents } = require('common-tags');
+const { library } = require('../../structures/bot');
 const moment = require('moment');
 require('moment-duration-format');
-
-const { library } = require('../../structures/bot');
 
 class StatsCommand extends Command {
 	constructor() {
@@ -13,7 +13,7 @@ class StatsCommand extends Command {
 				content: 'Displays statistics about the bot.'
 			},
 			category: 'info',
-			channelRestriction: 'guild',
+			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
 			ratelimit: 2
 		});
@@ -27,7 +27,7 @@ class StatsCommand extends Command {
 			.addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)
 			.addField(
 				'❯ General Stats',
-				`
+				stripIndents`
 				• Guilds: ${this.client.guilds.size}
 				• Channels: ${this.client.channels.size}
 				• Users: ${this.client.users.size}
@@ -36,17 +36,23 @@ class StatsCommand extends Command {
 			)
 			.addField(
 				'❯ Versions',
-				`• Abayro: v${library.version}\n• Node: ${library.node}`,
+				stripIndents`
+				• Abayro: v${library.version}
+				• Node: ${library.node}
+				`,
 				true
 			)
 			.addField(
 				'❯ Library',
-				`**[discord.js](https://discord.js.org)**\n**[akairo](https://github.com/1Computer1/discord-akairo/tree/stable)**`,
+				stripIndents`
+				[discord.js](https://github.com/discordjs/discord.js/tree/stable) › Master@12.0.0-dev
+				[akairo](https://github.com/1Computer1/discord-akairo/tree/master) › Master@8.0.0-dev
+				`,
 				true
 			)
 			.addField(
 				'❯ Developers',
-				`**${this.client.ownerID.filter(m => m !== '244423000802328576').map(m => this.client.users.get(m).tag).join('\n')}**`,
+				`${this.client.users.get(this.client.ownerID).tag}`,
 				true
 			)
 			.setThumbnail(this.client.user.avatarURL)

@@ -1,4 +1,5 @@
 const { Listener } = require('discord-akairo');
+
 class Cooldown extends Listener {
 	constructor() {
 		super('cooldown', {

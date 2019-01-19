@@ -36,8 +36,8 @@ class TagCommand extends Command {
 					'source --file Test',
 					'info Test',
 					'search Test',
-					'list @Crawl',
-					'download @Crawl'
+					'list @Abady',
+					'download @Abady'
 				]
 			},
 			category: 'tags',
@@ -60,7 +60,7 @@ class TagCommand extends Command {
 	exec(message, { method, name }) {
 		if (!method) {
 			const prefix = this.handler.prefix(message);
-			return message.util.send(stripIndents`
+			return message.channel.send(stripIndents`
 				When you beg me so much I just can't not help you~
 				Check \`${prefix}help tag\` for more information.
 			
