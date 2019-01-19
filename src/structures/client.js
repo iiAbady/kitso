@@ -1,7 +1,9 @@
-const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
+const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = require('discord-akairo');
 const { staff, tokens } = require('./bot');
 const { createLogger, transports, format } = require('winston');
 const { join } = require('path');
+const { Util } = require('discord.js');
+const { Op } = require('sequelize');
 const database = require('./database');
 const SettingsProvider = require('./SettingsProvider');
 
@@ -10,7 +12,9 @@ class KitsoClient extends AkairoClient {
 		super({
 			ownerID: staff
 		}, {
-			disableEveryone: true
+			messageCacheMaxSize: 1000,
+			disableEveryone: true,
+			disabledEvents: ['TYPING_START']
 		});
 
 		this.logger = createLogger({
@@ -31,19 +35,65 @@ class KitsoClient extends AkairoClient {
 			defaultCooldown: 3000,
 			aliasReplacement: /-/g,
 			prefix: message => this.settings.get(message.guild.id, 'prefix', 'a@'),
-			blockBots: true
+			blockBots: true,
+			commandUtil: true,
+			commandUtilLifetime: 3e5
 		});
+
+		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
+			if (!phrase) return null;
+			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			const tag = await this.db.models.tags.findOne({
+				where: {
+					[Op.or]: [
+						{ name: phrase },
+						{ aliases: { [Op.contains]: [phrase] } }
+					],
+					guild: message.guild.id
+				}
+			});
+
+			return tag || null;
+		});
+
+		this.commandHandler.resolver.addType('existingTag', async (phrase, message) => {
+			if (!phrase) return null;
+			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			const tag = await this.db.models.tags.findOne({
+				where: {
+					[Op.or]: [
+						{ name: phrase },
+						{ aliases: { [Op.contains]: [phrase] } }
+					],
+					guild: message.guild.id
+				}
+			});
+
+			return tag ? null : phrase;
+		});
+
+		this.commandHandler.resolver.addType('tagContent', (phrase, message) => {
+			if (!phrase) phrase = '';
+			phrase = Util.cleanContent(phrase, message);
+			if (message.attachments.first()) phrase += `\n${message.attachments.first().url}`;
+
+			return phrase || null;
+		});
+
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
+		this.InhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
 	}
 
 	init() {
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
-			listenerHandler: this.listenerHandler
+			listenerHandler: this.listenerHandler,
+			InhibitorHandler: this.InhibitorHandler
 		});
 		this.commandHandler.loadAll();
 		this.listenerHandler.loadAll();
+		this.InhibitorHandler.loadAll();
 	}
 
 	async start() {

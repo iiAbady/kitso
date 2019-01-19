@@ -4,14 +4,15 @@
   "description": "A KaWaIi BITcH bot",
   "main": "index.js",
   "dependencies": {
+    "common-tags": "^1.8.0",
     "discord-akairo": "1Computer1/discord-akairo",
     "discord.js": "^11.4.2",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "nekos.life": "^1.1.4",
-    "request": "^2.88.0",
-    "sequelize": "^4.42.0",
+    "node-fetch": "^2.3.0",
     "pg": "^7.7.1",
+    "sequelize": "^4.42.0",
     "winston": "^3.0.0"
   },
   "devDependencies": {
