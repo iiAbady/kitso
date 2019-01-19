@@ -18,9 +18,6 @@ class NPMCommand extends Command {
 			args: [
 				{
 					id: 'pkg',
-					prompt: {
-						start: message => `${message.author}, what would you like to search for?`
-					},
 					match: 'content',
 					type: pkg => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null // eslint-disable-line no-confusing-arrow
 				}
