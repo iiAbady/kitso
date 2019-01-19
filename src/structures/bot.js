@@ -4,7 +4,7 @@ exports.library = {
 	version,
 	node: process.version
 };
-exports.staff = '171259176029257728';
+exports.owner = '171259176029257728';
 exports.emojis = {
 	error: '<:error:485577688245993473>',
 	ok: '<:megThumbs:475427359898599441>',

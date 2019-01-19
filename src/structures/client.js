@@ -1,5 +1,4 @@
 const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = require('discord-akairo');
-const { staff, tokens } = require('./bot');
 const { createLogger, transports, format } = require('winston');
 const { join } = require('path');
 const { cleanContent } = require('../util/util');
@@ -8,9 +7,9 @@ const database = require('./database');
 const SettingsProvider = require('./SettingsProvider');
 
 class KitsoClient extends AkairoClient {
-	constructor() {
+	constructor(config) {
 		super({
-			ownerID: staff
+			ownerID: config.owner
 		}, {
 			messageCacheMaxSize: 1000,
 			disableEveryone: true,
@@ -88,12 +87,14 @@ class KitsoClient extends AkairoClient {
 
 			return phrase || null;
 		});
-	}
 
-	async _init() {
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
 		this.InhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
 
+		this.config = config;
+	}
+
+	async _init() {
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
@@ -111,7 +112,7 @@ class KitsoClient extends AkairoClient {
 
 	async start() {
 		await this._init();
-		return this.login(tokens.bot);
+		return this.login(this.config.token);
 	}
 }
 module.exports = KitsoClient;
