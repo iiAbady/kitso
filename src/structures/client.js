@@ -35,6 +35,8 @@ class KitsoClient extends AkairoClient {
 			aliasReplacement: /-/g,
 			prefix: message => this.settings.get(message.guild.id, 'prefix', 'a@'),
 			blockBots: true,
+			commandUtil: true,
+			commandUtilLifetime: 5000,
 			defaultCooldown: 3000,
 			defaultPrompt: {
 				modifyStart: str => `${str}\n\nType \`cancel\` to cancel the command.`,
