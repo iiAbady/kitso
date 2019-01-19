@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) =>
 	sequelize.define('tags', {
 		user: {
-			type: DataTypes.STRING(25), // eslint-disable-line new-cap
+			type: DataTypes.BIGINT, // eslint-disable-line new-cap
 			allowNull: false
 		},
 		guild: {
-			type: DataTypes.STRING(25), // eslint-disable-line new-cap
+			type: DataTypes.BIGINT, // eslint-disable-line new-cap
 			allowNull: false
 		},
 		name: {

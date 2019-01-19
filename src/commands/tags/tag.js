@@ -36,8 +36,8 @@ class TagCommand extends Command {
 					'source --file Test',
 					'info Test',
 					'search Test',
-					'list @Crawl',
-					'download @Crawl'
+					'list @Abady',
+					'download @Abady'
 				]
 			},
 			category: 'tags',
