@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { MessageEmbed } = require('discord.js');
+const { RichEmbed } = require('discord.js');
 
 class TagListCommand extends Command {
 	constructor() {
@@ -28,7 +28,7 @@ class TagListCommand extends Command {
 				if (member.id === message.author.id) return message.channel.reply("you don't have any tags.");
 				return message.channel.reply(`**${member.displayName}** doesn't have any tags.`);
 			}
-			const embed = new MessageEmbed()
+			const embed = new RichEmbed()
 				.setColor(0x30a9ed)
 				.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 				.setDescription(
@@ -53,7 +53,7 @@ class TagListCommand extends Command {
 			.map(tag => `\`${tag.name}\``)
 			.sort()
 			.join(', ');
-		const embed = new MessageEmbed()
+		const embed = new RichEmbed()
 			.setColor(0x30a9ed)
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
 		if (hoistedTags) embed.addField('❯ Tags', hoistedTags);

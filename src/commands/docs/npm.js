@@ -19,6 +19,9 @@ class NPMCommand extends Command {
 				{
 					id: 'pkg',
 					match: 'content',
+					prompt: {
+						start: message => `${message.author}, What npm package are you searching for?`
+					},
 					type: pkg => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null // eslint-disable-line no-confusing-arrow
 				}
 			]
