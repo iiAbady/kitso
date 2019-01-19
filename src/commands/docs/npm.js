@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { MessageEmbed } = require('discord.js');
+const { RichEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const moment = require('moment');
 require('moment-duration-format');
@@ -37,7 +37,7 @@ class NPMCommand extends Command {
 		const version = body.versions[body['dist-tags'].latest];
 		const maintainers = this.trimArray(body.maintainers.map(user => user.name));
 		const dependencies = version.dependencies ? this.trimArray(Object.keys(version.dependencies)) : null;
-		const embed = new MessageEmbed()
+		const embed = new RichEmbed()
 			.setColor(0xCB0000)
 			.setAuthor('NPM', 'https://i.imgur.com/ErKf5Y0.png', 'https://www.npmjs.com/')
 			.setTitle(body.name)
