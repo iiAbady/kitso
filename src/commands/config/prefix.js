@@ -32,7 +32,7 @@ class PrefixCommand extends Command {
 			this.client.settings.set(message.guild.id, 'prefix', newPrefix);
 			return message.channel.send(`👍 Alright, I've changed the prefix for thig guild to: \`${newPrefix.toLowerCase()}\``);
 		}
-		return message.channel.send(`The prefix for this guild is: ${this.handler.prefix(message)}`);
+		return message.channel.send(`The prefix for this server is: \`\`${this.handler.prefix(message)}\`\``);
 	}
 }
 
