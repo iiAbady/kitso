@@ -1,6 +1,6 @@
 const { Command } = require('discord-akairo');
 const NekosClient = require('nekos.life');
-const neko = new NekosClient();
+const { sfw } = new NekosClient();
 
 class PokeCommand extends Command {
 	constructor() {
@@ -22,7 +22,7 @@ class PokeCommand extends Command {
 		const { users } = message.mentions;
 		if (users.size < 1) return message.channel.send(`:x: You need to mention a user/users.`);
 		if (users.first().bot) return message.channel.send(`:x: You can't do that to bots.`);
-		const img = await neko.getShitxX();
+		const img = await sfw.poke();
 		if (users.filter(m => m.username === message.author.username)) return message.channel.send(`*${this.id} you*`, { files: [img.url] });
 		return message.channel.send(`💬 **${users.map(user => user.username).join(' ')}** you have been ${this.id}d by **${message.author.username}**`, { files: [img.url] });
 	}

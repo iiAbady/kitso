@@ -1,6 +1,6 @@
 const { Command } = require('discord-akairo');
 const NekosClient = require('nekos.life');
-const neko = new NekosClient();
+const { sfw } = new NekosClient();
 
 class HugCommand extends Command {
 	constructor() {
@@ -22,7 +22,7 @@ class HugCommand extends Command {
 		const { users } = message.mentions;
 		if (users.size < 1) return message.channel.send(`:x: You need to mention a user/users.`);
 		if (users.first().bot) return message.channel.send(`:x: You can't do that to bots.`);
-		const img = await neko.getSFWHug();
+		const img = await sfw.hug();
 		if (users.filter(m => m.username === message.author.username)) return message.channel.send(`:broken_heart: **I feel ya** *${this.id}s*`, { files: [img.url] });
 		return message.channel.send(`💬 **${users.map(user => user.username).join(' ')}** you have been hugged by **${message.author.username}**`, { files: [img.url] });
 	}

@@ -1,6 +1,6 @@
 const { Command } = require('discord-akairo');
 const NekosClient = require('nekos.life');
-const neko = new NekosClient();
+const { sfw } = new NekosClient();
 
 class CuddleCommand extends Command {
 	constructor() {
@@ -22,7 +22,7 @@ class CuddleCommand extends Command {
 		const { users } = message.mentions;
 		if (users.size < 1) return message.channel.send(`:x: You need to mention a user/users.`);
 		if (users.first().bot) return message.channel.send(`:x: You can't do that to bots.`);
-		const img = await neko.getSFWCuddle();
+		const img = await sfw.cuddle();
 		if (users.filter(m => m.id === message.author.id)) return message.channel.send(`:broken_heart: **I feel ya** *${this.id}s*`, { files: [img.url] });
 		return message.channel.send(`💬 **${users.map(user => user.username).join(' ')}** you have been ${this.id}d by **${message.author.username}**`, { files: [img.url] });
 	}
