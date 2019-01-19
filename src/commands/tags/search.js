@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { RichEmbed, Util } = require('discord.js');
+const { MessageEmbed, Util } = require('discord.js');
 const { Op } = require('sequelize');
 
 class SearchTagCommand extends Command {
@@ -37,7 +37,7 @@ class SearchTagCommand extends Command {
 		if (search.length >= 1950) {
 			return message.reply('the output is way too big to display, make your search more specific and try again!');
 		}
-		const embed = new RichEmbed()
+		const embed = new MessageEmbed()
 			.setColor(0x30a9ed)
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL)
 			.setDescription(search);

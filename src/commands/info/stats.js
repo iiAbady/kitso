@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
 const { library } = require('../../structures/bot');
 const moment = require('moment');
@@ -20,7 +20,7 @@ class StatsCommand extends Command {
 	}
 
 	exec(message) {
-		const embed = new RichEmbed()
+		const embed = new MessageEmbed()
 			.setColor(3447003)
 			.setDescription(`**${this.client.user.username} Statistics**`)
 			.addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)

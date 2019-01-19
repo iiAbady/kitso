@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
 
@@ -37,7 +37,7 @@ class TagInfoCommand extends Command {
 			lastModifiedBy = null;
 		}
 		const guild = this.client.guilds.get(tag.guild);
-		const embed = new RichEmbed()
+		const embed = new MessageEmbed()
 			.setColor(3447003)
 			.addField('❯ Name', tag.name)
 			.addField('❯ User', user ? `${user.tag} (ID: ${user.id})` : "Couldn't fetch user.")

@@ -1,6 +1,6 @@
 // ticket v0.1
 const { Command } = require('discord-akairo');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 class TicketCommand extends Command {
 	constructor() {
@@ -29,7 +29,7 @@ class TicketCommand extends Command {
 		if (!role) return message.channel.send(`:x: First create a role that starts with \`\`Support Team\`\` then try this command again.`);
 		if (args.first === 'help' || !args.first) {
 			const prefix = this.handler.prefix(message);
-			const embed = new RichEmbed();
+			const embed = new MessageEmbed();
 			embed.setTitle('🎫 Ticket System Help v0.1');
 			embed.setDescription(`**${prefix}ticket new** - to start a new ticket!\n**${prefix}ticket close** - to close the current ticket`);
 			embed.setColor('GREEN');
@@ -47,8 +47,8 @@ class TicketCommand extends Command {
 				id: message.guild.id,
 				deny: ['VIEW_CHANNEL', 'READ_MESSAGES']
 			}]);
-			message.channel.send(new RichEmbed().setDescription(`:white_check_mark: Your ticket has been created ${message.guild.channels.find(m => m.name === `ticket-${message.author.id}`)}`).setColor('GREEN'));
-			message.guild.channels.find(m => m.name === `ticket-${message.author.id}`).send(new RichEmbed().setColor('GREEN').setDescription(`Dear ${message.author}\n\nThank you for reaching out to our ${role}!\nWe'll reply on you as fast as we can.`));
+			message.channel.send(new MessageEmbed().setDescription(`:white_check_mark: Your ticket has been created ${message.guild.channels.find(m => m.name === `ticket-${message.author.id}`)}`).setColor('GREEN'));
+			message.guild.channels.find(m => m.name === `ticket-${message.author.id}`).send(new MessageEmbed().setColor('GREEN').setDescription(`Dear ${message.author}\n\nThank you for reaching out to our ${role}!\nWe'll reply on you as fast as we can.`));
 		} else if (args.first === 'close') {
 			if (!ticket) return message.channel.send(`:x: You don't have an existing ticket. start a new one **\`\`${this.handler.prefix(message)}t new\`\`**`);
 			if (message.channel.name !== ticket.name) return message.channel.send(`:x: Please only run this command in the ticket channel!`);

@@ -7,7 +7,7 @@
     "@discordjs/uws": "^11.149.1",
     "common-tags": "^1.8.0",
     "discord-akairo": "1Computer1/discord-akairo",
-    "discord.js": "discordjs/discord.js",
+    "discord.js": "github:discordjs/discord.js",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "nekos.life": "^2.0.2",

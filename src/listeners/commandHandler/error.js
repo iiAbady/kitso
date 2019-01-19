@@ -1,6 +1,6 @@
 const { Listener } = require('discord-akairo');
 const { channels, emojis } = require('../../structures/bot');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 class ErrorListner extends Listener {
 	constructor() {
@@ -17,7 +17,7 @@ class ErrorListner extends Listener {
 			const id = command.id + errorMessage.length + command.id.length;
 			this.client.logger.error(error);
 			message.channel.send(`${emojis.error} **Oops, Unexpected Error!** The error was sent to our team and we'll try to fix it \`\`error: ${id}\`\``).then(() => {
-				message.client.channels.get(channels.error).send(new RichEmbed()
+				message.client.channels.get(channels.error).send(new MessageEmbed()
 					.setTitle(`**Error ${command.id.replace(/(\b\w)/gi, lc => lc.toUpperCase())}** \`\`${id}\`\``)
 					.setDescription(`\`\`\`js\n${errorMessage}\`\`\``)
 					.addField('Command', `id: ${command.id}\naliases: ${command.aliases}\ncategory: ${command.category}`, true)

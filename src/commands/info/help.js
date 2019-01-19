@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 class HelpCommand extends Command {
 	constructor() {
@@ -30,7 +30,7 @@ class HelpCommand extends Command {
 	exec(message, { command }) {
 		const prefix = this.handler.prefix(message);
 		if (command === ' ') {
-			const embed = new RichEmbed()
+			const embed = new MessageEmbed()
 				.setColor(3447003)
 				.setAuthor(`${this.client.user.username} Help`, this.client.user.avatarURL)
 				.setDescription(`Commands List. For additional info on a command, type **\`${prefix}help <command>\`**\n**[Need more help? (Support Server)](https://discord.gg/UkYbHU2)**`);
@@ -40,7 +40,7 @@ class HelpCommand extends Command {
 			return message.channel.send(embed);
 		}
 		if (!command.aliases) return message.channel.send(`:x: No command with this name **\`\`${command}\`\`** found.`);
-		const embed = new RichEmbed()
+		const embed = new MessageEmbed()
 			.setColor(3447003)
 			.setAuthor(`${command.aliases[0].replace(/(\b\w)/gi, lc => lc.toUpperCase())} Help`, 'https://images-ext-2.discordapp.net/external/Na1A42IsnllvKah5w2E8qEoTX5VMgkiFd6Y18oy7-Ws/%3Fwidth%3D473%26height%3D473/https/images-ext-2.discordapp.net/external/ixx9VwaXIvBi71wGahYe_NzG51gFQonnXVBl2eEbQmk/https/cdn.pixabay.com/photo/2012/04/14/16/26/question-34499_960_720.png')
 			.addField('❯ Description', command.description.content || '\u200b');
