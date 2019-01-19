@@ -10,6 +10,7 @@
     },
     "rules": {
         "new-cap": "warn",
-        "valid-jsdoc": "off"
+        "valid-jsdoc": "off",
+        "quote-props": "off"
     }
 }
