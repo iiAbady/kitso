@@ -9,7 +9,7 @@
     "discord.js": "^11.4.2",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
-    "nekos.life": "^1.1.4",
+    "nekos.life": "^2.0.2",
     "node-fetch": "^2.3.0",
     "pg": "^7.7.1",
     "sequelize": "^4.42.0",
