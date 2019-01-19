@@ -9,6 +9,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 });
 
 sequelize.import(join(__dirname, '..', 'models', 'settings'));
+sequelize.import(join(__dirname, '..', 'models', 'tags'));
+
 sequelize.sync();
 
 module.exports = sequelize;
