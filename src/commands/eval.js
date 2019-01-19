@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { splitMessage } = require('../util/util');
+const { Util } = require('discord.js');
 const util = require('util');
 const { stripIndents } = require('common-tags');
 
@@ -75,7 +75,7 @@ class EvalCommand extends Command {
 		const prepend = `\`\`\`javascript\n${prependPart}\n`;
 		const append = `\n${appendPart}\n\`\`\``;
 		if (input) {
-			return splitMessage(stripIndents`
+			return Util.splitMessage(stripIndents`
 				*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms.*
 				\`\`\`javascript
 				${inspected}
@@ -83,7 +83,7 @@ class EvalCommand extends Command {
 			`, { maxLength: 1900, prepend, append });
 		}
 
-		return splitMessage(stripIndents`
+		return Util.splitMessage(stripIndents`
 			*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms.*
 			\`\`\`javascript
 			${inspected}

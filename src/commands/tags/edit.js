@@ -1,5 +1,5 @@
 const { Command, Control } = require('discord-akairo');
-const { cleanContent } = require('../../util/util');
+const { Util } = require('discord.js');
 
 class TagEditCommand extends Command {
 	constructor() {
@@ -63,7 +63,7 @@ class TagEditCommand extends Command {
 		else if (unhoist) hoist = false;
 		if (staffRole) tag.hoisted = hoist;
 		if (content) {
-			content = cleanContent(content, message);
+			content = Util.cleanContent(content, message);
 			tag.content = content;
 		}
 		tag.last_modified = message.author.id; // eslint-disable-line camelcase
