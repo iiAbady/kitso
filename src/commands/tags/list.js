@@ -31,7 +31,7 @@ class TagListCommand extends Command {
 			}
 			const embed = new RichEmbed()
 				.setColor(0x30a9ed)
-				.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
+				.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL)
 				.setDescription(
 					tags
 						.map(tag => `\`${tag.name}\``)
@@ -56,7 +56,7 @@ class TagListCommand extends Command {
 			.join(', ');
 		const embed = new RichEmbed()
 			.setColor(0x30a9ed)
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
+			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL);
 		if (hoistedTags) embed.addField('❯ Tags', hoistedTags);
 		if (userTags) embed.addField(`❯ ${message.member.displayName}'s tags`, userTags);
 
