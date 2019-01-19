@@ -37,11 +37,15 @@ class TagAddCommand extends Command {
 		});
 	}
 
+	/**
+	 *
+	 * @param {import('discord.js').Message} message
+	 */
 	async exec(message, { name, content, hoist }) {
 		if (content && content.length >= 1950) {
 			return message.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
 		}
-		const staffRole = message.member.roles.has(this.client.settings.get(message.guild.id, 'modRole', false));
+		const staffRole = message.member.roles.has(this.client.settings.get(message.guild.id, 'modRole')) || message.member.hasPermission('MANAGE_GUILD');
 		await this.client.db.models.tags.create({
 			user: message.author.id,
 			guild: message.guild.id,

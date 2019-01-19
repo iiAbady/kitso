@@ -25,7 +25,7 @@ class TagDeleteCommand extends Command {
 	}
 
 	exec(message, { tag }) {
-		const staffRole = message.member.roles.has(this.client.settings.get(message.guild.id, 'modRole', false));
+		const staffRole = message.member.roles.has(this.client.settings.get(message.guild.id, 'modRole')) || message.member.hasPermission('MANAGE_GUILD');
 		if (tag.user !== message.author.id && !staffRole) return message.reply('you can only delete your own tags.');
 		tag.destroy();
 
