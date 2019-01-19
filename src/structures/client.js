@@ -97,7 +97,7 @@ class KitsoClient extends AkairoClient {
 	}
 
 	async start() {
-		await database.sync();
+		await this.db.sync();
 		await this.settings.init().then(this.logger.info(`[DATABASE] Connecting to database`)).catch(err => this.logger.error(`[DATABASE] An error occur while connecting ${err}`))
 			.then(this.logger.info(`[DATABASE] Connected!`));
 		await this.init();
