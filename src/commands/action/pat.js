@@ -20,6 +20,7 @@ class PatCommand extends Command {
 
 	async exec(message) {
 		const { users } = message.mentions;
+		users.filter(user => user.id !== this.client.user.id);
 		if (users.size < 1) return message.channel.send(`:x: You need to mention a user/users.`);
 		if (users.first().bot) return message.channel.send(`:x: You can't do that to bots.`);
 		const img = await sfw.pat();
