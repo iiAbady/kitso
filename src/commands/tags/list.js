@@ -26,8 +26,8 @@ class TagListCommand extends Command {
 		if (member) {
 			const tags = await this.client.db.models.tags.findAll({ where: { user: member.id, guild: message.guild.id } });
 			if (!tags.length) {
-				if (member.id === message.author.id) return message.channel.reply("you don't have any tags.");
-				return message.channel.reply(`**${member.displayName}** doesn't have any tags.`);
+				if (member.id === message.author.id) return message.reply("you don't have any tags.");
+				return message.reply(`**${member.displayName}** doesn't have any tags.`);
 			}
 			const embed = new RichEmbed()
 				.setColor(0x30a9ed)

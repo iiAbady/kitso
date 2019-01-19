@@ -61,11 +61,11 @@ class TagAliasCommand extends Command {
 			const index = first.aliases.indexOf(second);
 			first.aliases.splice(index, 1);
 		} else {
-			return message.channel.reply('you have to either supply `--add` or `--del.`');
+			return message.reply('you have to either supply `--add` or `--del.`');
 		}
 		await first.update({ aliases: first.aliases, last_modified: message.author.id }); // eslint-disable-line camelcase
 
-		return message.channel.reply(`alias ${second} ${add ? 'added to' : 'deleted from'} tag ${first.name}.`);
+		return message.reply(`alias ${second} ${add ? 'added to' : 'deleted from'} tag ${first.name}.`);
 	}
 }
 

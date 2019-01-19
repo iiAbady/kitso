@@ -39,7 +39,7 @@ class TagAddCommand extends Command {
 
 	async exec(message, { name, content, hoist }) {
 		if (content && content.length >= 1950) {
-			return message.channel.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
+			return message.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
 		}
 		const staffRole = message.member.roles.has(this.client.settings.get(message.guild.id, 'modRole', false));
 		await this.client.db.models.tags.create({
@@ -50,7 +50,7 @@ class TagAddCommand extends Command {
 			content
 		});
 
-		return message.channel.reply(`leave it to me! A tag with the name **${name}** has been added.`);
+		return message.reply(`leave it to me! A tag with the name **${name}** has been added.`);
 	}
 }
 

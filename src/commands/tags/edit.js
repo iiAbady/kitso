@@ -54,10 +54,10 @@ class TagEditCommand extends Command {
 	async exec(message, { tag, hoist, unhoist, content }) {
 		const staffRole = message.member.roles.has(this.client.settings.get(message.guild.id, 'modRole', false));
 		if (tag.user !== message.author.id && !staffRole) {
-			return message.channel.reply('Losers are only allowed to edit their own tags! Hah hah hah!');
+			return message.reply('Losers are only allowed to edit their own tags! Hah hah hah!');
 		}
 		if (content && content.length >= 1950) {
-			return message.channel.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
+			return message.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
 		}
 		if (hoist) hoist = true;
 		else if (unhoist) hoist = false;
@@ -69,7 +69,7 @@ class TagEditCommand extends Command {
 		tag.last_modified = message.author.id; // eslint-disable-line camelcase
 		await tag.save();
 
-		return message.channel.reply(`successfully edited **${tag.name}**${hoist && staffRole ? ' to be hoisted.' : '.'}`);
+		return message.reply(`successfully edited **${tag.name}**${hoist && staffRole ? ' to be hoisted.' : '.'}`);
 	}
 }
 
