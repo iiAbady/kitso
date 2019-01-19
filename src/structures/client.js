@@ -2,7 +2,7 @@ const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = requ
 const { staff, tokens } = require('./bot');
 const { createLogger, transports, format } = require('winston');
 const { join } = require('path');
-const { Util } = require('discord.js');
+const { cleanContent } = require('../util/util');
 const { Op } = require('sequelize');
 const database = require('./database');
 const SettingsProvider = require('./SettingsProvider');
@@ -42,7 +42,7 @@ class KitsoClient extends AkairoClient {
 
 		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
 			if (!phrase) return null;
-			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			phrase = cleanContent(phrase.toLowerCase(), message);
 			const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
@@ -58,7 +58,7 @@ class KitsoClient extends AkairoClient {
 
 		this.commandHandler.resolver.addType('existingTag', async (phrase, message) => {
 			if (!phrase) return null;
-			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			phrase = cleanContent(phrase.toLowerCase(), message);
 			const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
@@ -74,7 +74,7 @@ class KitsoClient extends AkairoClient {
 
 		this.commandHandler.resolver.addType('tagContent', (phrase, message) => {
 			if (!phrase) phrase = '';
-			phrase = Util.cleanContent(phrase, message);
+			phrase = cleanContent(phrase, message);
 			if (message.attachments.first()) phrase += `\n${message.attachments.first().url}`;
 
 			return phrase || null;
