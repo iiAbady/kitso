@@ -1,15 +1,17 @@
 const { Listener } = require('discord-akairo');
-class unhandledRejection extends Listener {
+
+class UnhandledRejectionListener extends Listener {
 	constructor() {
 		super('unhandledRejection', {
-			emitter: 'process',
 			event: 'unhandledRejection',
+			emitter: 'process',
 			category: 'process'
 		});
 	}
 
-	exec(reason) {
-		this.client.logger.warn(`[Unhandled Rejection] ${reason}`);
+	exec(error) {
+		this.client.logger.warn(`[Unhandled Rejection] ${error}`);
 	}
 }
-module.exports = unhandledRejection;
+
+module.exports = UnhandledRejectionListener;
