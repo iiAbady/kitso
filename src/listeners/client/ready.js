@@ -10,7 +10,7 @@ class ReadyListener extends Listener {
 	}
 
 	exec() {
-		this.client.logger.info(`Slave ${this.client.user.tag} is ready to do her job`);
+		this.client.logger.info(`Ready, Slave ${this.client.user.tag} is ready to do her job`);
 		this.client.user.setActivity(`@${this.client.user.username} help 💖`);
 	}
 }

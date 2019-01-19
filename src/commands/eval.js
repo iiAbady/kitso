@@ -11,7 +11,7 @@ class EvalCommand extends Command {
 		super('eval', {
 			aliases: ['eval'],
 			description: {
-				content: 'Prohibit/Allow a user from using Yukikaze.',
+				content: 'Prohibit/Allow a user from using Kitso.',
 				usage: '<code>'
 			},
 			ownerOnly: true,
