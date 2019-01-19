@@ -32,12 +32,21 @@ class KitsoClient extends AkairoClient {
 		this.commandHandler = new CommandHandler(this, {
 			directory: join(__dirname, '..', 'commands'),
 			allowMention: true,
-			defaultCooldown: 3000,
 			aliasReplacement: /-/g,
 			prefix: message => this.settings.get(message.guild.id, 'prefix', 'a@'),
 			blockBots: true,
 			commandUtil: true,
-			commandUtilLifetime: 3e5
+			commandUtilLifetime: 3e5,
+			defaultCooldown: 3000,
+			defaultPrompt: {
+				modifyStart: str => `${str}\n\nType \`cancel\` to cancel the command.`,
+				modifyRetry: str => `${str}\n\nType \`cancel\` to cancel the command.`,
+				timeout: 'You took too long! timeout :x:',
+				ended: 'You used 3/3 of your tries! cancelled :x:',
+				cancel: 'Alright! cancelled :x:',
+				retries: 3,
+				time: 30000
+			}
 		});
 
 		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
