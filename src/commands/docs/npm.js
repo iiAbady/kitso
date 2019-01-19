@@ -52,7 +52,7 @@ class NPMCommand extends Command {
 			.addField('❯ Dependencies', dependencies && dependencies.length ? dependencies.join(', ') : 'None')
 			.addField('❯ Maintainers', maintainers.join(', '));
 
-		return message.util.send(embed);
+		return message.channel.send(embed);
 	}
 
 	trimArray(arr) {
