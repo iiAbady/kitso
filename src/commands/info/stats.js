@@ -1,6 +1,6 @@
 const { Command } = require('discord-akairo');
 const { RichEmbed } = require('discord.js');
-const { stripIndents }  = require('common-tags')
+const { stripIndents } = require('common-tags');
 const { library } = require('../../structures/bot');
 const moment = require('moment');
 require('moment-duration-format');
@@ -45,8 +45,8 @@ class StatsCommand extends Command {
 			.addField(
 				'❯ Library',
 				stripIndents`
-				[discord.js](https://github.com/discordjs/discord.js/tree/stable) › Stable
-				[akairo](https://github.com/1Computer1/discord-akairo/tree/master) › Master
+				[discord.js](https://github.com/discordjs/discord.js/tree/stable) › Master@12.0.0-dev
+				[akairo](https://github.com/1Computer1/discord-akairo/tree/master) › Master@8.0.0-dev
 				`,
 				true
 			)
