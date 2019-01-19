@@ -88,12 +88,12 @@ class KitsoClient extends AkairoClient {
 
 			return phrase || null;
 		});
-
-		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
-		this.InhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
 	}
 
-	init() {
+	async _init() {
+		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
+		this.InhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
+
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
@@ -103,13 +103,14 @@ class KitsoClient extends AkairoClient {
 		this.commandHandler.loadAll();
 		this.listenerHandler.loadAll();
 		this.InhibitorHandler.loadAll();
+
+		this.logger.info(`[DATABASE] Connecting to the database...`);
+		await this.db.sync().then(this.logger.info(`[DATABASE] Connected!`)).catch(err => this.logger(`[DATABASE] Error while connecting ${err}`));
+		await this.settings.init().catch(err => `[DATABASE: TABLE] ${err}`);
 	}
 
 	async start() {
-		await this.db.sync();
-		await this.settings.init().then(this.logger.info(`[DATABASE] Connecting to database`)).catch(err => this.logger.error(`[DATABASE] An error occur while connecting ${err}`))
-			.then(this.logger.info(`[DATABASE] Connected!`));
-		await this.init();
+		await this._init();
 		return this.login(tokens.bot);
 	}
 }
