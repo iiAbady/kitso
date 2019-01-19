@@ -45,8 +45,8 @@ class StatsCommand extends Command {
 			.addField(
 				'❯ Library',
 				stripIndents`
-				[discord.js](https://github.com/discordjs/discord.js/tree/stable) › Master@12.0.0-dev
-				[akairo](https://github.com/1Computer1/discord-akairo/tree/master) › Master@8.0.0-dev
+				[discord.js› 12.0.0-dev](https://github.com/discordjs/discord.js/tree/stable)
+				[akairo› 8.0.0-dev](https://github.com/1Computer1/discord-akairo/tree/master)
 				`,
 				true
 			)
