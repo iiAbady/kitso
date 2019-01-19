@@ -10,6 +10,7 @@ class MessageInvalidListener extends Listener {
 	}
 
 	async exec(message) {
+		return this.client.logger.info(message.util);
 		if (message.guild && message.util.parsed.prefix) {
 			if (!message.util.parsed.alias || !message.util.parsed.afterPrefix) return;
 			const command = this.client.commandHandler.modules.get('tag-show');
