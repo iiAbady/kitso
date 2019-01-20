@@ -10,7 +10,7 @@ class NPMCommand extends Command {
 			aliases: ['npm', 'npm-package'],
 			category: 'docs',
 			description: {
-				content: 'Responds with information on an NPM package.',
+				content: 'Searches an npm package',
 				usage: '<query>',
 				examples: ['discord.js', 'discord-akairo', 'node-fetch']
 			},
