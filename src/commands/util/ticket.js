@@ -23,6 +23,10 @@ class TicketCommand extends Command {
 		});
 	}
 
+	/**
+	 *
+	 * @param {import('discord.js').Message} message
+	 */
 	async exec(message, args) {
 		const role = message.guild.roles.find(n => n.name.startsWith('Support Team'));
 		const ticket = message.guild.channels.find(m => m.name === `ticket-${message.author.id}`);
@@ -36,17 +40,21 @@ class TicketCommand extends Command {
 			return message.channel.send(embed);
 		} else if (args.first === 'new') {
 			if (ticket) return message.channel.send(`:x: You already have an existing ticket 🎫 ${ticket}`);
-			await message.guild.createChannel(`ticket-${message.author.id}`, 'text', [{
-				id: message.author.id,
-				allow: ['READ_MESSAGES', 'SEND_MESSAGES', 'MANAGE_CHANNELS', 'ATTACH_FILES', 'EMBED_LINKS']
-			}, {
-				id: role,
-				allow: ['READ_MESSAGES', 'SEND_MESSAGES', 'ATTACH_FILES']
-			},
-			{
-				id: message.guild.id,
-				deny: ['VIEW_CHANNEL', 'READ_MESSAGES']
-			}]);
+			await message.guild.channels.create(`ticket-${message.author.id}`, {
+				type: 'text',
+				permissionOverwrites: [{
+					id: message.author.id,
+					allow: ['READ_MESSAGES', 'SEND_MESSAGES', 'MANAGE_CHANNELS', 'ATTACH_FILES', 'EMBED_LINKS']
+				}, {
+					id: role,
+					allow: ['READ_MESSAGES', 'SEND_MESSAGES', 'ATTACH_FILES']
+				},
+				{
+					id: message.guild.id,
+					deny: ['VIEW_CHANNEL', 'READ_MESSAGES']
+				}],
+				nsfw: false
+			});
 			message.channel.send(new MessageEmbed().setDescription(`:white_check_mark: Your ticket has been created ${message.guild.channels.find(m => m.name === `ticket-${message.author.id}`)}`).setColor('GREEN'));
 			message.guild.channels.find(m => m.name === `ticket-${message.author.id}`).send(new MessageEmbed().setColor('GREEN').setDescription(`Dear ${message.author}\n\nThank you for reaching out to our ${role}!\nWe'll reply on you as fast as we can.`));
 		} else if (args.first === 'close') {
