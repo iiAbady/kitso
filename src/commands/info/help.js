@@ -19,7 +19,7 @@ class HelpCommand extends Command {
 					type: cmd => {
 						if (!cmd) return ' ';
 						const command = this.handler.findCommand(cmd);
-						if (!command) return cmd;
+						if (!command || command.categoryID !== 'default') return cmd;
 						return command;
 					}
 				}
