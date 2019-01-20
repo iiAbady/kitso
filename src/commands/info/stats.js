@@ -1,7 +1,7 @@
 const { Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
-const { library } = require('../../structures/bot');
+const { library: { version } } = require('../../structures/bot');
 const moment = require('moment');
 require('moment-duration-format');
 
@@ -22,24 +22,15 @@ class StatsCommand extends Command {
 	exec(message) {
 		const embed = new MessageEmbed()
 			.setColor(3447003)
-			.setDescription(`**${this.client.user.username} Statistics**`)
+			.setDescription(`**${this.client.user.username}v${version} Statistics**`)
 			.addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)
 			.addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)
 			.addField(
 				'❯ General Stats',
 				stripIndents`
 				• Guilds: ${this.client.guilds.size}
-				• Channels: ${this.client.channels.size}
-				• Users: ${this.client.users.size}
+				• Users: ${this.client.users.filter(user => !user.bot).size}
 			`,
-				true
-			)
-			.addField(
-				'❯ Versions',
-				stripIndents`
-				• Abayro: v${library.version}
-				• Node: ${library.node}
-				`,
 				true
 			)
 			.addField(
@@ -50,13 +41,8 @@ class StatsCommand extends Command {
 				`,
 				true
 			)
-			.addField(
-				'❯ Developers',
-				`${this.client.users.get(this.client.ownerID).tag}`,
-				true
-			)
-			.setThumbnail(this.client.user.avatar)
-			.setFooter(`© 2019 ${this.client.user.username}`);
+			.setThumbnail(this.client.user.displayAvatarURL())
+			.setFooter(`© 2019 ${this.client.users.get(this.client.ownerID).tag}`);
 
 		return message.channel.send(embed);
 	}
