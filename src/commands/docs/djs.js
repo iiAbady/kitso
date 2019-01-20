@@ -13,6 +13,7 @@ class DocsCommand extends Command {
 			},
 			category: 'docs',
 			clientPermissions: ['EMBED_LINKS'],
+			regex: /^(?:djs,) (.+)/i,
 			ratelimit: 2,
 			args: [
 				{
