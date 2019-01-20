@@ -22,7 +22,7 @@ class StatsCommand extends Command {
 	exec(message) {
 		const embed = new MessageEmbed()
 			.setColor(3447003)
-			.setDescription(`**${this.client.user.username}v${version} Statistics**`)
+			.setDescription(`**${this.client.user.username} v${version} Stats**`)
 			.addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)
 			.addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)
 			.addField(
@@ -36,8 +36,8 @@ class StatsCommand extends Command {
 			.addField(
 				'❯ Library',
 				stripIndents`
-				[discord.js](https://github.com/discordjs/discord.js/tree/stable)
-				[akairo](https://github.com/1Computer1/discord-akairo/tree/master)
+				[discord.js](https://github.com/discordjs/discord.js/tree/stable) **::** 12.0.0-dev
+				[akairo](https://github.com/1Computer1/discord-akairo/tree/master) **::** 8.0.0-dev
 				`,
 				true
 			)
