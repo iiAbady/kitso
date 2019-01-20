@@ -32,7 +32,7 @@ class MDNCommand extends Command {
 	async exec(message, { query, match }) {
 		if (!query && match) query = match[1]; // eslint-disable-line prefer-destructuring
 		const queryString = qs.stringify({ q: query });
-		const res = await fetch(`https://mdn.topkek.pw/search?${queryString}`);
+		const res = await fetch(`https://mdn.pleb.xyz/search?${queryString}`);
 		const body = await res.json();
 		if (!body.URL || !body.Title || !body.Summary) {
 			return message.util.reply("Yukikaze couldn't find the requested information. Maybe look for something that actually exists the next time!");
