@@ -45,8 +45,8 @@ class StatsCommand extends Command {
 			.addField(
 				'❯ Library',
 				stripIndents`
-				[discord.js›master](https://github.com/discordjs/discord.js/tree/stable)
-				[akairo›master](https://github.com/1Computer1/discord-akairo/tree/master)
+				[discord.js](https://github.com/discordjs/discord.js/tree/stable)
+				[akairo](https://github.com/1Computer1/discord-akairo/tree/master)
 				`,
 				true
 			)
@@ -55,7 +55,7 @@ class StatsCommand extends Command {
 				`${this.client.users.get(this.client.ownerID).tag}`,
 				true
 			)
-			.setThumbnail(this.client.user.avatarURL)
+			.setThumbnail(this.client.user.avatar)
 			.setFooter(`© 2019 ${this.client.user.username}`);
 
 		return message.channel.send(embed);

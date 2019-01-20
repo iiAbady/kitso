@@ -4,12 +4,12 @@ const qs = require('querystring');
 
 class DocsCommand extends Command {
 	constructor() {
-		super('docs', {
-			aliases: ['docs'],
+		super('djs', {
+			aliases: ['djs'],
 			description: {
-				content: 'Searches discord.js documentation.',
+				content: 'Searches discord.js docs.',
 				usage: '<query>',
-				examples: ['TextChannel', 'Client', 'ClientUser#setActivity master']
+				examples: ['TextChannel commando', 'Client', 'ClientUser#setActivity master']
 			},
 			category: 'docs',
 			clientPermissions: ['EMBED_LINKS'],
