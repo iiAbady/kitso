@@ -11,7 +11,6 @@ class DocsCommand extends Command {
 				usage: '<query>',
 				examples: ['TextChannel commando', 'Client', 'ClientUser#setActivity master']
 			},
-			regex: /^(?:djs,) (.+)/i,
 			category: 'docs',
 			clientPermissions: ['EMBED_LINKS'],
 			ratelimit: 2,
@@ -33,8 +32,7 @@ class DocsCommand extends Command {
 		});
 	}
 
-	async exec(message, { query, match, force }) {
-		if (!query && match) query = match[1]; // eslint-disable-line prefer-destructuring
+	async exec(message, { query, force }) {
 		query = query.split(' ');
 		let project = 'main';
 		let branch = ['stable', 'master', 'rpc', 'commando'].includes(query.slice(-1)[0]) ? query.pop() : 'stable';
