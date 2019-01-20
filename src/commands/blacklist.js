@@ -9,7 +9,6 @@ class BlacklistCommand extends Command {
 				usage: '<user>',
 				examples: ['Abady', '@Abady', '171259176029257728']
 			},
-			category: 'util',
 			ownerOnly: true,
 			ratelimit: 2,
 			args: [
