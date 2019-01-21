@@ -62,7 +62,7 @@ class TicketCommand extends Command {
 			if (message.channel.name !== ticket.name) return message.channel.send(`:x: Please only run this command in the ticket channel!`);
 			await message.channel.send(`Are you sure you want to close this ticket?\nDo \`\`${this.handler.prefix(message)}t close\`\` to confirm.`);
 			try {
-				var response = await message.channel.awaitMessages(msg2 => msg2.content === (`--close` || msg2.content === 'cancel') && msg2.author.id === message.author.id, { maxMatches: 1, time: 20000, errors: ['time'] }); // eslint-disable-line no-var
+				var response = await message.channel.awaitMessages(msg2 => (msg2.content === `--close` || msg2.content === 'cancel') && msg2.author.id === message.author.id, { maxMatches: 1, time: 20000, errors: ['time'] }); // eslint-disable-line no-var
 			} catch (error) {
 				return message.channel.send(`:X: Timeout`);
 			}
