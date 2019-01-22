@@ -8,7 +8,6 @@ class PrefixCommand extends Command {
 			channel: 'guild',
 			cooldown: 5000,
 			ratelimit: 3,
-			userPermissions: 'MANAGE_GUILD',
 			category: 'config',
 			args: [
 				{
@@ -16,7 +15,10 @@ class PrefixCommand extends Command {
 					'default': null,
 					'index': 0,
 					'match': 'phrase',
-					'type': 'lowercase'
+					'type': (prefix, msg) => {
+						if (!msg.member.hasPermission('MANAGE_GUILD')) return prefix.toLowerCase(); // eslint-disable-line no-negated-condition
+						return false;
+					}
 				}
 			]
 		});
