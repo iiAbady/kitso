@@ -15,10 +15,7 @@ class PrefixCommand extends Command {
 					'default': null,
 					'index': 0,
 					'match': 'phrase',
-					'type': (prefix, msg) => {
-						if (!msg.member.hasPermission('MANAGE_GUILD')) return prefix.toLowerCase(); // eslint-disable-line no-negated-condition
-						return false;
-					}
+					'type': 'lowercase'
 				}
 			]
 		});
@@ -29,7 +26,7 @@ class PrefixCommand extends Command {
      * @param {Message} message
      */
 	exec(message, { newPrefix }) {
-		if (newPrefix) {
+		if (newPrefix && message.member.hasPermission('MANAGE_GUILD')) {
 			if (newPrefix.length > 5) return message.channel.send(`:x: The prefix must be between 1 to 5 letters.`);
 			this.client.settings.set(message.guild.id, 'prefix', newPrefix);
 			return message.channel.send(`👍 Alright, I've changed the prefix for thig guild to: \`${newPrefix.toLowerCase()}\``);
