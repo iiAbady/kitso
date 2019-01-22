@@ -33,7 +33,7 @@ class HelpCommand extends Command {
 			const embed = new MessageEmbed()
 				.setColor(3447003)
 				.setAuthor(`${this.client.user.username} Help`, this.client.user.avatarURL)
-				.setDescription(`Commands List. For additional info on a command, type **\`${prefix}help <command>\`**\n**[Need more help? (Support Server)](https://discord.gg/UkYbHU2)**`);
+				.setDescription(`Commands List. For additional info on a command, type **\`${prefix}help <command>\`**`);
 			for (const category of this.handler.categories.filter(m => m.id !== 'default').values()) {
 				embed.addField(`❯ ${category.id.replace(/(\b\w)/gi, lc => lc.toUpperCase())}`, `${category.filter(cmd => cmd.aliases.length).map(cmd => `\`${cmd.aliases[0]}\``).join(' ')}`);
 			}
