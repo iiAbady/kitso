@@ -29,7 +29,7 @@ class PrefixCommand extends Command {
 		if (newPrefix && message.member.hasPermission('MANAGE_GUILD')) {
 			if (newPrefix.length > 5) return message.channel.send(`:x: The prefix must be between 1 to 5 letters.`);
 			this.client.settings.set(message.guild.id, 'prefix', newPrefix);
-			return message.channel.send(`👍 Alright, I've changed the prefix for thig guild to: \`${newPrefix.toLowerCase()}\``);
+			return message.channel.send(`👍 Alright, I've changed the prefix for thig guild to: \`${newPrefix}\``);
 		}
 		return message.channel.send(`The prefix for this server is: \`\`${this.handler.prefix(message)}\`\``);
 	}
