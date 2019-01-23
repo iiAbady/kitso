@@ -88,14 +88,15 @@ class KitsoClient extends AkairoClient {
 			return phrase || null;
 		});
 
-		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
 		this.InhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
+		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
 
 		this.config = config;
 	}
 
 	async _init() {
 		this.commandHandler.useListenerHandler(this.listenerHandler);
+		this.commandHandler.useInhibitorHandler(this.InhibitorHandler);
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			listenerHandler: this.listenerHandler,
