@@ -32,17 +32,7 @@ class UserInfoCommand extends Command {
 		const { user } = member;
 		const embed = new MessageEmbed()
 			.setColor(3447003)
-			.setDescription(`**${user.tag}** (ID: ${member.id})'s info`)
-			.addField(
-				'❯ Member Details',
-				/* eslint-disable no-undefined, eqeqeq */
-				stripIndents`
-				${member.nickname == undefined ? '• No nickname' : ` • Nickname: ${member.nickname}`}
-				• Roles: ${member.roles.map(roles => `\`${roles.name}\``).join(' ')}
-				• Joined at: ${moment.utc(member.joinedAt).format('YYYY/MM/DD hh:mm:ss')}
-			`
-			/* eslint-enable no-undefined, eqeqeq */
-			)
+			.setDescription(`**${user.tag}**'s info (ID: ${member.id})`)
 			/* eslint-disable max-len */
 			.addField(
 				'❯ User Details',

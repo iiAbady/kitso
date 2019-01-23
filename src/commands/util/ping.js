@@ -14,7 +14,7 @@ class PingCommand extends Command {
 		super('ping', {
 			aliases: ['ping'],
 			ratelimit: 2,
-			category: 'info',
+			category: 'util',
 			channel: 'guild',
 			description: {
 				content: 'Shows the bot ping.'

@@ -7,7 +7,7 @@ class HelpCommand extends Command {
 			aliases: ['help'],
 			cooldown: 5000,
 			ratelimit: 1,
-			category: 'info',
+			category: 'util',
 			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
 			description: {
