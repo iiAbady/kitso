@@ -10,7 +10,7 @@ class TicketCommand extends Command {
 			ratelimit: 3,
 			category: 'util',
 			channel: 'guild',
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'MANAGE_CHANNELS'],
 			description: {
 				content: 'Ticekt System.',
 				usage: 'help'
