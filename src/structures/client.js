@@ -95,12 +95,12 @@ class KitsoClient extends AkairoClient {
 	}
 
 	async _init() {
-		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.commandHandler.useInhibitorHandler(this.InhibitorHandler);
+		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
-			listenerHandler: this.listenerHandler,
-			InhibitorHandler: this.InhibitorHandler
+			InhibitorHandler: this.InhibitorHandler,
+			listenerHandler: this.listenerHandler
 		});
 		this.commandHandler.loadAll();
 		this.listenerHandler.loadAll();
