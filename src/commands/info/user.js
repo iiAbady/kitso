@@ -7,7 +7,7 @@ require('moment-duration-format');
 class UserInfoCommand extends Command {
 	constructor() {
 		super('user', {
-			aliases: ['user', 'member', 'user-info'],
+			aliases: ['user', 'user-info'],
 			description: {
 				content: 'Get info about a member.',
 				usage: '[member]',
@@ -41,7 +41,7 @@ class UserInfoCommand extends Command {
 				• Username: ${member.user.tag}
 				• Created at: ${moment.utc(user.createdAt).format('YYYY/MM/DD hh:mm:ss')}${user.bot ? '\n• Is a bot account' : ''}
 				• Status: ${user.presence.status.toUpperCase()}
-				• Activity: ${user.presence.activity ? user.presence.activity.name : 'None'}
+				• Activity: ${user.presence.activity ? user.presence.activity.name === 'Visual Studio Code' ? '<:vscode:537740663400169498> Visual Studio Code' : user.presence.activity.name : 'None'}
 			`
 			)
 			/* eslint-enable max-len */
