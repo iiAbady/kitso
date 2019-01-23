@@ -15,6 +15,8 @@ class EmojiInfoCommand extends Command {
 				usage: '<emoji>',
 				examples: ['😂', ':joy:', '531541224512028684']
 			},
+			channel: 'guild',
+			clientPermissions: ['EMBED_LINKS'],
 			category: 'info',
 			ratelimit: 2,
 			args: [
