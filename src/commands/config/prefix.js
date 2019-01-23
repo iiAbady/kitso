@@ -1,5 +1,4 @@
 const { Command } = require('discord-akairo');
-const { Message } = require('discord.js'); // eslint-disable-line no-unused-vars
 
 class PrefixCommand extends Command {
 	constructor() {
@@ -23,7 +22,7 @@ class PrefixCommand extends Command {
 
 	/**
      *
-     * @param {Message} message
+     * @param {import('discord.js').Message} message
      */
 	exec(message, { newPrefix }) {
 		if (newPrefix && message.member.hasPermission('MANAGE_GUILD')) {
