@@ -1,5 +1,11 @@
 const { Listener } = require('discord-akairo');
 const Raven = require('raven');
+const { emojis: { shocked, thumbsUp1, thumbsUp2 } } = require('../../structures/bot');
+const RESPONSES = [
+	`${shocked} W-What?!?! That was unexpected. (Error: !{err})`,
+	`${thumbsUp1} Alrrightt! I'am going to fix this asap. (Error: !{err})`,
+	`${thumbsUp2} Thank's for finding this bug for me, I'am going to slay it. (Error: !{err})`
+];
 
 class ErrorListner extends Listener {
 	constructor() {
@@ -46,6 +52,9 @@ class ErrorListner extends Listener {
 			}
 		});
 		Raven.captureException(error);
+		return message.channel.send(
+			RESPONSES[Math.floor(Math.random() * RESPONSES.length)].replace('!{err}', command.id + error.message.length + command.id.length)
+		);
 	}
 }
 module.exports = ErrorListner;
