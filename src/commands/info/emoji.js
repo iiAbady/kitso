@@ -53,7 +53,7 @@ class EmojiInfoCommand extends Command {
 				`
 			);
 		} else {
-			embed.setDescription(`Info about ${emoji.emoji}`);
+			embed.setDescription(`${emoji.emoji}'s info (ID: ${emoji.id})`);
 			embed.addField(
 				'❯ Info',
 				stripIndents`
