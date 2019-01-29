@@ -1,10 +1,12 @@
 const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = require('discord-akairo');
 const { createLogger, transports, format } = require('winston');
 const { join } = require('path');
+const { library: { version } } = require('./bot');
 const { Util } = require('discord.js');
 const { Op } = require('sequelize');
 const database = require('./database');
 const SettingsProvider = require('./SettingsProvider');
+const Raven = require('raven');
 
 class KitsoClient extends AkairoClient {
 	constructor(config) {
@@ -92,6 +94,17 @@ class KitsoClient extends AkairoClient {
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
 
 		this.config = config;
+
+		if (process.env.RAVEN) {
+			Raven.config(process.env.RAVEN, {
+				captureUnhandledRejections: true,
+				autoBreadcrumbs: true,
+				environment: process.env.NODE_ENV,
+				release: version
+			}).install();
+		} else {
+			process.on('unhandledRejection', err => this.logger.error(`[Unhandled Rejection] ${err.message}`, err.stack));
+		}
 	}
 
 	async _init() {
