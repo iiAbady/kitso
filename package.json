@@ -1,7 +1,7 @@
 {
   "name": "kitso",
   "version": "2.5.0",
-  "description": "A KaWaIi BITcH bot",
+  "description": "Stupid bitch",
   "main": "index.js",
   "dependencies": {
     "@discordjs/uws": "^11.149.1",
