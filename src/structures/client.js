@@ -4,6 +4,7 @@ const { join } = require('path');
 const { library: { version } } = require('./bot');
 const { Util } = require('discord.js');
 const { Op } = require('sequelize');
+const moment = require('moment');
 const database = require('./database');
 const SettingsProvider = require('./SettingsProvider');
 const Raven = require('raven');
@@ -21,7 +22,7 @@ class KitsoClient extends AkairoClient {
 		this.logger = createLogger({
 			format: format.combine(
 				format.colorize({ all: true }),
-				format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
+				format.timestamp({ format: moment().zone('+03:00').format('YYYY/MM/DD HH:mm:ss') }),
 				format.printf(info => `[${info.timestamp}] ${info.level}: ${info.message}`)
 			),
 			transports: [new transports.Console()]
