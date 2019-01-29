@@ -4,12 +4,9 @@ exports.library = {
 	version,
 	node: process.version
 };
-exports.owner = '171259176029257728';
 exports.emojis = {
-	error: '<:error:485577688245993473>',
-	hmph: '<>'
-};
-exports.channels = {
-	error: '474245438837620736',
-	logs: '475028391473709068'
+	closedEyes: '<:kitsoOwO:539847502866808843>',
+	shocked: '<:kitsoShocked:539848639225266176>',
+	thumbsUp1: '<:kitsoThumbsUp:539850864714579978>',
+	thumbsUp2: '<:kitsoThumbsUp2:539848759492739076>'
 };
