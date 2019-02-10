@@ -12,7 +12,7 @@ export default class KickCommand extends Command {
 			description: {
 				content: 'Kicks a member, duh.',
 				usage: '<member> <...reason>',
-				examples: ['@Crawl', '@Crawl']
+				examples: ['@Abady', '@Abady']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],

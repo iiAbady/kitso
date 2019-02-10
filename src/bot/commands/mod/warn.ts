@@ -11,7 +11,7 @@ export default class WarnCommand extends Command {
 			description: {
 				content: 'Warns a user, duh.',
 				usage: '<member> <...reason>',
-				examples: ['@Crawl dumb']
+				examples: ['@Abady dumb']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],

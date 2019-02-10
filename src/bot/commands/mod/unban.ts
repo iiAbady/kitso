@@ -11,7 +11,7 @@ export default class UnbanCommand extends Command {
 			description: {
 				content: 'Unbans a user, duh.',
 				usage: '<member> <...reason>',
-				examples: ['@Crawl']
+				examples: ['@Abady']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],

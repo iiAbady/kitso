@@ -21,8 +21,8 @@ export default class RestrictCommand extends Command {
 				`,
 				usage: '<restriction> <...argumens>',
 				examples: [
-					'img @Crawl nsfw',
-					'embed @Crawl img spam',
+					'img @Abady nsfw',
+					'embed @Abady img spam',
 					'emoji @Dim dumb',
 					'reaction @appellation why though'
 				]

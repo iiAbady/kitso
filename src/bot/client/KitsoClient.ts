@@ -162,7 +162,7 @@ export default class KitsoClient extends AkairoClient {
 				captureUnhandledRejections: true,
 				autoBreadcrumbs: true,
 				environment: process.env.NODE_ENV,
-				release: '0.1.0'
+				release: '2.5.0'
 			}).install();
 		} else {
 			process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));

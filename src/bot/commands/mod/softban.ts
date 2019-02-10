@@ -12,7 +12,7 @@ export default class SoftbanCommand extends Command {
 			description: {
 				content: 'Softbans a member, duh.',
 				usage: '<member> <...reason>',
-				examples: ['@Crawl']
+				examples: ['@Abady']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],

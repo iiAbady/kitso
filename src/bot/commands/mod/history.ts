@@ -11,7 +11,7 @@ export default class HistoryCommand extends Command {
 			description: {
 				content: 'Check the history of a member.',
 				usage: '<member>',
-				examples: ['@Crawl']
+				examples: ['@Abady']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES', 'EMBED_LINKS'],

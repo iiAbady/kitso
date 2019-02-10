@@ -11,7 +11,7 @@ export default class UserInfoCommand extends Command {
 			description: {
 				content: 'Get info about a member.',
 				usage: '[member]',
-				examples: ['Crawl', '@Crawl', '81440962496172032']
+				examples: ['Abady', '@Abady', '81440962496172032']
 			},
 			category: 'info',
 			channel: 'guild',

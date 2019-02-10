@@ -11,7 +11,7 @@ export default class MuteCommand extends Command {
 			description: {
 				content: 'Mutes a member, duh.',
 				usage: '<member> <duration> <...reason>',
-				examples: ['@Crawl']
+				examples: ['@Abady']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
