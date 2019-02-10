@@ -199,13 +199,14 @@ export default class KitsoClient extends AkairoClient {
 	}
 
 	public metrics() {
+		const port:number|string = process.env.PORT || 8080
 		createServer((req, res) => {
 			if (parse(req.url!).pathname === '/metrics') {
 				res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
 				res.write(this.prometheus.register.metrics());
 			}
 			res.end();
-		}).listen(5500);
+		}).listen(port);
 	}
 
 	public async start() {
