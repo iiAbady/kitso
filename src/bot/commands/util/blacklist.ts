@@ -8,7 +8,7 @@ export default class BlacklistCommand extends Command {
 			description: {
 				content: 'Prohibit/Allow a user from using Kitso.',
 				usage: '<user>',
-				examples: ['Abady', '@Abady', '81440962496172032']
+				examples: ['Abady', '@Abady', '171259176029257728']
 			},
 			category: 'util',
 			ownerOnly: true,

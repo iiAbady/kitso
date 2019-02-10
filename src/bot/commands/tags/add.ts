@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { Tag } from '../../models/Tags';
+import { emojis } from '../../util/index';
 
 export default class TagAddCommand extends Command {
 	public constructor() {
@@ -40,11 +41,11 @@ export default class TagAddCommand extends Command {
 	}
 
 	public async exec(message: Message, { name, content, hoist }: { name: any, content: string, hoist: boolean }) {
-		if (name && name.length >= 1900) {
-			return message.util!.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
+		if (name && name.length >= 50) {
+			return message.util!.reply('Tags names have a limit of **50** characters only!');
 		}
 		if (content && content.length >= 1950) {
-			return message.util!.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
+			return message.util!.reply('Tags contents have a limit of **1950** characters only!');
 		}
 		const staffRole = message.member.roles.has(this.client.settings.get(message.guild, 'modRole', undefined));
 		const tagsRepo = this.client.db.getRepository(Tag);
@@ -56,6 +57,6 @@ export default class TagAddCommand extends Command {
 		tag.content = content;
 		await tagsRepo.save(tag);
 
-		return message.util!.reply(`leave it to me! A tag with the name **${name.substring(0, 1900)}** has been added.`);
+		return message.util!.reply(`${emojis.thumbsoUpo} leave it to me! A tag with the name **${name.substring(0, 1900)}** has been added.`);
 	}
 }

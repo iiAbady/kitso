@@ -18,7 +18,7 @@ export default class TagShowCommand extends Command {
 					match: 'content',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message) => `${message.author}, what tag would you like to see?`
+						start: (message: Message) => `${message.author}, What tag would you like to see?`
 					}
 				}
 			]

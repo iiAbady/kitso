@@ -16,7 +16,11 @@ export default class HelpCommand extends Command {
 			args: [
 				{
 					id: 'command',
-					type: 'commandAlias'
+					type: cmd => {
+						if (!cmd) return '';
+						const commandAlias = this.handler.modules.filter(modulex => !modulex.ownerOnly).find(commando => commando.aliases.includes(cmd));
+						return commandAlias || cmd;
+					}
 				}
 			]
 		});
@@ -38,14 +42,15 @@ export default class HelpCommand extends Command {
 
 			return message.util!.send(embed);
 		}
-
+		if (!command.aliases) return message.channel.send(`:x: No command with this name **\`\`${command}\`\`** found.`);
 		const embed = new MessageEmbed()
 			.setColor(3447003)
-			.setTitle(`\`${command.aliases[0]} ${command.description.usage ? command.description.usage : ''}\``)
+			.setAuthor(`${command.aliases[0].replace(/(\b\w)/gi, lc => lc.toUpperCase())} Help`, 'https://images-ext-2.discordapp.net/external/Na1A42IsnllvKah5w2E8qEoTX5VMgkiFd6Y18oy7-Ws/%3Fwidth%3D473%26height%3D473/https/images-ext-2.discordapp.net/external/ixx9VwaXIvBi71wGahYe_NzG51gFQonnXVBl2eEbQmk/https/cdn.pixabay.com/photo/2012/04/14/16/26/question-34499_960_720.png')
 			.addField('❯ Description', command.description.content || '\u200b');
 
 		if (command.aliases.length > 1) embed.addField('❯ Aliases', `\`${command.aliases.join('` `')}\``, true);
 		if (command.description.examples && command.description.examples.length) embed.addField('❯ Examples', `\`${command.aliases[0]} ${command.description.examples.join(`\`\n\`${command.aliases[0]} `)}\``, true);
+		if (command.description.usage) embed.addField('❯ Usage', `\`${prefix}${command.aliases[0]} ${command.description.usage}\``, true);
 
 		return message.util!.send(embed);
 	}

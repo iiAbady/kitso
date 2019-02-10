@@ -20,7 +20,7 @@ export default class SearchTagCommand extends Command {
 					match: 'content',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message) => `${message.author}, what would you like to search for?`
+						start: (message: Message) => `${message.author}, What would you like to search for?`
 					}
 				}
 			]

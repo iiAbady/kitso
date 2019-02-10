@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { emojis } from '../../util/index';
 
 export default class TagCommand extends Command {
 	public constructor() {
@@ -40,7 +41,7 @@ export default class TagCommand extends Command {
 					'info Test',
 					'search Test',
 					'list @Abady',
-					'download @Abady'
+					'download Abady'
 				]
 			},
 			category: 'tags',
@@ -65,10 +66,8 @@ export default class TagCommand extends Command {
 			// @ts-ignore
 			const prefix = this.handler.prefix(message);
 			return message.util!.send(stripIndents`
-				When you beg me so much I just can't not help you~
+				${emojis.closedEyes} I-I don't understand what are you saying senpai!
 				Check \`${prefix}help tag\` for more information.
-
-				Hmph, you probably wanted to use \`${prefix}tag show\` or something!
 			`);
 		}
 		const command = ({

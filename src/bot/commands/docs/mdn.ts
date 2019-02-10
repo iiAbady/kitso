@@ -10,7 +10,7 @@ export default class MDNCommand extends Command {
 			aliases: ['mdn', 'mozilla-developer-network'],
 			category: 'docs',
 			description: {
-				content: 'Searches MDN for your query.',
+				content: 'Searches MDN.',
 				usage: '<query>',
 				examples: ['Map', 'Map#get', 'Map.set']
 			},
@@ -20,7 +20,7 @@ export default class MDNCommand extends Command {
 				{
 					id: 'query',
 					prompt: {
-						start: (message: Message) => `${message.author}, what would you like to search for?`
+						start: (message: Message) => `${message.author}, What would you like to search for?`
 					},
 					match: 'content',
 					type: query => query ? query.replace(/#/g, '.prototype.') : null
@@ -35,7 +35,7 @@ export default class MDNCommand extends Command {
 		const res = await fetch(`https://mdn.pleb.xyz/search?${queryString}`);
 		const body = await res.json();
 		if (!body.URL || !body.Title || !body.Summary) {
-			return message.util!.reply("Kitso couldn't find the requested information. Maybe look for something that actually exists the next time!");
+			return message.util!.reply("Kitso couldn't find the requested information.");
 		}
 		const turndown = new Turndown();
 		turndown.addRule('hyperlink', {

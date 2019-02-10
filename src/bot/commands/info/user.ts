@@ -7,11 +7,11 @@ import 'moment-duration-format';
 export default class UserInfoCommand extends Command {
 	public constructor() {
 		super('user', {
-			aliases: ['user', 'member', 'user-info'],
+			aliases: ['user', 'user-info'],
 			description: {
 				content: 'Get info about a member.',
 				usage: '[member]',
-				examples: ['Abady', '@Abady', '81440962496172032']
+				examples: ['Abady', '@! Mirage', '171259176029257728']
 			},
 			category: 'info',
 			channel: 'guild',
@@ -48,9 +48,9 @@ export default class UserInfoCommand extends Command {
 				stripIndents`
 				• ID: ${member.id}
 				• Username: ${member.user.tag}
-				• Created at: ${moment.utc(user.createdAt).format('YYYY/MM/DD hh:mm:ss')}${user.bot ? '\n• Is a bot account' : ''}
+				• Created at: ${moment.utc(user.createdAt).format('YYYY/MM/DD hh:mm:ss')}${user.bot ? '\n• Bot' : ''}
 				• Status: ${user.presence.status.toUpperCase()}
-				• Activity: ${user.presence.activity ? user.presence.activity.name : 'None'}
+				• Activity: ${user.presence.activity ? user.presence.activity.name === 'Visual Studio Code' ? '<:vscode:537740663400169498> Visual Studio Code' : user.presence.activity.name : 'None'}
 			`
 			)
 			.setThumbnail(user.displayAvatarURL());

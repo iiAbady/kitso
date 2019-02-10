@@ -1,6 +1,6 @@
 {
 	"name": "kitso",
-	"version": "2.5.0",
+	"version": "3.4.0-typescript",
 	"description": "",
 	"main": "src/kitso.js",
 	"author": "Abady <gamersspeaks@gmail.com>",

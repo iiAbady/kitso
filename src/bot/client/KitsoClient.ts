@@ -60,19 +60,18 @@ export default class KitsoClient extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', 'commands'),
-		prefix: (message: Message) => this.settings.get(message.guild, 'prefix', process.env.COMMAND_PREFIX),
+		prefix: (message: Message) => this.settings.get(message.guild, 'prefix', 'k!'),
 		aliasReplacement: /-/g,
 		allowMention: true,
-		handleEdits: true,
 		commandUtil: true,
 		commandUtilLifetime: 3e5,
 		defaultCooldown: 3000,
 		defaultPrompt: {
 			modifyStart: str => `${str}\n\nType \`cancel\` to cancel the command.`,
 			modifyRetry: str => `${str}\n\nType \`cancel\` to cancel the command.`,
-			timeout: 'Guess you took too long, the command has been cancelled.',
-			ended: "More than 3 tries and you still didn't quite get it. The command has been cancelled",
-			cancel: 'The command has been cancelled.',
+			timeout: ':x: You took too long! **cancelled**',
+			ended: ":x: You've used your 3/3 tries! **cancelled**",
+			cancel: ':x: Cancelled',
 			retries: 3,
 			time: 30000
 		}
@@ -162,7 +161,7 @@ export default class KitsoClient extends AkairoClient {
 				captureUnhandledRejections: true,
 				autoBreadcrumbs: true,
 				environment: process.env.NODE_ENV,
-				release: '2.5.0'
+				release: '3.4.0'
 			}).install();
 		} else {
 			process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
@@ -199,14 +198,13 @@ export default class KitsoClient extends AkairoClient {
 	}
 
 	public metrics() {
-		const port:number|string = process.env.PORT || 8080
 		createServer((req, res) => {
 			if (parse(req.url!).pathname === '/metrics') {
 				res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
 				res.write(this.prometheus.register.metrics());
 			}
 			res.end();
-		}).listen(port);
+		}).listen(80);
 	}
 
 	public async start() {

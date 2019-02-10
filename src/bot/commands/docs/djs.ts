@@ -5,10 +5,10 @@ import * as qs from 'querystring';
 
 export default class DocsCommand extends Command {
 	public constructor() {
-		super('docs', {
-			aliases: ['docs'],
+		super('djs', {
+			aliases: ['djs'],
 			description: {
-				content: 'Searches discord.js documentation.',
+				content: 'Searches discord.js docs.',
 				usage: '<query>',
 				examples: ['TextChannel', 'Client', 'ClientUser#setActivity master']
 			},
@@ -21,7 +21,7 @@ export default class DocsCommand extends Command {
 					match: 'rest',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message) => `${message.author}, what would you like to search?`
+						start: (message: Message) => `${message.author}, What would you like to search in discord.js?`
 					}
 				},
 				{
@@ -45,7 +45,7 @@ export default class DocsCommand extends Command {
 		const res = await fetch(`https://djsdocs.sorta.moe/${project}/${branch}/embed?${queryString}`);
 		const embed = await res.json();
 		if (!embed) {
-			return message.util!.reply("Kitso couldn't find the requested information. Maybe look for something that actually exists the next time!");
+			return message.util!.reply("Kitso couldn't find the requested information!");
 		}
 		if (message.channel.type === 'dm' || !(message.channel as TextChannel).permissionsFor(message.guild.me)!.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)) {
 			return message.util!.send({ embed });

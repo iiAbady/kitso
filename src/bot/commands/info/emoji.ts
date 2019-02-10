@@ -14,7 +14,7 @@ export default class EmojiInfoCommand extends Command {
 			description: {
 				content: 'Get information about an emoji.',
 				usage: '<emoji>',
-				examples: ['🤔', 'thinking_face', '264701195573133315', '<:Thonk:264701195573133315>']
+				examples: ['😂', ':joy:', '531541224512028684']
 			},
 			category: 'info',
 			channel: 'guild',
