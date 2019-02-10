@@ -8,4 +8,4 @@ client
 	.on('warn', warn => client.logger.warn(`[CLIENT WARN] ${warn}`));
 
 client.start();
-client.metrics();
+// client.metrics();

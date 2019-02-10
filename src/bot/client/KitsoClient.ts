@@ -196,17 +196,17 @@ export default class KitsoClient extends AkairoClient {
 		// await this.muteScheduler.init();
 		// await this.remindScheduler.init();
 	}
-
-	public metrics() {
-		const port = process.env.PORT || 3000;
-		createServer((req, res) => {
-			if (parse(req.url!).pathname === '/metrics') {
-				res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
-				res.write(this.prometheus.register.metrics());
-			}
-			res.end();
-		}).listen(port);
-	}
+// TODO: somehow let the web server work V
+	// public metrics() {
+	// 	const port = process.env.PORT || 3000;
+	// 	createServer((req, res) => {
+	// 		if (parse(req.url!).pathname === '/metrics') {
+	// 			res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
+	// 			res.write(this.prometheus.register.metrics());
+	// 		}
+	// 		res.end();
+	// 	}).listen(port);
+	// }
 
 	public async start() {
 		await this._init();
