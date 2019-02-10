@@ -11,9 +11,9 @@ import { Connection } from 'typeorm';
 // import { Case } from '../models/Cases';
 // import { Reminder } from '../models/Reminders';
 import { Tag } from '../models/Tags';
-import { Counter, collectDefaultMetrics, register } from 'prom-client';
-import { createServer } from 'http';
-import { parse } from 'url';
+// import { Counter, collectDefaultMetrics, register } from 'prom-client';
+// import { createServer } from 'http';
+// import { parse } from 'url';
 const Raven = require('raven'); // tslint:disable-line
 
 declare module 'discord-akairo' {
