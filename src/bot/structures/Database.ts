@@ -9,7 +9,7 @@ const connectionManager = new ConnectionManager();
 connectionManager.create({
 	name: 'kitso',
 	type: 'postgres',
-	url: process.env.DB,
+	url: process.env.DATABASE_URL,
 	entities: [Setting, Tag, RoleState, Case, Reminder]
 });
 
