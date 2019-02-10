@@ -27,10 +27,10 @@ declare module 'discord-akairo' {
 		cachedCases: Set<string>;
 		// muteScheduler: MuteScheduler;
 		// remindScheduler: RemindScheduler;
-		prometheus: {
-			commandCounter: Counter;
-			lewdcarioAvatarCounter: Counter;
-		};
+		// prometheus: {
+		// 	commandCounter: Counter;
+		// 	lewdcarioAvatarCounter: Counter;
+		// };
 	}
 }
 
@@ -89,13 +89,13 @@ export default class KitsoClient extends AkairoClient {
 
 	// public remindScheduler!: RemindScheduler;
 
-	public prometheus = {
-		messagesCounter: new Counter({ name: 'kitso_messages_total', help: 'Total number of messages Kitso has seen' }),
-		commandCounter: new Counter({ name: 'kitso_commands_total', help: 'Total number of commands used' }),
-		lewdcarioAvatarCounter: new Counter({ name: 'kitso_lewdcario_avatar_total', help: 'Total number of avatar changes from Lewdcario' }),
-		collectDefaultMetrics,
-		register
-	};
+	// public prometheus = {
+	// 	messagesCounter: new Counter({ name: 'kitso_messages_total', help: 'Total number of messages Kitso has seen' }),
+	// 	commandCounter: new Counter({ name: 'kitso_commands_total', help: 'Total number of commands used' }),
+	// 	lewdcarioAvatarCounter: new Counter({ name: 'kitso_lewdcario_avatar_total', help: 'Total number of avatar changes from Lewdcario' }),
+	// 	collectDefaultMetrics,
+	// 	register
+	// };
 
 	public constructor(config: KitsoOptions) {
 		super({ ownerID: config.owner }, {
@@ -104,9 +104,9 @@ export default class KitsoClient extends AkairoClient {
 			disabledEvents: ['TYPING_START']
 		});
 
-		this.on('message', message => {
-			this.prometheus.messagesCounter.inc();
-		});
+		// this.on('message', message => {
+		// 	this.prometheus.messagesCounter.inc();
+		// });
 
 		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
 			if (!phrase) return null;
@@ -171,7 +171,7 @@ export default class KitsoClient extends AkairoClient {
 			this.webhooks = new Collection();
 		}
 
-		this.prometheus.collectDefaultMetrics({ prefix: 'kitso_', timeout: 30000 });
+		// this.prometheus.collectDefaultMetrics({ prefix: 'kitso_', timeout: 30000 });
 	}
 
 	private async _init() {
