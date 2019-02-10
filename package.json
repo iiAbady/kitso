@@ -1,38 +1,54 @@
 {
-  "name": "kitso",
-  "version": "2.5.0",
-  "description": "Stupid bitch",
-  "main": "index.js",
-  "dependencies": {
-    "@discordjs/uws": "^11.149.1",
-    "common-tags": "^1.8.0",
-    "discord-akairo": "1Computer1/discord-akairo",
-    "discord.js": "discordjs/discord.js",
-    "moment": "^2.22.2",
-    "moment-duration-format": "^2.2.2",
-    "node-emoji": "^1.8.1",
-    "node-fetch": "^2.3.0",
-    "pg": "^7.7.1",
-    "raven": "^2.6.4",
-    "sequelize": "^4.42.0", 
-    "turndown": "^5.0.1",
-    "winston": "^3.1.0"
-  },
-  "optionalDependencies": {
-    "erlpack": "discordapp/erlpack",
-    "zlib-sync": "^0.1.4"
-  },
-  "devDependencies": {
-    "dotenv": "^6.2.0",
-    "eslint": "^5.12.1",
-    "eslint-config-aqua": "^4.4.1"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "lint": "eslint . --fix",
-    "test": "npm run lint",
-    "logs": "heroku logs -t --app kitsoo"
-  },
-  "author": "Abady <gamersspeaks@gmail.com>",
-  "license": "ISC"
+	"name": "kitso",
+	"version": "0.1.0",
+	"description": "",
+	"main": "src/kitso.js",
+	"author": "Abady <gamersspeaks@gmail.com>",
+	"license": "ISC",
+	"private": true,
+	"scripts": {
+		"prebuild": "npm test",
+		"build": "gulp",
+		"lint": "tslint -p tsconfig.json",
+		"test": "npm run lint"
+	},
+	"dependencies": {
+		"common-tags": "^1.8.0",
+		"diff": "^4.0.1",
+		"discord-akairo": "1Computer1/discord-akairo",
+		"discord.js": "discordjs/discord.js",
+		"moment": "^2.24.0",
+		"moment-duration-format": "^2.2.2",
+		"node-emoji": "^1.8.1",
+		"node-fetch": "^2.3.0",
+		"pg": "^7.8.0",
+		"prom-client": "^11.2.1",
+		"punycode": "^2.1.1",
+		"raven": "^2.6.4",
+		"reflect-metadata": "^0.1.13",
+		"turndown": "^5.0.3",
+		"typeorm": "^0.2.12",
+		"winston": "^3.2.1"
+	},
+	"devDependencies": {
+		"@types/common-tags": "^1.8.0",
+		"@types/moment-duration-format": "^2.2.2",
+		"@types/node": "^10.12.24",
+		"@types/node-emoji": "^1.8.1",
+		"@types/node-fetch": "^2.1.6",
+		"@types/ws": "^6.0.1",
+		"fs-nextra": "^0.3.8",
+		"gulp": "^4.0.0",
+		"gulp-sourcemaps": "^2.6.4",
+		"gulp-typescript": "^5.0.0",
+		"merge2": "^1.2.3",
+		"tslint": "^5.12.1",
+		"tslint-config-fire": "^1.0.1",
+		"typescript": "^3.3.1"
+	},
+	"optionalDependencies": {
+		"@discordjs/uws": "^11.149.1",
+		"erlpack": "discordapp/erlpack",
+		"zlib-sync": "^0.1.4"
+	}
 }

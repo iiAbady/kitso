@@ -15,6 +15,11 @@ pids
 # Env
 .env
 
+# Dist
+dist/
+typings/
+
 # Miscellaneous
 .tmp/
 .github/
+ormconfig.json
