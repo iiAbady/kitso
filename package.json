@@ -1,6 +1,6 @@
 {
 	"name": "kitso",
-	"version": "0.1.0",
+	"version": "2.5.0",
 	"description": "",
 	"main": "src/kitso.js",
 	"author": "Abady <gamersspeaks@gmail.com>",
@@ -10,6 +10,7 @@
 		"prebuild": "npm test",
 		"build": "gulp",
 		"lint": "tslint -p tsconfig.json",
+		"preinstall": "npm run build",
 		"test": "npm run lint"
 	},
 	"dependencies": {
