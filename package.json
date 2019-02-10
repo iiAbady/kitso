@@ -7,11 +7,9 @@
 	"license": "ISC",
 	"private": true,
 	"scripts": {
-		"prebuild": "npm test",
-		"build": "gulp",
 		"lint": "tslint -p tsconfig.json",
 		"test": "npm run lint",
-		"heroku-postbuild": "npm run build"
+		"heroku-postbuild": "gulp"
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
