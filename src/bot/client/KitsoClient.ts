@@ -4,12 +4,12 @@ import { Collection, Message, Util, Webhook } from 'discord.js';
 import { Logger, createLogger, transports, format } from 'winston';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
-import MuteScheduler from '../structures/MuteScheduler';
-import RemindScheduler from '../structures/RemindScheduler';
+// import MuteScheduler from '../structures/MuteScheduler';
+// import RemindScheduler from '../structures/RemindScheduler';
 import { Setting } from '../models/Settings';
 import { Connection } from 'typeorm';
-import { Case } from '../models/Cases';
-import { Reminder } from '../models/Reminders';
+// import { Case } from '../models/Cases';
+// import { Reminder } from '../models/Reminders';
 import { Tag } from '../models/Tags';
 import { Counter, collectDefaultMetrics, register } from 'prom-client';
 import { createServer } from 'http';
@@ -25,8 +25,8 @@ declare module 'discord-akairo' {
 		config: KitsoOptions;
 		webhooks: Collection<string, Webhook>;
 		cachedCases: Set<string>;
-		muteScheduler: MuteScheduler;
-		remindScheduler: RemindScheduler;
+		// muteScheduler: MuteScheduler;
+		// remindScheduler: RemindScheduler;
 		prometheus: {
 			commandCounter: Counter;
 			lewdcarioAvatarCounter: Counter;
@@ -86,9 +86,9 @@ export default class KitsoClient extends AkairoClient {
 
 	public cachedCases = new Set();
 
-	public muteScheduler!: MuteScheduler;
+	// public muteScheduler!: MuteScheduler;
 
-	public remindScheduler!: RemindScheduler;
+	// public remindScheduler!: RemindScheduler;
 
 	public prometheus = {
 		messagesCounter: new Counter({ name: 'kitso_messages_total', help: 'Total number of messages Kitso has seen' }),
@@ -192,10 +192,10 @@ export default class KitsoClient extends AkairoClient {
 		await this.db.connect();
 		this.settings = new TypeORMProvider(this.db.getRepository(Setting));
 		await this.settings.init();
-		this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
-		this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
-		await this.muteScheduler.init();
-		await this.remindScheduler.init();
+		// this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
+		// this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
+		// await this.muteScheduler.init();
+		// await this.remindScheduler.init();
 	}
 
 	public metrics() {
