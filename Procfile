@@ -1,1 +1,1 @@
-worker: node index.js
+worker: node node_modules/gulp/bin/gulp build
