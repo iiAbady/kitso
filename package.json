@@ -10,7 +10,8 @@
 		"prebuild": "npm test",
 		"build": "gulp",
 		"lint": "tslint -p tsconfig.json",
-		"test": "npm run lint"
+		"test": "npm run lint",
+		"heroku-postbuild": "npm run build"
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
