@@ -33,7 +33,7 @@
 		"gulp-sourcemaps": "^2.6.4",
 		"gulp-typescript": "^5.0.0",
 		"merge2": "^1.2.3",
-		"fs-nextra": "^0.3.8"
+		"fs-nextra": "^0.4.2"
 	},
 	"devDependencies": {
 		"@types/common-tags": "^1.8.0",
