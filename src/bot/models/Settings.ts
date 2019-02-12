@@ -7,6 +7,6 @@ export class Setting {
 	@PrimaryColumn({ type: 'bigint' })
 	guild!: string;
 
-	@Column({ type: 'jsonb', default: () => "'{}'" })
+	@Column({ type: 'jsonb', default: () => "'{}'::jsonb" })
 	settings: any;
 }
