@@ -66,7 +66,6 @@ export default class TagEditCommand extends Command {
 		else if (unhoist) hoist = false;
 		if ((hoist || unhoist) && staffRole) tag.hoisted = hoist;
 		if (content) {
-			content = Util.cleanContent(content, message);
 			tag.content = content;
 		}
 		tag.last_modified = message.author.id;

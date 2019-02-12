@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
-import { Collection, Message, Util, Webhook } from 'discord.js';
+import { Collection, Message, Webhook } from 'discord.js';
 import { Logger, createLogger, transports, format } from 'winston';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
@@ -110,7 +110,7 @@ export default class KitsoClient extends AkairoClient {
 
 		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
 			if (!phrase) return null;
-			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			phrase = phrase.toLowerCase();
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
 			const tags = await tagsRepo.find();
@@ -129,7 +129,7 @@ export default class KitsoClient extends AkairoClient {
 		});
 		this.commandHandler.resolver.addType('existingTag', async (phrase, message) => {
 			if (!phrase) return null;
-			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			phrase = phrase.toLowerCase();
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
 			const tags = await tagsRepo.find();
@@ -148,7 +148,7 @@ export default class KitsoClient extends AkairoClient {
 		});
 		this.commandHandler.resolver.addType('tagContent', (phrase, message) => {
 			if (!phrase) phrase = '';
-			phrase = Util.cleanContent(phrase, message);
+			phrase = phrase;
 			if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
 
 			return phrase || null;
