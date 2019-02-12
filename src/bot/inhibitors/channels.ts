@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 
 export default class ChannelsInhibitor extends Inhibitor {
 	public constructor() {
-		super('blacklist', {
+		super('channels', {
 			type: 'pre',
 			reason: 'channels'
 		});
