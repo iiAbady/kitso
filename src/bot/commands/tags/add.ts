@@ -2,7 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { Tag } from '../../models/Tags';
 import { emojis } from '../../util/index';
-const { thumbsoUpo } = emojis
+const { thumbsoUpo } = emojis;
 
 export default class TagAddCommand extends Command {
 	public constructor() {

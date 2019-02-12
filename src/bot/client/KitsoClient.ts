@@ -133,7 +133,7 @@ export default class KitsoClient extends AkairoClient {
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
 			const tags = await tagsRepo.find();
-			const [tag] = tags.filter(t => t.name === phrase || t.aliases.includes(phrase));
+			const [tag] = tags.filter(t => t.name === phrase || t.aliases.includes(phrase) && t.guild === message.guild.id);
 			/* const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
