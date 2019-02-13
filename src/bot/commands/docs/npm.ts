@@ -19,7 +19,7 @@ export default class NPMCommand extends Command {
 				{
 					id: 'pkg',
 					prompt: {
-						start: (message: Message) => `${message.author}, what would you like to search for?`
+						start: (message: Message) => `${message.author}, What would you like to search for in npm?`
 					},
 					match: 'content',
 					type: pkg => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
