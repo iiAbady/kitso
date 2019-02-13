@@ -3,10 +3,10 @@ import { Message, MessageEmbed } from 'discord.js';
 const Youtube = require('simple-youtube-api'); //tslint:disable-line
 const youtube = new Youtube(process.env.YOUTUBE);
 
-export default class NPMCommand extends Command {
+export default class Searchcommand extends Command {
 	public constructor() {
-		super('npm', {
-			aliases: ['npm'],
+		super('search', {
+			aliases: ['search'],
 						category: 'util',
 						ownerOnly: true,
 			description: {
