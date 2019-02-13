@@ -34,8 +34,8 @@ export default class Searchcommand extends Command {
 				const embed = new MessageEmbed()
 								.setColor(0xCB0000)
 								.setAuthor('Youtube', 'https://i.imgur.com/uxPFxMC.png', 'https://www.youtube.com/')
-								.setColor('RED')
-								.addField('Search Results:', `${videos.map((video: any) => video.title)}`);
+								.setColor('#FF0000')
+								.addField('Search Results:', `${videos.map((video: any) => `[${video.title}] (${video.url})`).join('\n')}`);
 				return message.util!.send(embed);
 	}
 }
