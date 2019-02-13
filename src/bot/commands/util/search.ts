@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
-import Yotube, { Video } from 'simple-youtube-api';
-const youtube = new Yotube(`${process.env.YOUTUBE}`);
+import Youtube from 'simple-youtube-api';
+const youtube = new Youtube(`${process.env.YOUTUBE}`);
 
 export default class NPMCommand extends Command {
 	public constructor() {
@@ -28,7 +28,7 @@ export default class NPMCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { query }: { pkg: string }) {
+	public async exec(message: Message, { query }: { query: string }) {
 				const videos =  await youtube.search(query, 10);
 				if(!videos) return message.util!.send("Looks like your query video doesn't even exist, you wasted my time!");
 				const embed = new MessageEmbed()
