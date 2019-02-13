@@ -33,9 +33,24 @@ export default class Searchcommand extends Command {
 				if(!videos) return message.util!.send("Looks like your query video doesn't even exist, you wasted my time!");
 				const embed = new MessageEmbed()
 								.setColor(0xCB0000)
-								.setAuthor('Youtube', 'http://www.iconarchive.com/download/i98467/dakirby309/simply-styled/YouTube.ico', 'https://www.youtube.com/')
+								.setAuthor('Youtube', 'http://mpadelgym.com/public/uploads/mionopadelgym2/icono-youtube1.png', 'https://www.youtube.com/')
 								.setColor('#FF0000')
-								.addField('Search Results:', `${videos.map((video: any) => `[${video.title}](${video.url})`).join('\n')}`);
-				return message.util!.send(embed);
+								.addField('Search Results:', `${videos.map((video: any) => `**[${video.title}](${video.url})**`).join('\n')}`);
+				const msg = await message.util!.send({ embed }) as Message;
+				msg.react('🗑');
+				let react;
+				try {
+									react = await msg.awaitReactions(
+										(reaction, user) => reaction.emoji.name === '🗑' && user.id === message.author.id,
+										{ max: 1, time: 5000, errors: ['time'] }
+									);
+								} catch (error) {
+									msg.reactions.removeAll();
+
+									return message;
+								}
+				react.first()!.message.delete();
+
+				return message;
 	}
 }
