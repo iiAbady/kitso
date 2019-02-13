@@ -35,7 +35,7 @@ export default class Searchcommand extends Command {
 								.setColor(0xCB0000)
 								.setAuthor('Youtube', 'https://i.imgur.com/uxPFxMC.png', 'https://www.youtube.com/')
 								.setColor('RED')
-								.addField('Search Results:', `${videos.map(video => video.title)}`); //tslint:disable-line
+								.addField('Search Results:', `${videos.map((video: any) => video.title)}`);
 				return message.util!.send(embed);
 	}
 }
