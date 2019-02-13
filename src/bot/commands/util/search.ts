@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
-import Youtube from 'simple-youtube-api';
-const youtube = new Youtube(`${process.env.YOUTUBE}`);
+const Youtube = require('simple-youtube-api'); //tslint:disable-line
+const youtube = new Youtube(process.env.YOUTUBE);
 
 export default class NPMCommand extends Command {
 	public constructor() {
@@ -35,7 +35,7 @@ export default class NPMCommand extends Command {
 								.setColor(0xCB0000)
 								.setAuthor('Youtube', 'https://i.imgur.com/uxPFxMC.png', 'https://www.youtube.com/')
 								.setColor('RED')
-								.addField('Search Results:', `${videos.map(video => video.title)}`);
+								.addField('Search Results:', `${videos.map(video => video.title)}`); //tslint:disable-line
 				return message.util!.send(embed);
 	}
 }
