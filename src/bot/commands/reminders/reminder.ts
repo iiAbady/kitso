@@ -6,11 +6,11 @@ export default class ReminderCommand extends Command {
 	public constructor() {
 		super('reminder', {
 			aliases: ['remind', 'reminder'],
+			ownerOnly: true,
 			description: {
 				content: stripIndents`Available methods:
 					 • add \`[--hoist/--pin] <tag> <content>\`
 					 • del \`[--all]\`
-					 • list
 					Required: \`<>\` | Optional: \`[]\`
 					For additional \`<...arguments>\` usage refer to the examples below.
 				`,
@@ -20,7 +20,6 @@ export default class ReminderCommand extends Command {
 					'add --dm ban Dim in 6 months',
 					'delete',
 					'delete --all',
-					'list'
 				]
 			},
 			category: 'reminders',
@@ -28,7 +27,7 @@ export default class ReminderCommand extends Command {
 			args: [
 				{
 					id: 'method',
-					type: ['add', 'del', 'delete', 'list']
+					type: ['add', 'del', 'delete']
 				},
 				{
 					id: 'name',
@@ -53,7 +52,6 @@ export default class ReminderCommand extends Command {
 			cancel: this.handler.modules.get('reminder-delete'),
 			del: this.handler.modules.get('reminder-delete'),
 			delete: this.handler.modules.get('reminder-delete'),
-			list: this.handler.modules.get('reminder-list')
 		} as { [key: string]: Command } )[method];
 
 		return this.handler.handleDirectCommand(message, name, command, true);
