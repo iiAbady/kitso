@@ -14,7 +14,7 @@ export default class RemindScheduler {
 
 	protected queuedSchedules = new Map();
 
-	public constructor(client: KitsoClient, repository: Repository<any>, { checkRate = 1 * 60 * 1000 } = {}) {
+	public constructor(client: KitsoClient, repository: Repository<any>, { checkRate = 5 * 60 * 1000 } = {}) {
 		this.client = client;
 		this.repo = repository;
 		this.checkRate = checkRate;

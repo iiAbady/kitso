@@ -22,19 +22,19 @@ export default class ReminderAddCommand extends Command {
 					type: str => {
 						if (!str) return null;
 						const duration = ms(str);
-						if (duration && duration >= 60000 && !isNaN(duration)) return duration;
+						if (duration && duration >= 300000 && !isNaN(duration)) return duration;
 						return null;
 					},
 					prompt: {
-						start: (message: Message) => `${message.author}, when do you want me to remind you?`,
-						retry: (message: Message) => `${message.author}, please use a proper time format.`
+						start: (message: Message) => `${message.author}, When do you want me to remind you?`,
+						retry: (message: Message) => `${message.author}, Please use proper time format, time should be 5 mineuts or more!`
 					}
 				},
 				{
 					id: 'reason',
 					type: 'string',
 					prompt: {
-						start: (message: Message) => `${message.author}, what do you want me to remind you of?`
+						start: (message: Message) => `${message.author}, What do you want me to remind you of?`
 					}
 				},
 				{
