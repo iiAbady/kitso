@@ -20,6 +20,6 @@ export class Reminder {
 	@Column()
 	trigger!: string;
 
-	@Column({ type: 'timestamp' })
+	@Column({ type: 'timestamptz' })
 	triggers_at!: Date;
 }

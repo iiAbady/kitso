@@ -27,7 +27,7 @@ export default class RemindScheduler {
 		if (reminder.channel) rmd.channel = reminder.channel;
 		rmd.reason = reminder.reason;
 		rmd.trigger = reminder.trigger;
-		rmd.triggers_at = reminder.triggers_at;
+		rmd.triggers_at = new Date(reminder.triggers_at);
 		const dbReminder = await remindersRepo.save(rmd);
 		if (dbReminder.triggers_at.getTime() < (Date.now() + this.checkRate)) {
 			this.queueReminder(dbReminder);
