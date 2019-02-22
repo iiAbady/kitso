@@ -189,7 +189,6 @@ export default class KitsoClient extends AkairoClient {
 
 		this.db = database.get('kitso');
 		await this.db.connect();
-		await this.db.synchronize();
 		this.settings = new TypeORMProvider(this.db.getRepository(Setting));
 		await this.settings.init();
 		// this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
