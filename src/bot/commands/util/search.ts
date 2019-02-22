@@ -8,7 +8,6 @@ export default class Searchcommand extends Command {
 		super('search', {
 			aliases: ['search'],
 						category: 'util',
-						ownerOnly: true,
 			description: {
 				content: 'Searches youtube for videos.',
 				usage: '<query>',
@@ -35,7 +34,7 @@ export default class Searchcommand extends Command {
 								.setColor(0xCB0000)
 								.setAuthor('Youtube', 'http://mpadelgym.com/public/uploads/mionopadelgym2/icono-youtube1.png', 'https://www.youtube.com/')
 								.setColor('#FF0000')
-								.addField('Search Results:', `${videos.map((video: any) => `**[${video.title}](${video.url})**`).join('\n')}`);
+								.addField('Search Results:', `${videos.slice(0, 1000).map((video: any) => `**[${video.title}](${video.url})**`).join('\n')}`);
 				const msg = await message.util!.send({ embed }) as Message;
 				msg.react('🗑');
 				let react;
