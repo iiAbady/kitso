@@ -43,8 +43,8 @@ export default class ReminderCommand extends Command {
 			// @ts-ignore
 			const prefix = this.handler.prefix(message);
 			return message.util!.send(stripIndents`
-				When you beg me so much I just can't not help you~
-				Check \`${prefix}help reminder\` for more information.
+			I-I don't understand what are you saying senpai!
+			Check \`${prefix}help remind\` for more information.
 			`);
 		}
 		const command = ({

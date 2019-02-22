@@ -1,9 +1,10 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { Reminder } from '../../models/Reminders';
+import { emojis } from '../../util';
 const ms = require('@naval-base/ms'); // tslint:disable-line
 
-const REMINDER_LIMIT = 15;
+const REMINDER_LIMIT = 3;
 
 export default class ReminderAddCommand extends Command {
 	public constructor() {
@@ -50,11 +51,11 @@ export default class ReminderAddCommand extends Command {
 		const remindersRepo = this.client.db.getRepository(Reminder);
 		const reminderCount = await remindersRepo.count({ user: message.author.id });
 		if (reminderCount > REMINDER_LIMIT) {
-			return message.util!.reply(`you already have ${REMINDER_LIMIT} ongoing reminders... do you really need more?`);
+			return message.util!.reply(`you have ${REMINDER_LIMIT} reminders already! I can't do more ~_~`);
 		}
 
 		if (reason && reason.length >= 1850) {
-			return message.util!.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
+			return message.util!.reply('Reminders reasons contents have a limit of **1950** characters only!');
 		}
 		if (!time) {
 			return message.util!.reply('I can\'t tell what time I\'m supposed to remind you at!');
@@ -76,6 +77,6 @@ export default class ReminderAddCommand extends Command {
 			triggers_at: Date.now() + time
 		});
 
-		return message.util!.reply(`I'll remind you in ${ms(time)}`);
+		return message.util!.reply(`${emojis.thumbsoUpo} I'll remind you in ${ms(time)}`);
 	}
 }
