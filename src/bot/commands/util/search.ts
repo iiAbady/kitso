@@ -28,13 +28,13 @@ export default class Searchcommand extends Command {
 	}
 
 	public async exec(message: Message, { query }: { query: string }) {
-				const videos =  await youtube.searchVideos(query, 10);
+				const videos =  await youtube.searchVideos(query, 5);
 				if(!videos) return message.util!.send("Looks like your query video doesn't even exist, you wasted my time!");
 				const embed = new MessageEmbed()
 								.setColor(0xCB0000)
 								.setAuthor('Youtube', 'http://mpadelgym.com/public/uploads/mionopadelgym2/icono-youtube1.png', 'https://www.youtube.com/')
 								.setColor('#FF0000')
-								.addField('Search Results:', `${videos.slice(0, 1000).map((video: any) => `**[${video.title}](${video.url})**`).join('\n')}`);
+								.addField('Search Results:', `${videos.map((video: any) => `**[${video.title}](${video.url})**`).join('\n')}`);
 				const msg = await message.util!.send({ embed }) as Message;
 				msg.react('🗑');
 				let react;
