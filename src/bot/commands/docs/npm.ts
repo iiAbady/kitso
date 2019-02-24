@@ -26,7 +26,8 @@ export default class NPMCommand extends Command {
 				},
 				{
 					id: 'heroku',
-					flag: ['heroku', 'هيركو']
+					match: 'flag',
+					flag: '--heroku'
 				}
 			]
 		});
@@ -42,7 +43,7 @@ export default class NPMCommand extends Command {
 			return message.util!.reply('Developer of this package didn\'t publish it yet ~_~');
 		}
 		const version = body.versions[body['dist-tags'].latest];
-		if (heroku) return message.channel.send(`**"${pkg}"**:"^${version}"`);
+		if (heroku) return message.channel.send(`**"${pkg}"**:"^${body['dist-tags'].latest}"`);
 		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }) => user.name));
 		const dependencies = version.dependencies ? this._trimArray(Object.keys(version.dependencies)) : null;
 		const embed = new MessageEmbed()
