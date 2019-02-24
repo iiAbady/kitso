@@ -13,7 +13,7 @@ export default class Searchcommand extends Command {
 				usage: '<query>',
 				examples: ['Funny Video', 'cringe compilation']
 			},
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
 			args: [
 				{
 					id: 'query',

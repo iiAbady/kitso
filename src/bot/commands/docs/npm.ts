@@ -23,12 +23,16 @@ export default class NPMCommand extends Command {
 					},
 					match: 'content',
 					type: pkg => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
+				},
+				{
+					id: 'heroku',
+					flag: ['heroku', 'هيركو']
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { pkg }: { pkg: string }) {
+	public async exec(message: Message, { pkg, heroku }: { pkg: string, heroku: boolean }) {
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 		if (res.status === 404) {
 			return message.util!.reply("Kitso couldn't find the requested information.");
@@ -38,6 +42,7 @@ export default class NPMCommand extends Command {
 			return message.util!.reply('Developer of this package didn\'t publish it yet ~_~');
 		}
 		const version = body.versions[body['dist-tags'].latest];
+		if (heroku) return message.channel.send(`**"${pkg}"**:"^${version}"`);
 		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }) => user.name));
 		const dependencies = version.dependencies ? this._trimArray(Object.keys(version.dependencies)) : null;
 		const embed = new MessageEmbed()
