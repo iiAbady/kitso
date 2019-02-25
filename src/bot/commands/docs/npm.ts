@@ -3,6 +3,7 @@ import { Message, MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
 import * as moment from 'moment';
 import 'moment-duration-format';
+import { emojis } from '../../util/index';
 
 export default class NPMCommand extends Command {
 	public constructor() {
@@ -27,7 +28,7 @@ export default class NPMCommand extends Command {
 				{
 					id: 'heroku',
 					match: 'flag',
-					flag: '--heroku'
+					flag: ['--heroku']
 				}
 			]
 		});
@@ -43,7 +44,7 @@ export default class NPMCommand extends Command {
 			return message.util!.reply('Developer of this package didn\'t publish it yet ~_~');
 		}
 		const version = body.versions[body['dist-tags'].latest];
-		if (heroku) return message.channel.send(`**"${pkg}"**:"^${body['dist-tags'].latest}"`);
+		if (heroku) return message.channel.send(`**"${pkg}":"^${body['dist-tags'].latest}"**`);
 		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }) => user.name));
 		const dependencies = version.dependencies ? this._trimArray(Object.keys(version.dependencies)) : null;
 		const embed = new MessageEmbed()
