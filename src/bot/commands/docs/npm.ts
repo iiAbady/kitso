@@ -3,7 +3,6 @@ import { Message, MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
 import * as moment from 'moment';
 import 'moment-duration-format';
-import { emojis } from '../../util/index';
 
 export default class NPMCommand extends Command {
 	public constructor() {
@@ -22,13 +21,13 @@ export default class NPMCommand extends Command {
 					prompt: {
 						start: (message: Message) => `${message.author}, What would you like to search for in npm?`
 					},
-					match: 'content',
+					match: 'rest',
 					type: pkg => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
 				},
 				{
 					id: 'heroku',
 					match: 'flag',
-					flag: ['--heroku']
+					flag: ['--heroku', '-h']
 				}
 			]
 		});
