@@ -27,7 +27,7 @@ export default class NPMCommand extends Command {
 				{
 					id: 'heroku',
 					match: 'flag',
-					flag: ['--heroku', '-h']
+					flag: ['--heroku', '--h']
 				}
 			]
 		});
