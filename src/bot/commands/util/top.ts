@@ -31,7 +31,7 @@ export default class Searchcommand extends Command {
 				if(!leader || !leader.length) return message.util!.send("Looks like I couldn't find any game with that name in BlocksMC.");
 				const embed = new MessageEmbed()
 																.setColor('BLUE')
-																.setDescription(leader.map((player: any) => player).join('\n'));
+																.setDescription(leader.map((player: any, rank: number) => `#${rank+1} ${player}`).join('\n'));
 				return message.util!.send(embed);
 	}
 }
