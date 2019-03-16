@@ -4,8 +4,8 @@ const blocksmc = require('blocksmc'); //tslint:disable-line
 
 export default class Searchcommand extends Command {
 	public constructor() {
-		super('blocksmc', {
-			aliases: ['blocks', 'blocksmc'],
+		super('top', {
+			aliases: ['top'],
 						category: 'util',
 			description: {
 				content: 'Gives you the leaderboard of a game in BlocksMC.',
