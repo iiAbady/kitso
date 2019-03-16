@@ -34,7 +34,8 @@
 		"simple-youtube-api": "^5.1.1",
 		"turndown": "^5.0.3",
 		"typeorm": "^0.2.13",
-		"winston": "^3.2.1"
+		"winston": "^3.2.1",
+		"blocksmc": "^1.2.2"
 	},
 	"devDependencies": {
 		"@types/common-tags": "^1.8.0",
