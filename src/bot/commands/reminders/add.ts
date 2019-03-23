@@ -14,7 +14,7 @@ export default class ReminderAddCommand extends Command {
 			description: {
 				content: 'Adds a reminder that triggers at the given time and tells you the given reason.',
 				usage: '[--dm/--pm] <reason> <time>',
-				examples: ['leave in 5 minutes', 'ban Dim in 6 months --dm']
+				examples: ['eat in 5 minutes', 'play minecraft in 6 months --dm']
 			},
 			ratelimit: 2,
 			args: [
