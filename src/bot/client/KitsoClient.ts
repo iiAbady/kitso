@@ -53,7 +53,7 @@ export default class KitsoClient extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', 'commands'),
-		prefix: (message: Message) => this.settings.get(message.guild, 'prefix', 'k!'),
+		prefix: (message: Message) => '?',
 		aliasReplacement: /-/g,
 		allowMention: true,
 		commandUtil: true,
@@ -171,8 +171,8 @@ export default class KitsoClient extends AkairoClient {
 		this.db = database.get('kitso');
 		await this.db.connect();
 		await this.db.synchronize();
-		this.settings = new TypeORMProvider(this.db.getRepository(Setting));
-		await this.settings.init();
+		// this.settings = new TypeORMProvider(this.db.getRepository(Setting));
+		// await this.settings.init();
 		this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
 		this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
 		await this.muteScheduler.init();
