@@ -48,7 +48,7 @@ export default class TagAddCommand extends Command {
 		if (content && content.length >= 1950) {
 			return message.util!.reply('Tags contents have a limit of **1950** characters only!');
 		}
-		const staffRole = message.member.roles.has(this.client.settings.get(message.guild, 'modRole', undefined));
+		const staffRole = message.member.hasPermission(['MANAGE_GUILD']);
 		const tagsRepo = this.client.db.getRepository(Tag);
 		const tag = new Tag();
 		tag.user = message.author.id;

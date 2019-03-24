@@ -54,7 +54,7 @@ export default class TagEditCommand extends Command {
 	}
 
 	public async exec(message: Message, { tag, hoist, unhoist, content }: { tag: Tag, hoist: boolean, unhoist: boolean, content: string }) {
-		const staffRole = message.member.roles.has(this.client.settings.get(message.guild, 'modRole', undefined));
+		const staffRole = message.member.hasPermission(['MANAGE_GUILD']);
 		if (tag.user !== message.author.id && !staffRole) {
 			return message.util!.reply('Losers are only allowed to edit their own tags! Hah hah hah!');
 		}
