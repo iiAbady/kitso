@@ -53,7 +53,7 @@ export default class KitsoClient extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', 'commands'),
-		prefix: (message: Message) => '?',
+		prefix: (message: Message) => this.settings.get(message.guild.id, 'prefix', '?'),
 		aliasReplacement: /-/g,
 		allowMention: true,
 		commandUtil: true,
