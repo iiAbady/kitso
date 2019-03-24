@@ -9,7 +9,7 @@ connectionManager.create({
 	name: 'kitso',
 	type: 'postgres',
 	url: process.env.DATABASE_URL,
-	entities: [Tag, Reminder, Case]
+	entities: [Case]
 });
 
 export default connectionManager;
