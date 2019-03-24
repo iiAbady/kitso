@@ -4,16 +4,13 @@ import { Collection, Message, Webhook } from 'discord.js';
 import { Logger, createLogger, transports, format } from 'winston';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
-// import MuteScheduler from '../structures/MuteScheduler';
+import MuteScheduler from '../structures/MuteScheduler';
 import RemindScheduler from '../structures/RemindScheduler';
 import { Setting } from '../models/Settings';
 import { Connection } from 'typeorm';
-// import { Case } from '../models/Cases';
+import { Case } from '../models/Cases';
 import { Reminder } from '../models/Reminders';
 import { Tag } from '../models/Tags';
-// import { Counter, collectDefaultMetrics, register } from 'prom-client';
-// import { createServer } from 'http';
-// import { parse } from 'url'; pipline test
 const Raven = require('raven'); // tslint:disable-line
 
 declare module 'discord-akairo' {
@@ -25,12 +22,8 @@ declare module 'discord-akairo' {
 		config: KitsoOptions;
 		webhooks: Collection<string, Webhook>;
 		cachedCases: Set<string>;
-		// muteScheduler: MuteScheduler;
+		muteScheduler: MuteScheduler;
 		remindScheduler: RemindScheduler;
-		// prometheus: {
-		// 	commandCounter: Counter;
-		// 	lewdcarioAvatarCounter: Counter;
-		// };
 	}
 }
 
@@ -85,17 +78,9 @@ export default class KitsoClient extends AkairoClient {
 
 	public cachedCases = new Set();
 
-	// public muteScheduler!: MuteScheduler;
+	public muteScheduler!: MuteScheduler;
 
-	// public remindScheduler!: RemindScheduler;
-
-	// public prometheus = {
-	// 	messagesCounter: new Counter({ name: 'kitso_messages_total', help: 'Total number of messages Kitso has seen' }),
-	// 	commandCounter: new Counter({ name: 'kitso_commands_total', help: 'Total number of commands used' }),
-	// 	lewdcarioAvatarCounter: new Counter({ name: 'kitso_lewdcario_avatar_total', help: 'Total number of avatar changes from Lewdcario' }),
-	// 	collectDefaultMetrics,
-	// 	register
-	// };
+	public remindScheduler!: RemindScheduler;
 
 	public constructor(config: KitsoOptions) {
 		super({ ownerID: config.owner }, {
@@ -103,10 +88,6 @@ export default class KitsoClient extends AkairoClient {
 			disableEveryone: true,
 			disabledEvents: ['TYPING_START']
 		});
-
-		// this.on('message', message => {
-		// 	this.prometheus.messagesCounter.inc();
-		// });
 
 		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
 			if (!phrase) return null;
@@ -191,22 +172,11 @@ export default class KitsoClient extends AkairoClient {
 		await this.db.connect();
 		this.settings = new TypeORMProvider(this.db.getRepository(Setting));
 		await this.settings.init();
-		// this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
+		this.muteScheduler = new MuteScheduler(this, this.db.getRepository(Case));
 		this.remindScheduler = new RemindScheduler(this, this.db.getRepository(Reminder));
-		// await this.muteScheduler.init();
+		await this.muteScheduler.init();
 		await this.remindScheduler.init();
 	}
-// TODO: somehow let the web server work V
-	// public metrics() {
-	// 	const port = process.env.PORT || 3000;
-	// 	createServer((req, res) => {
-	// 		if (parse(req.url!).pathname === '/metrics') {
-	// 			res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
-	// 			res.write(this.prometheus.register.metrics());
-	// 		}
-	// 		res.end();
-	// 	}).listen(port);
-	// }
 
 	public async start() {
 		await this._init();
