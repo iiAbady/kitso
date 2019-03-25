@@ -23,3 +23,6 @@ typings/
 .tmp/
 .github/
 ormconfig.json
+
+# IDE
+.vscode

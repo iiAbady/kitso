@@ -1,4 +1,4 @@
-import { Command, Control } from 'discord-akairo';
+import { Command } from 'discord-akairo';
 import { Message, Util } from 'discord.js';
 import * as moment from 'moment';
 import { Tag } from '../../models/Tags';
@@ -14,49 +14,51 @@ export default class TagEditCommand extends Command {
 			},
 			channel: 'guild',
 			ratelimit: 2,
-			args: [
-				{
-					id: 'tag',
-					type: 'tag',
-					prompt: {
-						start: (message: Message) => `${message.author}, what tag do you want to edit?`,
-						retry: (message: Message, _: any, provided: { phrase: string }) => `${message.author}, a tag with the name **${provided.phrase}** does not exist.`
-					}
-				},
-				{
-					id: 'hoist',
-					match: 'flag',
-					flag: ['--hoist', '--pin']
-				},
-				{
-					id: 'unhoist',
-					match: 'flag',
-					flag: ['--unhoist', '--unpin']
-				},
-				Control.if((_, args) => args.hoist || args.unhoist, [
-					{
-						id: 'content',
-						match: 'rest',
-						type: 'tagContent'
-					}
-				], [
-					{
-						id: 'content',
-						match: 'rest',
-						type: 'tagContent',
-						prompt: {
-							start: (message: Message) => `${message.author}, what should the new content be?`
-						}
-					}
-				])
-			]
+			flags: ['--hoist', '--pin', '--unhoist', '--unpin']
 		});
 	}
 
+	public *args() {
+		const tag = yield {
+			type: 'tag',
+			prompt: {
+				start: (message: Message) => `${message.author}, What tag do you want to edit?`,
+				retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a tag with the name **${failure.value}** does not exist.`
+			}
+		};
+
+		const hoist = yield {
+			match: 'flag',
+			flag: ['--hoist', '--pin']
+		};
+
+		const unhoist = yield {
+			match: 'flag',
+			flag: ['--unhoist', '--unpin']
+		};
+
+		const content = yield (
+			hoist || unhoist ?
+			{
+				match: 'rest',
+				type: 'tagContent'
+			} :
+			{
+				match: 'rest',
+				type: 'tagContent',
+				prompt: {
+					start: (message: Message) => `${message.author}, What should the new content be?`
+				}
+			}
+		);
+
+		return { tag, hoist, unhoist, content };
+	}
+
 	public async exec(message: Message, { tag, hoist, unhoist, content }: { tag: Tag, hoist: boolean, unhoist: boolean, content: string }) {
-		const staffRole = message.member.hasPermission(['MANAGE_GUILD']);
+		const staffRole = message.member.roles.has(this.client.settings.get(message.guild, 'modRole', undefined));
 		if (tag.user !== message.author.id && !staffRole) {
-			return message.util!.reply('Losers are only allowed to edit their own tags! Hah hah hah!');
+			return message.util!.reply('Losers are only allowed to edit their own tags.');
 		}
 		if (content && content.length >= 1950) {
 			return message.util!.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
@@ -66,6 +68,7 @@ export default class TagEditCommand extends Command {
 		else if (unhoist) hoist = false;
 		if ((hoist || unhoist) && staffRole) tag.hoisted = hoist;
 		if (content) {
+			content = Util.cleanContent(content, message);
 			tag.content = content;
 		}
 		tag.last_modified = message.author.id;

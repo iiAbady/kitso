@@ -21,7 +21,7 @@ export default class TagAddCommand extends Command {
 					type: 'existingTag',
 					prompt: {
 						start: (message: Message) => `${message.author}, what should the tag be named?`,
-						retry: (message: Message, _: any, provided: { phrase: string }) => `${message.author}, a tag with the name **${provided.phrase}** already exists.`
+						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a tag with the name **${failure.value}** already exists.`
 					}
 				},
 				{

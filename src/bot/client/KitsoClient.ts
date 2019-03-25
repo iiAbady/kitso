@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
+import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } from 'discord-akairo';
 import { Collection, Message, Webhook } from 'discord.js';
 import { Logger, createLogger, transports, format } from 'winston';
 import database from '../structures/Database';
@@ -43,7 +43,7 @@ export default class KitsoClient extends AkairoClient {
 			})
 		),
 		transports: [
-			new transports.Console({ level: 'info' })
+			new transports.Console({ level: 'info' }),
 		]
 	});
 
@@ -89,8 +89,8 @@ export default class KitsoClient extends AkairoClient {
 			disabledEvents: ['TYPING_START']
 		});
 
-		this.commandHandler.resolver.addType('tag', async (phrase, message) => {
-			if (!phrase) return null;
+		this.commandHandler.resolver.addType('tag', async (message, phrase) => {
+			if (!phrase) return Flag.fail(phrase);
 			phrase = phrase.toLowerCase();
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
@@ -106,10 +106,10 @@ export default class KitsoClient extends AkairoClient {
 				}
 			}); */
 
-			return tag || null;
+			return tag || Flag.fail(phrase);
 		});
-		this.commandHandler.resolver.addType('existingTag', async (phrase, message) => {
-			if (!phrase) return null;
+		this.commandHandler.resolver.addType('existingTag', async (message, phrase) => {
+			if (!phrase) return Flag.fail(phrase);
 			phrase = phrase.toLowerCase();
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
@@ -125,14 +125,14 @@ export default class KitsoClient extends AkairoClient {
 				}
 			}); */
 
-			return tag ? null : phrase;
+			return tag ? Flag.fail(phrase) : phrase;
 		});
-		this.commandHandler.resolver.addType('tagContent', (phrase, message) => {
+		this.commandHandler.resolver.addType('tagContent', (message, phrase) => {
 			if (!phrase) phrase = '';
 			phrase = phrase;
 			if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
 
-			return phrase || null;
+			return phrase || Flag.fail(phrase);
 		});
 
 		this.config = config;

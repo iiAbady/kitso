@@ -33,6 +33,6 @@ export default class TagDownloadCommand extends Command {
 			return out;
 		}, '');
 
-		return message.util!.send('Haiiiii~', { files: [{ attachment: Buffer.from(output, 'utf8'), name: `${member ? `${member.displayName}s_tags` : 'all_tags' }.txt` }] });
+		return message.util!.send('take it and put it in your ***folders***', { files: [{ attachment: Buffer.from(output, 'utf8'), name: `${member ? `${member.displayName}s_tags` : 'all_tags' }.txt` }] });
 	}
 }

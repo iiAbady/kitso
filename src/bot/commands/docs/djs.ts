@@ -3,12 +3,14 @@ import { Message, TextChannel } from 'discord.js';
 import fetch from 'node-fetch';
 import * as qs from 'querystring';
 
+const SOURCES = ['stable', 'master', 'rpc', 'commando', 'akairo', 'akairo-master'];
+
 export default class DocsCommand extends Command {
 	public constructor() {
-		super('djs', {
-			aliases: ['djs'],
+		super('docs', {
+			aliases: ['docs'],
 			description: {
-				content: 'Searches discord.js docs.',
+				content: 'Searches discord.js docs and its related frameworks (akairo - commando).',
 				usage: '<query>',
 				examples: ['TextChannel', 'Client', 'ClientUser#setActivity master']
 			},
@@ -21,7 +23,7 @@ export default class DocsCommand extends Command {
 					match: 'rest',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message) => `${message.author}, What would you like to search in discord.js?`
+						start: (message: Message) => `${message.author}, what would you like to search?`
 					}
 				},
 				{
@@ -35,17 +37,12 @@ export default class DocsCommand extends Command {
 
 	public async exec(message: Message, { query, force }: { query: any, force: boolean }) {
 		query = query.split(' ');
-		let project = 'main';
-		let branch = ['stable', 'master', 'rpc', 'commando'].includes(query.slice(-1)[0]) ? query.pop() : 'stable';
-		if (['rpc', 'commando'].includes(branch)) {
-			project = branch;
-			branch = 'master';
-		}
-		const queryString = qs.stringify({ q: query.join(' '), force });
-		const res = await fetch(`https://djsdocs.sorta.moe/${project}/${branch}/embed?${queryString}`);
+		const source = SOURCES.includes(query.slice(-1)[0]) ? query.pop() : 'stable';
+		const queryString = qs.stringify({ src: source, q: query.join(' '), force });
+		const res = await fetch(`https://djsdocs.sorta.moe/v2/embed?${queryString}`);
 		const embed = await res.json();
 		if (!embed) {
-			return message.util!.reply("Kitso couldn't find the requested information!");
+			return message.util!.reply("Yukikaze couldn't find the requested information. Maybe look for something that actually exists the next time!");
 		}
 		if (message.channel.type === 'dm' || !(message.channel as TextChannel).permissionsFor(message.guild.me)!.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)) {
 			return message.util!.send({ embed });

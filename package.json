@@ -13,11 +13,12 @@
 	},
 	"dependencies": {
 		"@naval-base/ms": "^2.2.1",
+		"blocksmc": "^2.4.3",
 		"common-tags": "^1.8.0",
 		"diff": "^4.0.1",
 		"discord-akairo": "1Computer1/discord-akairo",
 		"discord.js": "discordjs/discord.js",
-		"fs-nextra": "^0.4.3",
+		"fs-nextra": "^0.4.5",
 		"gulp": "^4.0.0",
 		"gulp-sourcemaps": "^2.6.4",
 		"gulp-typescript": "^5.0.0",
@@ -26,27 +27,26 @@
 		"moment-duration-format": "^2.2.2",
 		"node-emoji": "^1.8.1",
 		"node-fetch": "^2.3.0",
-		"pg": "^7.8.0",
+		"pg": "^7.9.0",
 		"prom-client": "^11.2.1",
 		"punycode": "^2.1.1",
 		"raven": "^2.6.4",
 		"reflect-metadata": "^0.1.13",
 		"simple-youtube-api": "^5.1.1",
 		"turndown": "^5.0.3",
-		"typeorm": "^0.2.13",
-		"winston": "^3.2.1",
-		"blocksmc": "^2.4.3"
+		"typeorm": "^0.2.15",
+		"winston": "^3.2.1"
 	},
 	"devDependencies": {
 		"@types/common-tags": "^1.8.0",
 		"@types/moment-duration-format": "^2.2.2",
-		"@types/node": "^11.9.3",
+		"@types/node": "^11.11.6",
 		"@types/node-emoji": "^1.8.1",
-		"@types/node-fetch": "^2.1.6",
+		"@types/node-fetch": "^2.1.7",
 		"@types/ws": "^6.0.1",
 		"tslint": "^5.14.0",
 		"tslint-config-fire": "^1.0.1",
-		"typescript": "^3.3.3"
+		"typescript": "^3.3.4000"
 	},
 	"optionalDependencies": {
 		"@discordjs/uws": "^11.149.1",

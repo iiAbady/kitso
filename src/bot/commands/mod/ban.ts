@@ -21,11 +21,15 @@ export default class BanCommand extends Command {
 			args: [
 				{
 					id: 'member',
-					type: Argument.union('member', async phrase => {
+					type: Argument.union('member', async (_, phrase) => {
 						const m = await this.client.users.fetch(phrase);
 						if (m) return { id: m.id, user: m };
 						return null;
-					})
+					}),
+					prompt: {
+						start: (message: Message) => `${message.author}, What member do you want to ban?`,
+						retry: (message: Message) => `${message.author}, Please mention a member.`
+					}
 				},
 				{
 					id: 'days',

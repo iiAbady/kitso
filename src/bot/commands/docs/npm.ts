@@ -7,10 +7,10 @@ import 'moment-duration-format';
 export default class NPMCommand extends Command {
 	public constructor() {
 		super('npm', {
-			aliases: ['npm'],
+			aliases: ['npm', 'npm-package'],
 			category: 'docs',
 			description: {
-				content: 'Searches an npm package.',
+				content: 'Responds with information on an NPM package.',
 				usage: '<query>',
 				examples: ['discord.js', 'discord-akairo', 'node-fetch']
 			},
@@ -19,31 +19,25 @@ export default class NPMCommand extends Command {
 				{
 					id: 'pkg',
 					prompt: {
-						start: (message: Message) => `${message.author}, What would you like to search for in npm?`
+						start: (message: Message) => `${message.author}, what would you like to search for?`
 					},
-					match: 'rest',
-					type: pkg => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
-				},
-				{
-					id: 'heroku',
-					match: 'flag',
-					flag: ['--heroku', '--h']
+					match: 'content',
+					type: (_, pkg) => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { pkg, heroku }: { pkg: string, heroku: boolean }) {
+	public async exec(message: Message, { pkg }: { pkg: string }) {
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 		if (res.status === 404) {
-			return message.util!.reply("Kitso couldn't find the requested information.");
+			return message.util!.reply("Yukikaze couldn't find the requested information. Maybe look for something that actually exists the next time!");
 		}
 		const body = await res.json();
 		if (body.time.unpublished) {
-			return message.util!.reply('Developer of this package didn\'t publish it yet ~_~');
+			return message.util!.reply('whoever was the Commander of this package decided to unpublish it, what a fool.');
 		}
 		const version = body.versions[body['dist-tags'].latest];
-		if (heroku) return message.channel.send(`**"${pkg}":"^${body['dist-tags'].latest}"**`);
 		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }) => user.name));
 		const dependencies = version.dependencies ? this._trimArray(Object.keys(version.dependencies)) : null;
 		const embed = new MessageEmbed()
