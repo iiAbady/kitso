@@ -7,8 +7,8 @@ const SOURCES = ['stable', 'master', 'rpc', 'commando', 'akairo', 'akairo-master
 
 export default class DocsCommand extends Command {
 	public constructor() {
-		super('docs', {
-			aliases: ['docs'],
+		super('djs', {
+			aliases: ['djs'],
 			description: {
 				content: 'Searches discord.js docs and its related frameworks (akairo - commando).',
 				usage: '<query>',
