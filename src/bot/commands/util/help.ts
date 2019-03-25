@@ -16,7 +16,7 @@ export default class HelpCommand extends Command {
 			args: [
 				{
 					id: 'command',
-					type: cmd => {
+					type: (_, cmd) => {
 						if (!cmd) return '';
 						const commandAlias = this.handler.modules.filter(modulex => !modulex.ownerOnly).find(commando => commando.aliases.includes(cmd));
 						return commandAlias || cmd;

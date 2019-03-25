@@ -60,8 +60,8 @@ export default class KitsoClient extends AkairoClient {
 		commandUtilLifetime: 3e5,
 		defaultCooldown: 3000,
 		defaultPrompt: {
-			modifyStart: str => `${str}\n\nType \`cancel\` to cancel the command.`,
-			modifyRetry: str => `${str}\n\nType \`cancel\` to cancel the command.`,
+			modifyStart: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
+			modifyRetry: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
 			timeout: ':x: You took too long! **cancelled**',
 			ended: ":x: You've used your 3/3 tries! **cancelled**",
 			cancel: ':x: Cancelled',
@@ -89,9 +89,8 @@ export default class KitsoClient extends AkairoClient {
 			disabledEvents: ['TYPING_START']
 		});
 
-		this.commandHandler.resolver.addType('tag', async (message, phrase) => {
+		this.commandHandler.resolver.addType('tag', async (_, phrase) => {
 			if (!phrase) return Flag.fail(phrase);
-			phrase = phrase.toLowerCase();
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
 			const tags = await tagsRepo.find();
@@ -108,13 +107,12 @@ export default class KitsoClient extends AkairoClient {
 
 			return tag || Flag.fail(phrase);
 		});
-		this.commandHandler.resolver.addType('existingTag', async (message, phrase) => {
+		this.commandHandler.resolver.addType('existingTag', async (_, phrase) => {
 			if (!phrase) return Flag.fail(phrase);
-			phrase = phrase.toLowerCase();
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
 			const tags = await tagsRepo.find();
-			const [tag] = tags.filter(t => t.name === phrase || t.aliases.includes(phrase) && t.guild === message.guild.id);
+			const [tag] = tags.filter(t => t.name === phrase || t.aliases.includes(phrase));
 			/* const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
@@ -129,7 +127,6 @@ export default class KitsoClient extends AkairoClient {
 		});
 		this.commandHandler.resolver.addType('tagContent', (message, phrase) => {
 			if (!phrase) phrase = '';
-			phrase = phrase;
 			if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
 
 			return phrase || Flag.fail(phrase);
@@ -145,7 +142,7 @@ export default class KitsoClient extends AkairoClient {
 				release: '3.4.0'
 			}).install();
 		} else {
-			process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			process.on('unhandledRejection', (err: any) => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}
 
 		if (process.env.LOGS) {
