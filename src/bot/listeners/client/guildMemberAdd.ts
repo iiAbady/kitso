@@ -1,24 +1,22 @@
-// import { Listener } from 'discord-akairo';
-// import { GuildMember } from 'discord.js';
-// import { RoleState } from '../../models/RoleStates';
+import { Listener } from 'discord-akairo';
+import { GuildMember } from 'discord.js';
+import { Case } from '../../models/Cases';
 
-// export default class GuildMemberAddListener extends Listener {
-// 	public constructor() {
-// 		super('guildMemberAdd', {
-// 			emitter: 'client',
-// 			event: 'guildMemberAdd',
-// 			category: 'client'
-// 		});
-// 	}
+export default class GuildMemberAddListener extends Listener {
+	public constructor() {
+		super('guildMemberAdd', {
+			emitter: 'client',
+			event: 'guildMemberAdd',
+			category: 'client'
+		});
+	}
 
-// 	public async exec(member: GuildMember) {
-// 		const roleState = this.client.settings.get(member.guild, 'roleState', undefined);
-// 		if (roleState) {
-// 			const roleStateRepo = this.client.db.getRepository(RoleState);
-// 			const user = await roleStateRepo.findOne({ guild: member.guild.id, user: member.id });
-// 			try {
-// 				if (user && member.roles) await member.roles.add(user.roles, 'Automatic role state');
-// 			} catch {} // tslint:disable-line
-// 		}
-// 	}
-// }
+	public async exec(member: GuildMember) {
+			const caseRepo = this.client.db.getRepository(Case);
+			const muteRole = '535147827358203916';
+			const user = await caseRepo.findOne({ action: 5 });
+			try {
+				if (user) await member.roles.add(muteRole, '• Automatic Mute Role Watchdog •');
+			} catch {} // tslint:disable-line
+	}
+}

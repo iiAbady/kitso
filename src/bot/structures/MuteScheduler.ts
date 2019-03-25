@@ -46,7 +46,7 @@ export default class MuteScheduler {
 	public async cancelMute(mute: Case) {
 		this.client.logger.info(`[MUTE] Unmuted ${mute.target_tag} on ${this.client.guilds.get(mute.guild)}`);
 		const guild = this.client.guilds.get(mute.guild);
-		const muteRole = this.client.settings.get(guild!, 'muteRole', undefined);
+		const muteRole = '535147827358203916';
 		let member;
 		try {
 			member = await guild!.members.fetch(mute.target_id);

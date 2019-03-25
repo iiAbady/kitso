@@ -8,7 +8,7 @@ export default class BanCommand extends Command {
 	public constructor() {
 		super('ban', {
 			aliases: ['ban'],
-						category: 'mod',
+			category: 'mod',
 			description: {
 				content: 'Hammer on the edgy boys.',
 				usage: '<member> <...reason> [--days/-d]',
@@ -16,6 +16,7 @@ export default class BanCommand extends Command {
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES', 'EMBED_LINKS'],
+			userPermissions: ['MANAGE_GUILD'],
 			ratelimit: 2,
 			args: [
 				{
@@ -24,11 +25,7 @@ export default class BanCommand extends Command {
 						const m = await this.client.users.fetch(phrase);
 						if (m) return { id: m.id, user: m };
 						return null;
-					}),
-					prompt: {
-						start: (message: Message) => `${message.author}, What member do you want to ban?`,
-						retry: (message: Message) => `${message.author}, Please mention a member.`
-					}
+					})
 				},
 				{
 					id: 'days',
@@ -48,20 +45,10 @@ export default class BanCommand extends Command {
 		});
 	}
 
-	// @ts-ignore
-	public userPermissions(message: Message) {
-		const hasPermissions = message.member.hasPermission(['MANAGE_GUILD']);
-		if (!hasPermissions) return 'Moderator';
-		return null;
-	}
-
 	public async exec(message: Message, { member, days, reason }: { member: GuildMember, days: number, reason: string }) {
-		const staffRole = this.client.settings.get(message.guild, 'modRole', undefined);
+		if (!member) return message.reply(':x: Please type the member you want to ban');
 		if (member.id === message.author.id) {
 						return message.reply('REALLLLLLLLLY?');
-		}
-		if (member.roles && member.roles.has(staffRole)) {
-			return message.reply('nope. You know you can\'t do this.');
 		}
 		const key = `${message.guild.id}:${member.id}:BAN`;
 		if (this.client.cachedCases.has(key)) {
@@ -72,7 +59,7 @@ export default class BanCommand extends Command {
 		const casesRepo = this.client.db.getRepository(Case);
 		const dbCases = await casesRepo.find({ target_id: member.id });
 		const embed = Util.historyEmbed(member, dbCases);
-		await message.channel.send('You sure you want me to ban this dude?', { embed });
+		await message.channel.send('You sure you want me to ban this dude? (yes/anything)', { embed });
 		const responses = await message.channel.awaitMessages(msg => msg.author.id === message.author.id, {
 			max: 1,
 			time: 10000
@@ -89,7 +76,7 @@ export default class BanCommand extends Command {
 			sentMessage = await message.channel.send(`Banning **${member.user.tag}**...`) as Message;
 		} else {
 			this.client.cachedCases.delete(key);
-			return message.reply('cancelled ban.');
+			return message.reply(':x: cancelled ban.');
 		}
 
 		const totalCases = this.client.settings.get(message.guild, 'caseTotal', 0) as number + 1;
@@ -120,7 +107,7 @@ export default class BanCommand extends Command {
 			reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
 		}
 
-		const modLogChannel = this.client.settings.get(message.guild, 'modLogChannel', undefined);
+		const modLogChannel = '559070713181372446';
 		let modMessage;
 		if (modLogChannel) {
 			const embed = Util.logEmbed({ message, member, action: 'Ban', caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS.BAN);
