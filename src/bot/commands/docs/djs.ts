@@ -42,7 +42,7 @@ export default class DocsCommand extends Command {
 		const res = await fetch(`https://djsdocs.sorta.moe/v2/embed?${queryString}`);
 		const embed = await res.json();
 		if (!embed) {
-			return message.util!.reply("Yukikaze couldn't find the requested information. Maybe look for something that actually exists the next time!");
+			return message.util!.reply("Kitso couldn't find the requested information.");
 		}
 		if (message.channel.type === 'dm' || !(message.channel as TextChannel).permissionsFor(message.guild.me)!.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)) {
 			return message.util!.send({ embed });

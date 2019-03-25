@@ -31,7 +31,7 @@ export default class NPMCommand extends Command {
 	public async exec(message: Message, { pkg }: { pkg: string }) {
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 		if (res.status === 404) {
-			return message.util!.reply("Yukikaze couldn't find the requested information. Maybe look for something that actually exists the next time!");
+			return message.util!.reply("Kitso couldn't find the requested information.");
 		}
 		const body = await res.json();
 		if (body.time.unpublished) {
