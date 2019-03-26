@@ -28,7 +28,11 @@ export default class ReasonCommand extends Command {
 				{
 					id: 'reason',
 					match: 'rest',
-					type: 'string'
+					type: 'string',
+					prompt: {
+						start: (message: Message) => `${message.author}, what is the reason you want to set?`,
+						retry: (message: Message) => `${message.author}, please enter a reason.`
+					}
 				}
 			]
 		});
