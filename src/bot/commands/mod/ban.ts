@@ -12,7 +12,7 @@ export default class BanCommand extends Command {
 			description: {
 				content: 'Hammer on the edgy boys.',
 				usage: '<member> <...reason> [--days/-d]',
-				examples: ['@Abady', 'Abady said really bad things --days:30']
+				examples: ['@Abady', 'Abady said really bad things --days:5']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES', 'EMBED_LINKS'],
@@ -25,18 +25,14 @@ export default class BanCommand extends Command {
 						const m = await this.client.users.fetch(phrase);
 						if (m) return { id: m.id, user: m };
 						return null;
-					}),
-					prompt: {
-						start: (message: Message) => `${message.author}, What member do you want to ban?`,
-						retry: (message: Message) => `${message.author}, Please mention a member.`
-					}
+					})
 				},
 				{
 					id: 'days',
 					type: 'integer',
 					match: 'option',
 					flag: ['--days:', '-d:'],
-					default: 7
+					default: 0
 				},
 				{
 					id: 'reason',
@@ -44,13 +40,12 @@ export default class BanCommand extends Command {
 					type: 'string',
 					default: ''
 				}
-						],
-						ownerOnly: true
+						]
 		});
 	}
 
 	public async exec(message: Message, { member, days, reason }: { member: GuildMember, days: number, reason: string }) {
-		if (!member) return message.reply(':x: Please type the member you want to ban');
+		if (!member) return message.reply(':x: Please mention/type the member you want to ban');
 		if (member.id === message.author.id) {
 						return message.reply('REALLLLLLLLLY?');
 		}
