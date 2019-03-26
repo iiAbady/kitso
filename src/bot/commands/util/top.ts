@@ -20,7 +20,7 @@ export default class Searchcommand extends Command {
 						start: (message: Message) => `${message.author}, What game you want to get its leaderboard?`
 					},
 					match: 'content',
-					type: query => query ? query.replace(/ /g, ' ') : null
+					type: (_, query) => query ? query.replace(/ /g, ' ') : null
 				}
 			]
 		});
