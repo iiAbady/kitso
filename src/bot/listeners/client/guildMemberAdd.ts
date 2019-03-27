@@ -14,7 +14,7 @@ export default class GuildMemberAddListener extends Listener {
 	public async exec(member: GuildMember) {
 			const caseRepo = this.client.db.getRepository(Case);
 			const muteRole = '535147827358203916';
-			const user = await caseRepo.findOne({ action: 5 });
+			const user = await caseRepo.findOne({ action: 5, target_id: member.id });
 			try {
 				if (user) await member.roles.add(muteRole, '• Automatic Mute Role Watchdog •');
 			} catch {} // tslint:disable-line

@@ -10,9 +10,9 @@ export default class NPMCommand extends Command {
 			aliases: ['npm', 'npm-package'],
 			category: 'docs',
 			description: {
-				content: 'Responds with information on an NPM package.',
+				content: 'Show details about a package! use --heroku or -h to have its implementation in package.json',
 				usage: '<query>',
-				examples: ['discord.js', 'discord-akairo', 'node-fetch']
+				examples: ['discord.js', 'discord-akairo', 'node-fetch -h']
 			},
 			clientPermissions: ['EMBED_LINKS'],
 			args: [
@@ -23,19 +23,27 @@ export default class NPMCommand extends Command {
 					},
 					match: 'content',
 					type: (_, pkg) => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
+				},
+				{
+					 id: 'heroku',
+					 match: 'flag',
+					 flag: ['--heroku', '-h']
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { pkg }: { pkg: string }) {
+	public async exec(message: Message, { pkg, heroku }: { pkg: string, heroku: boolean }) {
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 		if (res.status === 404) {
 			return message.util!.reply("Kitso couldn't find the requested information.");
 		}
 		const body = await res.json();
 		if (body.time.unpublished) {
-			return message.util!.reply('whoever was the Commander of this package decided to unpublish it, what a fool.');
+			return message.util!.reply('The package is not unpublished yet.');
+		}
+		if (heroku) {
+			return message.util!.send(`**"${pkg}":"^${body['dist-tags'].latest}**"`);
 		}
 		const version = body.versions[body['dist-tags'].latest];
 		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }) => user.name));
