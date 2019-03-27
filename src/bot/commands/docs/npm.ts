@@ -21,7 +21,7 @@ export default class NPMCommand extends Command {
 					prompt: {
 						start: (message: Message) => `${message.author}, what would you like to search for?`
 					},
-					match: 'content',
+					match: 'rest',
 					type: (_, pkg) => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
 				},
 				{
