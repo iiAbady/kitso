@@ -20,7 +20,7 @@ export default class Searchcommand extends Command {
 						start: (message: Message) => `${message.author}, Who would you like to search for in blocksmc?`
 					},
 					match: 'content',
-					type: query => query ? query.replace(/ /g, ' ') : null
+					type: (_, query) => query ? query.replace(/ /g, ' ') : null
 				}
 			]
 		});
