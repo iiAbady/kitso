@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
-const blocksmc = require('blocksmc'); //tslint:disable-line
+import { Blocks } from 'blocksmc';
+const blocksmc: Blocks = new Blocks();
 
 export default class Searchcommand extends Command {
 	public constructor() {
@@ -33,7 +34,7 @@ export default class Searchcommand extends Command {
 								.setColor('BLUE')
 								.setAuthor(`[${player.rank}] ${query}`, `https://minotar.net/helm/${query}`, `https://blocksmc.com/player/${query}`)
 								.setDescription(`**Hours: ${player.timePlayed}**`);
-				player.games.map(async (g: { game: any; stats: { Kills: any; Deaths: any; Played: any; Points: any; Blocks: any; Eggs: any; Wins: any; FireWorks: any; Crates: any; DMs: any; Sponges: any; Beds: any; Rounds: any; Goals: any; }; }) => {
+				player.games.map(async g => {
 					embed.addField(g.game,
 `${g.stats.Kills ? `Kills: ${g.stats.Kills} ` : ''}
 ${g.stats.Deaths ? `Deaths: ${g.stats.Deaths} ` : ''}
