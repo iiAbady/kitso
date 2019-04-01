@@ -437,10 +437,10 @@ bintrees@1.0.1:
   resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.1.tgz#0e655c9b9c2435eaab68bf4027226d2b55a34524"
   integrity sha1-DmVcm5wkNeqraL9AJyJtK1WjRSQ=
 
-blocksmc@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/blocksmc/-/blocksmc-3.2.1.tgz#e084edfe0ce95f1627c2f003d0403f5e68f55777"
-  integrity sha512-3FPucidWLvom7n+TP+l0f99/MEZ7iKRxRj/ZbV0Gwh0EKzYruBBSP27naoTDTJbBGA21UJk38L9mIlaisc+dbg==
+blocksmc@^3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/blocksmc/-/blocksmc-3.2.5.tgz#c4f41df0b24a60ac1e4f4075054678ba21482b92"
+  integrity sha512-Dda9Jld5puRTKlOv1Q1SZ+rcZBvOG6yP24/73AI6VGQAlwKgM84yrDc/KKCS7WUBm7ieGYwV62ustQIoNssQ+g==
   dependencies:
     cheerio "^1.0.0-rc.2"
     node-fetch "^2.3.0"
