@@ -32,7 +32,7 @@ export default class Searchcommand extends Command {
 				if(!player) return message.util!.send("Looks like your query username doesn't even exist, you wasted my time!");
 				const embed = new MessageEmbed()
 								.setColor('BLUE')
-								.setAuthor(`[${player.rank}] ${query}`, `https://minotar.net/helm/${query}`, `https://blocksmc.com/player/${query}`)
+								.setAuthor(`[${player.rank}] ${player.name}`, `https://minotar.net/helm/${query}`, `https://blocksmc.com/player/${query}`)
 								.setDescription(`**Hours: ${player.timePlayed}**`);
 				player.games.map(async g => {
 					embed.addField(g.game,

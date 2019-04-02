@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
-const blocksmc = require('blocksmc'); //tslint:disable-line
+import { Blocks } from 'blocksmc';
+const blocksmc: Blocks = new Blocks();
 
 export default class Searchcommand extends Command {
 	public constructor() {
