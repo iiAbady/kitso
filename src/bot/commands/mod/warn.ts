@@ -10,9 +10,9 @@ export default class WarnCommand extends Command {
 			aliases: ['warn'],
 			category: 'mod',
 			description: {
-				content: 'Warns a user, duh.',
+				content: 'WAAAAAAAARNS a dude.',
 				usage: '<member> <...reason>',
-				examples: ['@Crawl dumb']
+				examples: ['@Abady spam']
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
@@ -23,8 +23,8 @@ export default class WarnCommand extends Command {
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (message: Message) => `${message.author}, what member do you want to warn?`,
-						retry: (message: Message) => `${message.author}, please mention a member.`
+						start: (message: Message) => `${message.author}, What member do you want to warn?`,
+						retry: (message: Message) => `${message.author}, Please mention a member.`
 					}
 				},
 				{
