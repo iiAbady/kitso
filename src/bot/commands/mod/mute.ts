@@ -50,7 +50,7 @@ export default class MuteCommand extends Command {
 	}
 
 	public async exec(message: Message, { member, duration, reason }: { member: GuildMember, duration: number, reason: string }) {
-		const muteRole = '535147827358203916';
+		const muteRole = '562125212976545817';
 		if (!muteRole) return message.reply('I cannot find the mute role.');
 
 		const key = `${message.guild.id}:${member.id}:MUTE`;
