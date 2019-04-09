@@ -1039,9 +1039,9 @@ diff@^4.0.1:
   integrity sha512-s2+XdvhPCOF01LRQBC8hf4vhbVmI2CGS5aZnxLJlT5FtdhPCDFq80q++zK2KlrVorVDdL5BOGZ/VfLrVtYNF+Q==
 
 discord-akairo@1Computer1/discord-akairo:
-  version "8.0.0-beta.5"
-  uid d725a7115a9e33ac2d55c2e5c62c204d77f9cbc6
-  resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/d725a7115a9e33ac2d55c2e5c62c204d77f9cbc6"
+  version "8.0.0-beta.8"
+  uid cb458b3a9b8b8fd944dd9c0ebed89268c5cd91f5
+  resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/cb458b3a9b8b8fd944dd9c0ebed89268c5cd91f5"
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
