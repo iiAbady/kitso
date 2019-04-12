@@ -57,7 +57,7 @@ public async exec(message: Message, { member, action, reason }: { member: GuildM
 		let modMessage;
 		const casesRepo = this.client.db.getRepository(Case);
 		if (modLogChannel) {
-			const embed = Util.logEmbed({ message, member, action: action, caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS.BAN);
+			const embed = Util.logEmbed({ message, member, action, caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS[action.toUpperCase()]);
 			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed) as Message;
 		}
 
