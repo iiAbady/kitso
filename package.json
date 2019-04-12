@@ -43,7 +43,7 @@
 		"@types/moment-duration-format": "^2.2.2",
 		"@types/node": "^11.13.0",
 		"@types/node-emoji": "^1.8.1",
-		"@types/node-fetch": "^2.1.7",
+		"@types/node-fetch": "^2.3.2",
 		"@types/ws": "^6.0.1",
 		"tslint": "^5.15.0",
 		"tslint-config-fire": "^1.0.1",
