@@ -15,7 +15,6 @@ export default class MuteCommand extends Command {
 			},
 			channel: 'guild',
 						clientPermissions: ['MANAGE_ROLES'],
-						userPermissions: ['MANAGE_GUILD', 'MANAGE_MESSAGES'],
 			ratelimit: 2,
 			args: [
 				{
@@ -48,7 +47,13 @@ export default class MuteCommand extends Command {
 			]
 		});
 	}
-
+// @ts-ignore
+public userPermissions(message: Message) {
+	const staffRole = '535380980521893918';
+	const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+	if (!hasStaffRole) return 'Moderator';
+	return null;
+}
 	public async exec(message: Message, { member, duration, reason }: { member: GuildMember, duration: number, reason: string }) {
 		const muteRole = '562125212976545817';
 		if (!muteRole) return message.reply('I cannot find the mute role.');

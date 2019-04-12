@@ -16,7 +16,6 @@ export default class WarnCommand extends Command {
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
-			userPermissions: ['MANAGE_GUILD'],
 			ratelimit: 2,
 			args: [
 				{
@@ -36,7 +35,13 @@ export default class WarnCommand extends Command {
 			]
 		});
 	}
-
+// @ts-ignore
+public userPermissions(message: Message) {
+	const staffRole = '535380980521893918';
+	const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+	if (!hasStaffRole) return 'Moderator';
+	return null;
+}
 	public async exec(message: Message, { member, reason }: { member: GuildMember, reason: string }) {
 		const totalCases = this.client.settings.get(message.guild, 'caseTotal', 0) as number + 1;
 		this.client.settings.set(message.guild, 'caseTotal', totalCases);

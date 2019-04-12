@@ -13,8 +13,7 @@ export default class ReasonCommand extends Command {
 				examples: ['1234 dumb', 'latest dumb']
 			},
 			channel: 'guild',
-						clientPermissions: ['MANAGE_ROLES'],
-						userPermissions: ['MANAGE_GUILD', 'MANAGE_MESSAGES'],
+			clientPermissions: ['MANAGE_ROLES'],
 			ratelimit: 2,
 			args: [
 				{
@@ -36,6 +35,13 @@ export default class ReasonCommand extends Command {
 				}
 			]
 		});
+	}
+// @ts-ignore
+	public userPermissions(message: Message) {
+		const staffRole = '535380980521893918';
+		const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+		if (!hasStaffRole) return 'Moderator';
+		return null;
 	}
 
 	public async exec(message: Message, { caseNum, reason }: { caseNum: number | string, reason: string }) {

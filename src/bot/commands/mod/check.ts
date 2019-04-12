@@ -15,7 +15,6 @@ export default class CheckCommand extends Command {
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES', 'EMBED_LINKS'],
-			userPermissions: ['MANAGE_GUILD'],
 			ratelimit: 2,
 			args: [
 				{
@@ -30,6 +29,13 @@ export default class CheckCommand extends Command {
 				}
 			]
 		});
+	}
+	// @ts-ignore
+	public userPermissions(message: Message) {
+		const staffRole = '535380980521893918';
+		const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+		if (!hasStaffRole) return 'Moderator';
+		return null;
 	}
 
 	public async exec(message: Message, { member }: { member: GuildMember }) {
