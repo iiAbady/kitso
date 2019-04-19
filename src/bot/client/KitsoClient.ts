@@ -59,7 +59,8 @@ export default class KitsoClient extends AkairoClient {
 		commandUtil: true,
 		commandUtilLifetime: 3e5,
 		defaultCooldown: 3000,
-		defaultPrompt: {
+		argumentDefaults: {
+		prompt: {
 			modifyStart: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
 			modifyRetry: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
 			timeout: ':x: You took too long! **cancelled**',
@@ -67,7 +68,9 @@ export default class KitsoClient extends AkairoClient {
 			cancel: ':x: Cancelled',
 			retries: 3,
 			time: 30000
-		}
+		},
+		otherwise: ''
+	}
 	});
 
 	public inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
