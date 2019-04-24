@@ -22,7 +22,7 @@ export default class PrefixCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { prefix }: { prefix: string }) {
+	public async exec(message: Message, { prefix }: { prefix: string }): Promise<Message | Message[]> {
 		// @ts-ignore
 		const currentPrefix: string = this.handler.prefix(message);
 		if (!prefix || !message.member.hasPermission('MANAGE_GUILD')) return message.util!.send(`The current prefix for this guild is: \`${currentPrefix}\``);

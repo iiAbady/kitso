@@ -19,16 +19,16 @@ export default class UserInfoCommand extends Command {
 			ratelimit: 2,
 			args: [
 				{
-					id: 'member',
-					match: 'content',
-					type: 'member',
-					default: (message: Message) => message.member
+					'id': 'member',
+					'match': 'content',
+					'type': 'member',
+					'default': (message: Message): GuildMember => message.member!
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { member }: { member: GuildMember }) {
+	public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message | Message[]> {
 		const { user } = member;
 		const embed = new MessageEmbed()
 			.setColor(3447003)
@@ -37,8 +37,8 @@ export default class UserInfoCommand extends Command {
 			.addField(
 				'❯ Member Details',
 				stripIndents`
-				${member.nickname == undefined ? '• No nickname' : ` • Nickname: ${member.nickname}`}
-				• Roles: ${member.roles.map(roles => `\`${roles.name}\``).join(' ')}
+				${member.nickname == undefined ? /* eslint-disable-line */ '• No nickname' : ` • Nickname: ${member.nickname}`}
+				• Roles: ${member.roles.map((roles): string => `\`${roles.name}\``).join(' ')}
 				• Joined at: ${moment.utc(member.joinedAt).format('YYYY/MM/DD hh:mm:ss')}
 			`
 			)

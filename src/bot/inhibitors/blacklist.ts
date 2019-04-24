@@ -9,7 +9,7 @@ export default class BlacklistInhibitor extends Inhibitor {
 		});
 	}
 
-	public exec(message: Message) {
+	public exec(message: Message): boolean {
 		const blacklist = this.client.settings.get('global', 'blacklist', []);
 		return blacklist.includes(message.author.id);
 	}

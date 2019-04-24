@@ -9,7 +9,7 @@ export default class ResumeListener extends Listener {
 		});
 	}
 
-	public exec(events: number) {
+	public exec(events: number): void {
 		this.client.logger.info(`[RESUME] You made it out fine thanks to my luck! You ought to be thankful! (replayed ${events} events)`);
 	}
 }

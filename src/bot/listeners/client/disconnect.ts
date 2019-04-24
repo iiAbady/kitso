@@ -9,7 +9,7 @@ export default class DisconnectListener extends Listener {
 		});
 	}
 
-	public exec(event: any) {
+	public exec(event: any): void {
 		this.client.logger.warn(`[DISCONNECT] Hmm, I have to hide the fact I was defeated... I'll let you go this time! (${event.code})`);
 	}
 }

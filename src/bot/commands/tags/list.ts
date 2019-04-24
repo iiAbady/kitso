@@ -22,7 +22,7 @@ export default class TagListCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { member }: { member: GuildMember }) {
+	public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message | Message[]> {
 		const tagsRepo = this.client.db.getRepository(Tag);
 		if (member) {
 			const tags = await tagsRepo.find({ user: member.id, guild: message.guild.id });
@@ -35,7 +35,7 @@ export default class TagListCommand extends Command {
 				.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 				.setDescription(
 					tags
-						.map(tag => `\`${tag.name}\``)
+						.map((tag): string => `\`${tag.name}\``)
 						.sort()
 						.join(', ')
 				);
@@ -45,14 +45,14 @@ export default class TagListCommand extends Command {
 		const tags = await tagsRepo.find({ guild: message.guild.id });
 		if (!tags.length) return message.util!.send(`**${message.guild.name}** doesn't have any tags. Why not add some?`);
 		const hoistedTags = tags
-			.filter(tag => tag.hoisted)
-			.map(tag => `\`${tag.name}\``)
+			.filter((tag): boolean => tag.hoisted)
+			.map((tag): string => `\`${tag.name}\``)
 			.sort()
 			.join(', ');
 		const userTags = tags
-			.filter(tag => !tag.hoisted)
-			.filter(tag => tag.user === message.author.id)
-			.map(tag => `\`${tag.name}\``)
+			.filter((tag): boolean => !tag.hoisted)
+			.filter((tag): boolean => tag.user === message.author.id)
+			.map((tag): string => `\`${tag.name}\``)
 			.sort()
 			.join(', ');
 		const embed = new MessageEmbed()

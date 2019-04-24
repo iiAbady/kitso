@@ -11,7 +11,7 @@ import { Connection } from 'typeorm';
 import { Case } from '../models/Cases';
 import { Reminder } from '../models/Reminders';
 import { Tag } from '../models/Tags';
-const Raven = require('raven'); // tslint:disable-line
+const Raven = require('raven'); // eslint-disable-line
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -28,7 +28,7 @@ declare module 'discord-akairo' {
 }
 
 interface KitsoOptions {
-	owner?: string;
+	owner?: string | string[] | undefined;
 	token?: string;
 }
 
@@ -37,13 +37,13 @@ export default class KitsoClient extends AkairoClient {
 		format: format.combine(
 			format.colorize({ level: true }),
 			format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
-			format.printf((info: any) => {
+			format.printf((info: any): string => {
 				const { timestamp, level, message, ...rest } = info;
 				return `[${timestamp}] ${level}: ${message}${Object.keys(rest).length ? `\n${JSON.stringify(rest, null, 2)}` : ''}`;
 			})
 		),
 		transports: [
-			new transports.Console({ level: 'info' }),
+			new transports.Console({ level: 'info' })
 		]
 	});
 
@@ -53,24 +53,24 @@ export default class KitsoClient extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', 'commands'),
-		prefix: (message: Message) => this.settings.get(message.guild.id, 'prefix', '?'),
+		prefix: (message: Message): string => this.settings.get(message.guild!, 'prefix', '?'),
 		aliasReplacement: /-/g,
 		allowMention: true,
 		commandUtil: true,
 		commandUtilLifetime: 3e5,
 		defaultCooldown: 3000,
 		argumentDefaults: {
-		prompt: {
-			modifyStart: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
-			modifyRetry: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
-			timeout: ':x: You took too long! **cancelled**',
-			ended: ":x: You've used your 3/3 tries! **cancelled**",
-			cancel: ':x: Cancelled',
-			retries: 3,
-			time: 30000
-		},
-		otherwise: ''
-	}
+			prompt: {
+				modifyStart: (_, str): string => `${str}\n\nType \`cancel\` to cancel the command.`,
+				modifyRetry: (_, str): string => `${str}\n\nType \`cancel\` to cancel the command.`,
+				timeout: ':x: You took too long! **cancelled**',
+				ended: ":x: You've used your 3/3 tries! **cancelled**",
+				cancel: ':x: Cancelled',
+				retries: 3,
+				time: 30000
+			},
+			otherwise: ''
+		}
 	});
 
 	public inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
@@ -92,12 +92,12 @@ export default class KitsoClient extends AkairoClient {
 			disabledEvents: ['TYPING_START']
 		});
 
-		this.commandHandler.resolver.addType('tag', async (_, phrase) => {
+		this.commandHandler.resolver.addType('tag', async (_, phrase): Promise<any> => {
 			if (!phrase) return Flag.fail(phrase);
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
 			const tags = await tagsRepo.find();
-			const [tag] = tags.filter(t => t.name === phrase || t.aliases.includes(phrase));
+			const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
 			/* const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
@@ -110,12 +110,12 @@ export default class KitsoClient extends AkairoClient {
 
 			return tag || Flag.fail(phrase);
 		});
-		this.commandHandler.resolver.addType('existingTag', async (_, phrase) => {
+		this.commandHandler.resolver.addType('existingTag', async (_, phrase): Promise<any> => {
 			if (!phrase) return Flag.fail(phrase);
 			const tagsRepo = this.db.getRepository(Tag);
 			// TODO: remove this hack once I figure out how to OR operator this
 			const tags = await tagsRepo.find();
-			const [tag] = tags.filter(t => t.name === phrase || t.aliases.includes(phrase));
+			const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
 			/* const tag = await this.db.models.tags.findOne({
 				where: {
 					[Op.or]: [
@@ -128,7 +128,7 @@ export default class KitsoClient extends AkairoClient {
 
 			return tag ? Flag.fail(phrase) : phrase;
 		});
-		this.commandHandler.resolver.addType('tagContent', (message, phrase) => {
+		this.commandHandler.resolver.addType('tagContent', async (message, phrase): Promise<any> => {
 			if (!phrase) phrase = '';
 			if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
 
@@ -145,7 +145,7 @@ export default class KitsoClient extends AkairoClient {
 				release: '3.4.0'
 			}).install();
 		} else {
-			process.on('unhandledRejection', (err: any) => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			process.on('unhandledRejection', (err: any): Logger => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}
 
 		if (process.env.LOGS) {
@@ -155,7 +155,7 @@ export default class KitsoClient extends AkairoClient {
 		// this.prometheus.collectDefaultMetrics({ prefix: 'kitso_', timeout: 30000 });
 	}
 
-	private async _init() {
+	private async _init(): Promise<void> {
 		this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
@@ -178,7 +178,7 @@ export default class KitsoClient extends AkairoClient {
 		await this.remindScheduler.init();
 	}
 
-	public async start() {
+	public async start(): Promise<string> {
 		await this._init();
 		return this.login(this.config.token);
 	}

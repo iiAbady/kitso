@@ -19,7 +19,7 @@ export default class ReminderCommand extends Command {
 					'add leave in 5 minutes',
 					'add --dm ban Dim in 6 months',
 					'delete',
-					'delete --all',
+					'delete --all'
 				]
 			},
 			category: 'reminders',
@@ -30,15 +30,15 @@ export default class ReminderCommand extends Command {
 					type: ['add', 'del', 'delete']
 				},
 				{
-					id: 'name',
-					match: 'rest',
-					default: ''
+					'id': 'name',
+					'match': 'rest',
+					'default': ''
 				}
 			]
 		});
 	}
 
-	public exec(message: Message, { method, name }: { method: string, name: string }) {
+	public async exec(message: Message, { method, name }: { method: string; name: string }): Promise<Message | Message[] | boolean | null> {
 		if (!method) {
 			// @ts-ignore
 			const prefix = this.handler.prefix(message);
@@ -47,12 +47,13 @@ export default class ReminderCommand extends Command {
 			Check \`${prefix}help remind\` for more information.
 			`);
 		}
+		// eslint-disable-next-line
 		const command = ({
-			add: this.handler.modules.get('reminder-add'),
-			cancel: this.handler.modules.get('reminder-delete'),
-			del: this.handler.modules.get('reminder-delete'),
-			delete: this.handler.modules.get('reminder-delete'),
-		} as { [key: string]: Command } )[method];
+			'add': this.handler.modules.get('reminder-add'),
+			'cancel': this.handler.modules.get('reminder-delete'),
+			'del': this.handler.modules.get('reminder-delete'),
+			'delete': this.handler.modules.get('reminder-delete')
+		} as { [key: string]: Command })[method];
 
 		return this.handler.handleDirectCommand(message, name, command, true);
 	}

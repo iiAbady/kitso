@@ -19,10 +19,10 @@ export default class NPMCommand extends Command {
 				{
 					id: 'pkg',
 					prompt: {
-						start: (message: Message) => `${message.author}, what would you like to search for?`
+						start: (message: Message): string => `${message.author}, what would you like to search for?`
 					},
 					match: 'rest',
-					type: (_, pkg) => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
+					type: (_, pkg): string | null => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
 				},
 				{
 					 id: 'heroku',
@@ -33,7 +33,7 @@ export default class NPMCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { pkg, heroku }: { pkg: string, heroku: boolean }) {
+	public async exec(message: Message, { pkg, heroku }: { pkg: string; heroku: boolean }): Promise<Message | Message[]> {
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 		if (res.status === 404) {
 			return message.util!.reply("Kitso couldn't find the requested information.");
@@ -46,7 +46,7 @@ export default class NPMCommand extends Command {
 			return message.util!.send(`**"${pkg}":"^${body['dist-tags'].latest}**"`);
 		}
 		const version = body.versions[body['dist-tags'].latest];
-		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }) => user.name));
+		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }): string => user.name));
 		const dependencies = version.dependencies ? this._trimArray(Object.keys(version.dependencies)) : null;
 		const embed = new MessageEmbed()
 			.setColor(0xCB0000)
@@ -66,7 +66,7 @@ export default class NPMCommand extends Command {
 		return message.util!.send(embed);
 	}
 
-	private _trimArray(arr: string[]) {
+	private _trimArray(arr: string[]): string[] {
 		if (arr.length > 10) {
 			const len = arr.length - 10;
 			arr = arr.slice(0, 10);

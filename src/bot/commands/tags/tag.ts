@@ -48,7 +48,7 @@ export default class TagCommand extends Command {
 		});
 	}
 
-	public *args() {
+	public *args(): object {
 		const method = yield {
 			type: [
 				['tag-show', 'show'],
@@ -62,7 +62,7 @@ export default class TagCommand extends Command {
 				['tag-list', 'list'],
 				['tag-download', 'download', 'dl']
 			],
-			otherwise: (msg: Message) => {
+			otherwise: (msg: Message): string => {
 				// @ts-ignore
 				const prefix = this.handler.prefix(msg);
 				return stripIndents`

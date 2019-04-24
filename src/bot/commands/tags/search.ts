@@ -20,20 +20,20 @@ export default class SearchTagCommand extends Command {
 					match: 'content',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message) => `${message.author}, What would you like to search for?`
+						start: (message: Message): string => `${message.author}, What would you like to search for?`
 					}
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { name }: { name: string }) {
+	public async exec(message: Message, { name }: { name: string }): Promise<Message | Message[]> {
 		name = Util.cleanContent(name, message);
 		const tagsRepo = this.client.db.getRepository(Tag);
 		const tags = await tagsRepo.find({ name: Like(`%${name}%`), guild: message.guild.id });
 		if (!tags.length) return message.util!.reply(`No results found with query ${name}.`);
 		const search = tags
-			.map(tag => `\`${tag.name}\``)
+			.map((tag): string => `\`${tag.name}\``)
 			.sort()
 			.join(', ');
 		if (search.length >= 1950) {

@@ -2,7 +2,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { Reminder } from '../../models/Reminders';
-const ms = require('@naval-base/ms'); // tslint:disable-line
+const ms = require('@naval-base/ms'); // eslint-disable-line
 
 const REMINDER_LIMIT = 15;
 
@@ -20,22 +20,22 @@ export default class ReminderAddCommand extends Command {
 			args: [
 				{
 					id: 'time',
-					type: (_, str) => {
+					type: (_, str): number | null => {
 						if (!str) return null;
 						const duration = ms(str);
 						if (duration && duration >= 300000 && !isNaN(duration)) return duration;
 						return null;
 					},
 					prompt: {
-						start: (message: Message) => `${message.author}, When do you want me to remind you?`,
-						retry: (message: Message) => `${message.author}, Please use a proper time format.`
+						start: (message: Message): string => `${message.author}, When do you want me to remind you?`,
+						retry: (message: Message): string => `${message.author}, Please use a proper time format.`
 					}
 				},
 				{
 					id: 'reason',
 					type: 'string',
 					prompt: {
-						start: (message: Message) => `${message.author}, what do you want me to remind you of?`
+						start: (message: Message): string => `${message.author}, what do you want me to remind you of?`
 					}
 				},
 				{
@@ -47,7 +47,7 @@ export default class ReminderAddCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { time, reason, dm }: { time: number, reason: string, dm: boolean }) {
+	public async exec(message: Message, { time, reason, dm }: { time: number; reason: string; dm: boolean }): Promise<Message | Message[]> {
 		const remindersRepo = this.client.db.getRepository(Reminder);
 		const reminderCount = await remindersRepo.count({ user: message.author.id });
 		if (reminderCount > REMINDER_LIMIT) {

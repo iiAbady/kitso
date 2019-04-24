@@ -1,5 +1,5 @@
 import { Argument, Command } from 'discord-akairo';
-import { Message, GuildMember, TextChannel } from 'discord.js';
+import { Message, GuildMember, TextChannel, User } from 'discord.js';
 import Util from '../../util';
 import { Case } from '../../models/Cases';
 
@@ -20,28 +20,32 @@ export default class AddCaseCommand extends Command {
 			args: [
 				{
 					id: 'member',
-					type: Argument.union('member', async (_, phrase) => {
+					type: Argument.union('member', async (_, phrase): Promise<{ id: string; user: User } | null> => {
 						const m = await this.client.users.fetch(phrase);
 						if (m) return { id: m.id, user: m };
 						return null;
-					})
-										},
-										{
-												id: 'action',
-												type: ['ban', 'mute', 'warn', 'kick'],
-										},
-					{
-					id: 'reason',
-					match: 'rest',
-					type: 'string',
-					default: ''
+					}),
+					prompt: {
+						start: (message: Message): string => `${message.author}, what member do you want to add case to?`,
+						retry: (message: Message): string => `${message.author}, please mention a member.`
+					}
+				},
+				{
+					id: 'action',
+					type: ['ban', 'mute', 'warn', 'kick']
+				},
+				{
+					'id': 'reason',
+					'match': 'rest',
+					'type': 'string',
+					'default': ''
 				}
 			]
 		});
-		}
+	}
 
-// tslint:disable-next-line: no-empty
-public async exec(message: Message, { member, action, reason }: { member: GuildMember, action: string,  reason: string }) {
+	// tslint:disable-next-line: no-empty
+	public async exec(message: Message, { member, action, reason }: { member: GuildMember; action: string; reason: string }): Promise<Message | Message[]> {
 		if (!member) {
 			return message.reply('Please mention the target member.');
 		}
@@ -51,7 +55,7 @@ public async exec(message: Message, { member, action, reason }: { member: GuildM
 			// @ts-ignore
 			const prefix = this.handler.prefix(message);
 			reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
-				}
+		}
 
 		const modLogChannel = '559070713181372446';
 		let modMessage;
@@ -74,5 +78,5 @@ public async exec(message: Message, { member, action, reason }: { member: GuildM
 		await casesRepo.save(dbCase);
 
 		return message.channel.send(`Successfully added a case of **${member.user.tag}**`);
-}
+	}
 }
