@@ -12,16 +12,15 @@ export default class GuildBanAddListener extends Listener {
 		});
 	}
 
-	public async exec(guild: Guild, user: User) {
+	public async exec(guild: Guild, user: User): Promise<void> {
 		if (this.client.cachedCases.delete(`${guild.id}:${user.id}:BAN`)) return;
 		const totalCases = this.client.settings.get(guild, 'caseTotal', 0) as number + 1;
 		this.client.settings.set(guild, 'caseTotal', totalCases);
-		let modMessage;
-			// @ts-ignore
+		// @ts-ignore
 		const prefix = this.client.commandHandler.prefix({ guild });
 		const reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
 		const embed = Util.logEmbed({ member: user, action: 'Ban', caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS.BAN);
-		modMessage = await (this.client.channels.get('559070713181372446') as TextChannel).send(embed) as Message;
+		const modMessage = await (this.client.channels.get('559070713181372446') as TextChannel).send(embed) as Message;
 		const casesRepo = this.client.db.getRepository(Case);
 		const dbCase = new Case();
 		dbCase.guild = guild.id;

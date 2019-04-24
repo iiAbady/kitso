@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, GuildMember, TextChannel } from 'discord.js';
 import Util from '../../util';
-const ms = require('@naval-base/ms'); // tslint:disable-line
+const ms = require('@naval-base/ms'); // eslint-disable-line
 
 export default class MuteCommand extends Command {
 	public constructor() {
@@ -14,47 +14,49 @@ export default class MuteCommand extends Command {
 				examples: ['@Abady', 'Abady 1d Not good boy']
 			},
 			channel: 'guild',
-						clientPermissions: ['MANAGE_ROLES'],
+			clientPermissions: ['MANAGE_ROLES'],
 			ratelimit: 2,
 			args: [
 				{
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (message: Message) => `${message.author}, What member do you want to mute?`,
-						retry: (message: Message) => `${message.author}, please mention a member.`
+						start: (message: Message): string => `${message.author}, What member do you want to mute?`,
+						retry: (message: Message): string => `${message.author}, please mention a member.`
 					}
 				},
 				{
 					id: 'duration',
-					type: (_, str) => {
+					type: (_, str): number | null => {
 						if (!str) return null;
 						const duration = ms(str);
 						if (duration && duration >= 300000 && !isNaN(duration)) return duration;
 						return null;
 					},
 					prompt: {
-						start: (message: Message) => `${message.author}, for how long do you want the mute to last?`,
-						retry: (message: Message) => `${message.author}, please use a proper time format.`
+						start: (message: Message): string => `${message.author}, for how long do you want the mute to last?`,
+						retry: (message: Message): string => `${message.author}, please use a proper time format.`
 					}
 				},
 				{
-					id: 'reason',
-					match: 'rest',
-					type: 'string',
-					default: ''
+					'id': 'reason',
+					'match': 'rest',
+					'type': 'string',
+					'default': ''
 				}
 			]
 		});
 	}
-// @ts-ignore
-public userPermissions(message: Message) {
-	const staffRole = '535380980521893918';
-	const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
-	if (!hasStaffRole) return 'Moderator';
-	return null;
-}
-	public async exec(message: Message, { member, duration, reason }: { member: GuildMember, duration: number, reason: string }) {
+
+	// @ts-ignore
+	public userPermissions(message: Message): string | null {
+		const staffRole = '535380980521893918';
+		const hasStaffRole = message.member!.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+		if (!hasStaffRole) return 'Moderator';
+		return null;
+	}
+
+	public async exec(message: Message, { member, duration, reason }: { member: GuildMember; duration: number; reason: string }): Promise<Message | Message[]> {
 		const muteRole = '562125212976545817';
 		if (!muteRole) return message.reply('I cannot find the mute role.');
 

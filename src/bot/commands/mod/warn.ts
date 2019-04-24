@@ -22,27 +22,29 @@ export default class WarnCommand extends Command {
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (message: Message) => `${message.author}, What member do you want to warn?`,
-						retry: (message: Message) => `${message.author}, Please mention a member.`
+						start: (message: Message): string => `${message.author}, What member do you want to warn?`,
+						retry: (message: Message): string => `${message.author}, Please mention a member.`
 					}
 				},
 				{
-					id: 'reason',
-					match: 'rest',
-					type: 'string',
-					default: ''
+					'id': 'reason',
+					'match': 'rest',
+					'type': 'string',
+					'default': ''
 				}
 			]
 		});
 	}
-// @ts-ignore
-public userPermissions(message: Message) {
-	const staffRole = '535380980521893918';
-	const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
-	if (!hasStaffRole) return 'Moderator';
-	return null;
-}
-	public async exec(message: Message, { member, reason }: { member: GuildMember, reason: string }) {
+
+	// @ts-ignore
+	public userPermissions(message: Message): string | null {
+		const staffRole = '535380980521893918';
+		const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+		if (!hasStaffRole) return 'Moderator';
+		return null;
+	}
+
+	public async exec(message: Message, { member, reason }: { member: GuildMember; reason: string }): Promise<Message | Message[]> {
 		const totalCases = this.client.settings.get(message.guild, 'caseTotal', 0) as number + 1;
 		this.client.settings.set(message.guild, 'caseTotal', totalCases);
 

@@ -1,12 +1,12 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
-/* tslint:disable:member-access */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
 @Entity('settings')
 export class Setting {
 	@PrimaryColumn({ type: 'bigint' })
 	guild!: string;
 
-	@Column({ type: 'jsonb', default: () => "'{}'::jsonb" })
+	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'::jsonb" })
 	settings: any;
 }

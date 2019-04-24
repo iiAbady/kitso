@@ -20,8 +20,8 @@ export default class TagAddCommand extends Command {
 					id: 'name',
 					type: 'existingTag',
 					prompt: {
-						start: (message: Message) => `${message.author}, what should the tag be named?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a tag with the name **${failure.value}** already exists.`
+						start: (message: Message): string => `${message.author}, what should the tag be named?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a tag with the name **${failure.value}** already exists.`
 					}
 				},
 				{
@@ -29,7 +29,7 @@ export default class TagAddCommand extends Command {
 					match: 'rest',
 					type: 'tagContent',
 					prompt: {
-						start: (message: Message) => `${message.author}, what should the content of the tag be?`
+						start: (message: Message): string => `${message.author}, what should the content of the tag be?`
 					}
 				},
 				{
@@ -41,7 +41,7 @@ export default class TagAddCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { name, content, hoist }: { name: any, content: string, hoist: boolean }) {
+	public async exec(message: Message, { name, content, hoist }: { name: any; content: string; hoist: boolean }): Promise<Message | Message[]> {
 		if (name && name.length >= 50) {
 			return message.util!.reply('Tags names have a limit of **50** characters only!');
 		}

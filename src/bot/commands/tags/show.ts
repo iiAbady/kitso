@@ -18,19 +18,19 @@ export default class TagShowCommand extends Command {
 					match: 'content',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message) => `${message.author}, What tag would you like to see?`
+						start: (message: Message): string => `${message.author}, What tag would you like to see?`
 					}
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { name }: { name: string }) {
+	public async exec(message: Message, { name }: { name: string }): Promise<Message | Message[] | void> {
 		if (!name) return;
 		name = Util.cleanContent(name, message);
 		const tagsRepo = this.client.db.getRepository(Tag);
 		const dbTags = await tagsRepo.find({ guild: message.guild.id });
-		const [tag] = dbTags.filter(t => t.name === name || t.aliases.includes(name));
+		const [tag] = dbTags.filter((t): boolean => t.name === name || t.aliases.includes(name));
 		if (!tag) return;
 		tag.uses += 1;
 		await tagsRepo.save(tag);

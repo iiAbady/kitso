@@ -4,7 +4,7 @@ import { stripIndents } from 'common-tags';
 import * as moment from 'moment';
 import 'moment-duration-format';
 
-const { version } = require('../../../../package.json'); // tslint:disable-line
+const { version } = require('../../../../package.json'); // eslint-disable-line
 
 export default class StatsCommand extends Command {
 	public constructor() {
@@ -19,7 +19,7 @@ export default class StatsCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message) {
+	public async exec(message: Message): Promise<Message | Message[]> {
 		const embed = new MessageEmbed()
 			.setColor(3447003)
 			.setDescription(`**${this.client.user!.username} ${version} Stats**`)
@@ -42,7 +42,7 @@ export default class StatsCommand extends Command {
 				true
 			)
 			.setThumbnail(this.client.user!.displayAvatarURL())
-			.setFooter(`© 2019 ${this.client.users.get(this.client.config.owner!)!.tag} | Rewrited in TypeScript`);
+			.setFooter(`© 2019 ${this.client.users.get('171259176029257728')!.tag} | Rewrited in TypeScript`);
 		return message.util!.send(embed);
 	}
 }
