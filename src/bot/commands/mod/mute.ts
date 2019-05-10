@@ -50,7 +50,7 @@ export default class MuteCommand extends Command {
 
 	// @ts-ignore
 	public userPermissions(message: Message): string | null {
-		const staffRole = '535380980521893918';
+		const staffRole = '553879901531406358';
 		const hasStaffRole = message.member!.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
 		if (!hasStaffRole) return 'Moderator';
 		return null;
