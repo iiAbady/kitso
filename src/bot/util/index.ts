@@ -55,7 +55,7 @@ export default {
 	reminderEmbed: (message: Message, reminders: any): MessageEmbed => {
 		const truncate = (str: string, len: number): string => str.length > len ? `${str.slice(0, len)}…` : str;
 		return new MessageEmbed()
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL())
 			.setColor(0x30A9ED)
 			.setDescription(reminders.length
 				? reminders.sort((a: { triggers_at: number }, b: { triggers_at: number }): number => a.triggers_at - b.triggers_at).map(
@@ -66,7 +66,7 @@ export default {
 	logEmbed: ({ message = null, member, action, duration = null, caseNum, reason, ref = null }: { message?: Message | null; member: GuildMember | User; action: string; duration?: number | null; caseNum: number; reason: string; ref?: number | null }): MessageEmbed => {
 		const embed = new MessageEmbed();
 		if (message) {
-			embed.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
+			embed.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL());
 		}
 		embed.setDescription(stripIndents`
 				**Member:** ${member instanceof User ? member.tag : member.user.tag} (${member.id})

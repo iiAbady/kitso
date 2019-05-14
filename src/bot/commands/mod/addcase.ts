@@ -50,7 +50,7 @@ export default class AddCaseCommand extends Command {
 			return message.reply('Please mention the target member.');
 		}
 		if (!action) return message.reply('Choose one of these reasons: **ban, mute, warn, kick**.');
-		const totalCases = this.client.settings.get(message.guild, 'caseTotal', 0) as number + 1;
+		const totalCases = this.client.settings.get(message.guild!, 'caseTotal', 0) as number + 1;
 		if (!reason) {
 			// @ts-ignore
 			const prefix = this.handler.prefix(message);
@@ -66,13 +66,13 @@ export default class AddCaseCommand extends Command {
 		}
 
 		const dbCase = new Case();
-		dbCase.guild = message.guild.id;
+		dbCase.guild = message.guild!.id;
 		if (modMessage) dbCase.message = modMessage.id;
 		dbCase.case_id = totalCases;
 		dbCase.target_id = member.id;
 		dbCase.target_tag = member.user.tag;
-		dbCase.mod_id = message.author.id;
-		dbCase.mod_tag = message.author.tag;
+		dbCase.mod_id = message.author!.id;
+		dbCase.mod_tag = message.author!.tag;
 		dbCase.action = Util.CONSTANTS.ACTIONS[action.toUpperCase()];
 		dbCase.reason = reason;
 		await casesRepo.save(dbCase);

@@ -29,7 +29,7 @@ export default class TagShowCommand extends Command {
 		if (!name) return;
 		name = Util.cleanContent(name, message);
 		const tagsRepo = this.client.db.getRepository(Tag);
-		const dbTags = await tagsRepo.find({ guild: message.guild.id });
+		const dbTags = await tagsRepo.find({ guild: message.guild!.id });
 		const [tag] = dbTags.filter((t): boolean => t.name === name || t.aliases.includes(name));
 		if (!tag) return;
 		tag.uses += 1;

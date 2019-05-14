@@ -49,7 +49,7 @@ export default class ReminderAddCommand extends Command {
 
 	public async exec(message: Message, { time, reason, dm }: { time: number; reason: string; dm: boolean }): Promise<Message | Message[]> {
 		const remindersRepo = this.client.db.getRepository(Reminder);
-		const reminderCount = await remindersRepo.count({ user: message.author.id });
+		const reminderCount = await remindersRepo.count({ user: message.author!.id });
 		if (reminderCount > REMINDER_LIMIT) {
 			return message.util!.reply(`you already have ${REMINDER_LIMIT} ongoing reminders... do you really need more?`);
 		}
@@ -68,7 +68,7 @@ export default class ReminderAddCommand extends Command {
 		}
 
 		await this.client.remindScheduler.addReminder({
-			user: message.author.id,
+			user: message.author!.id,
 			// @ts-ignore
 			channel: message.channel.type === 'dm' || dm ? null : message.channel.id,
 			reason,

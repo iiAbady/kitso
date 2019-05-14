@@ -39,7 +39,7 @@ export default class UserInfoCommand extends Command {
 				stripIndents`
 				${member.nickname == undefined ? /* eslint-disable-line */ '• No nickname' : ` • Nickname: ${member.nickname}`}
 				• Roles: ${member.roles.map((roles): string => `\`${roles.name}\``).join(' ')}
-				• Joined at: ${moment.utc(member.joinedAt).format('YYYY/MM/DD hh:mm:ss')}
+				• Joined at: ${moment.utc(member.joinedAt!).format('YYYY/MM/DD hh:mm:ss')}
 			`
 			)
 			/* tslint:enable:triple-equals */

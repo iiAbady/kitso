@@ -44,7 +44,7 @@ export default class DocsCommand extends Command {
 		if (!embed) {
 			return message.util!.reply("Kitso couldn't find the requested information.");
 		}
-		if (message.channel.type === 'dm' || !(message.channel as TextChannel).permissionsFor(message.guild.me)!.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)) {
+		if (message.channel.type === 'dm' || !(message.channel as TextChannel).permissionsFor(message.guild!.me!)!.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)) {
 			return message.util!.send({ embed });
 		}
 		const msg = await message.util!.send({ embed }) as Message;

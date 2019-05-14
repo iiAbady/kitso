@@ -3,6 +3,7 @@ import { Setting } from '../models/Settings';
 import { Tag } from '../models/Tags';
 import { Case } from '../models/Cases';
 import { Reminder } from '../models/Reminders';
+// import '../../env';
 
 const connectionManager = new ConnectionManager();
 connectionManager.create({
@@ -11,5 +12,6 @@ connectionManager.create({
 	url: process.env.DATABASE_URL,
 	entities: [Setting, Tag, Reminder, Case]
 });
+
 
 export default connectionManager;
