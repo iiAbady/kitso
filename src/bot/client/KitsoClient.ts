@@ -61,8 +61,8 @@ export default class KitsoClient extends AkairoClient {
 		defaultCooldown: 3000,
 		argumentDefaults: {
 			prompt: {
-				modifyStart: (_, str): string => `${str}\n\nType \`cancel\` to cancel the command.`,
-				modifyRetry: (_, str): string => `${str}\n\nType \`cancel\` to cancel the command.`,
+				modifyStart: (_: Message, str: string): string => `${str}\n\nType \`cancel\` to cancel the command.`,
+				modifyRetry: (_: Message, str: string): string => `${str}\n\nType \`cancel\` to cancel the command.`,
 				timeout: ':x: You took too long! **cancelled**',
 				ended: ":x: You've used your 3/3 tries! **cancelled**",
 				cancel: ':x: Cancelled',
@@ -79,7 +79,7 @@ export default class KitsoClient extends AkairoClient {
 
 	public config: KitsoOptions;
 
-	public cachedCases = new Set();
+	public cachedCases: Set<string> = new Set();
 
 	public muteScheduler!: MuteScheduler;
 
