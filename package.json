@@ -33,7 +33,7 @@
 		"raven": "^2.6.4",
 		"reflect-metadata": "^0.1.13",
 		"setimmediate": "^1.0.5",
-		"simple-youtube-api": "^5.1.1",
+		"simple-youtube-api": "^5.2.0",
 		"turndown": "^5.0.3",
 		"typeorm": "^0.2.18",
 		"winston": "^3.2.1"
