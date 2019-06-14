@@ -51,7 +51,7 @@
 		"dotenv": "^8.0.0",
 		"eslint": "^5.16.0",
 		"eslint-config-marine": "^2.2.0",
-		"typescript": "^3.5.1"
+		"typescript": "^3.5.2"
 	},
 	"optionalDependencies": {
 		"@discordjs/uws": "^11.149.1",
