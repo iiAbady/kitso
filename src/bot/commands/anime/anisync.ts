@@ -71,8 +71,8 @@ export default class ANISYNCCOMMAND extends Command {
 		user.ani = id;
 		user.user = message.author!.id;
 		usersRepo.save(user);
+		await message.delete({ reason: '• Auth Code •' });
 
-		message.delete();
 		return msg.edit(`${emojis.thumbsup} Successfully synced your anilist account **${name}**.`, { embed: null });
 	}
 }
