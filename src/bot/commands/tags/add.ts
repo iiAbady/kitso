@@ -2,7 +2,6 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { Tag } from '../../models/Tags';
 import { emojis } from '../../util/index';
-const { thumbsoUpo } = emojis;
 
 export default class TagAddCommand extends Command {
 	public constructor() {
@@ -58,6 +57,6 @@ export default class TagAddCommand extends Command {
 		tag.content = content;
 		await tagsRepo.save(tag);
 
-		return message.util!.reply(`${thumbsoUpo} leave it to me! A tag with the name **${name.substring(0, 50)}** has been added.`);
+		return message.util!.reply(`${emojis.thumbsup} leave it to me! A tag with the name **${name.substring(0, 50)}** has been added.`);
 	}
 }

@@ -1,14 +1,9 @@
 import { Listener, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { emojis } from '../../util/index';
-const { shocked, thumbsUp1, thumbsUp2 } = emojis;
 const Raven = require('raven'); // eslint-disable-line
 
-const RESPONSES: string[] = [
-	`${shocked} W-What?!?! That was unexpected. (Error: !{err})`,
-	`${thumbsUp1} Alrrightt! I'am going to fix this asap. (Error: !{err})`,
-	`${thumbsUp2} Thank's for finding this bug for me, I'am going to slay it. (Error: !{err})`
-];
+const RESPONSE = `${emojis.shocked} W-What?!?! That was unexpected. (Error: !{err})`;
 
 export default class CommandErrorListener extends Listener {
 	public constructor() {
@@ -50,7 +45,7 @@ export default class CommandErrorListener extends Listener {
 		});
 		Raven.captureException(error);
 		return message.util!.send(
-			RESPONSES[Math.floor(Math.random() * RESPONSES.length)]
+			RESPONSE
 				.replace('!{err}', `${command.id}${error.message.length + command.id.length}`)
 		);
 	}
