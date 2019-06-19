@@ -21,7 +21,7 @@ export default class MuteCommand extends Command {
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (message: Message): string => `${message.author}, What member do you want to mute?`,
+						start: (message: Message): string => `${message.author}, what member do you want to mute?`,
 						retry: (message: Message): string => `${message.author}, please mention a member.`
 					}
 				},

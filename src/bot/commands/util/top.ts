@@ -18,7 +18,7 @@ export default class Searchcommand extends Command {
 				{
 					id: 'query',
 					prompt: {
-						start: (message: Message): string => `${message.author}, What game you want to get its leaderboard?`
+						start: (message: Message): string => `${message.author}, what game you want to get its leaderboard?`
 					},
 					match: 'content',
 					type: (_, query): string | null => query ? query.replace(/ /g, ' ') : null

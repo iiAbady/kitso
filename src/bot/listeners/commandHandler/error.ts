@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import { emojis } from '../../util/index';
 const Raven = require('raven'); // eslint-disable-line
 
-const RESPONSE = `${emojis.shocked} W-What?!?! That was unexpected. (Error: !{err})`;
+const RESPONSE = `${emojis.shocked} W-what?!?! That was unexpected. (Error: !{err})`;
 
 export default class CommandErrorListener extends Listener {
 	public constructor() {

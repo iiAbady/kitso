@@ -22,7 +22,7 @@ export default class TagEditCommand extends Command {
 		const tag = yield {
 			type: 'tag',
 			prompt: {
-				start: (message: Message): string => `${message.author}, What tag do you want to edit?`,
+				start: (message: Message): string => `${message.author}, what tag do you want to edit?`,
 				retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a tag with the name **${failure.value}** does not exist.`
 			}
 		};
@@ -47,7 +47,7 @@ export default class TagEditCommand extends Command {
 					match: 'rest',
 					type: 'tagContent',
 					prompt: {
-						start: (message: Message): string => `${message.author}, What should the new content be?`
+						start: (message: Message): string => `${message.author}, what should the new content be?`
 					}
 				}
 		);

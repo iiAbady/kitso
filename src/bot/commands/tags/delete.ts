@@ -18,7 +18,7 @@ export default class TagDeleteCommand extends Command {
 					match: 'content',
 					type: 'tag',
 					prompt: {
-						start: (message: Message): string => `${message.author}, What tag do you want to delete?`,
+						start: (message: Message): string => `${message.author}, what tag do you want to delete?`,
 						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a tag with the name **${failure.value}** does not exist.`
 					}
 				}

@@ -18,7 +18,7 @@ export default class Searchcommand extends Command {
 				{
 					id: 'query',
 					prompt: {
-						start: (message: Message): string => `${message.author}, What would you like to search for in youtube?`
+						start: (message: Message): string => `${message.author}, what would you like to search for in youtube?`
 					},
 					match: 'content',
 					type: (_, query): string | null => query ? query.replace(/ /g, ' ') : null

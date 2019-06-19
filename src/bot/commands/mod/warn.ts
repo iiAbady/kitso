@@ -22,7 +22,7 @@ export default class WarnCommand extends Command {
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (message: Message): string => `${message.author}, What member do you want to warn?`,
+						start: (message: Message): string => `${message.author}, what member do you want to warn?`,
 						retry: (message: Message): string => `${message.author}, Please mention a member.`
 					}
 				},

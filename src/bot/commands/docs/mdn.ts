@@ -20,7 +20,7 @@ export default class MDNCommand extends Command {
 				{
 					id: 'query',
 					prompt: {
-						start: (message: Message): string => `${message.author}, What would you like to search for?`
+						start: (message: Message): string => `${message.author}, what would you like to search for?`
 					},
 					match: 'content',
 					type: (_, query): string | null => query ? query.replace(/#/g, '.prototype.') : null
