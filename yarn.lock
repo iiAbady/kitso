@@ -503,13 +503,13 @@ bintrees@1.0.1:
   resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.1.tgz#0e655c9b9c2435eaab68bf4027226d2b55a34524"
   integrity sha1-DmVcm5wkNeqraL9AJyJtK1WjRSQ=
 
-blocksmc@^3.5.8:
-  version "3.5.8"
-  resolved "https://registry.yarnpkg.com/blocksmc/-/blocksmc-3.5.8.tgz#9b011a2c5925287708fb27e1a7fac836e7bb4c4c"
-  integrity sha512-nj98luwgxGq5/wI4VM3VXyfyeAN/GvgLhP4VSq0gpUiWna/rhK6yXrTh7mLnVZFQTzZ9/gtdUgt0ClSlc+9fkg==
+blocksmc@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/blocksmc/-/blocksmc-3.6.0.tgz#edefab5a8079f20b9d4bd0b02edd7d4eafbbbe3c"
+  integrity sha512-7TwEyACFrMOzLHWkxNLwp2qFwLtdAwE5gyHGckBHE946jshovf4mO5Wh0qsGH9pGCnAlPXs0AW7gB1zGSx+5oA==
   dependencies:
-    cheerio "^1.0.0-rc.2"
-    node-fetch "^2.3.0"
+    cheerio "^1.0.0-rc.3"
+    node-fetch "^2.6.0"
 
 boolbase@~1.0.0:
   version "1.0.0"
@@ -638,13 +638,13 @@ charenc@~0.0.1:
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
   integrity sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=
 
-cheerio@^1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.2.tgz#4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db"
-  integrity sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=
+cheerio@^1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.3.tgz#094636d425b2e9c0f4eb91a46c05630c9a1a8bf6"
+  integrity sha512-0td5ijfUPuubwLUu0OBoe98gZj8C/AA+RW3v67GPlGOrvxWjZmBXiBCRU+I8VEiNyJzjth40POfHiz2RB3gImA==
   dependencies:
     css-select "~1.2.0"
-    dom-serializer "~0.1.0"
+    dom-serializer "~0.1.1"
     entities "~1.1.1"
     htmlparser2 "^3.9.1"
     lodash "^4.15.0"
@@ -1134,7 +1134,7 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dom-serializer@0, dom-serializer@~0.1.0:
+dom-serializer@0, dom-serializer@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.1.1.tgz#1ec4059e284babed36eec2941d4a970a189ce7c0"
   integrity sha512-l0IU0pPzLWSHBcieZbpOKgkIn3ts3vAh7ZuFyXNwJxJXk/c4Gwj9xaTJwIDVQCXawWD0qb3IzMGH5rglQaO0XA==
