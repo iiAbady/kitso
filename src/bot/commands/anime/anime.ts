@@ -14,6 +14,7 @@ interface Anime {
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
+const Turndown = require('turndown'); // eslint-disable-line
 
 
 export default class ANISYNCCOMMAND extends Command {
@@ -83,14 +84,16 @@ export default class ANISYNCCOMMAND extends Command {
 			day: endDay
 		} = anime.endDate;
 
+		const turndown = new Turndown();
+
 		const embed = new MessageEmbed()
 			.setTitle(`**${anime.title.romaji}**`)
 			.setURL(anime.siteUrl)
-			.setDescription(this.safe(anime.description!.replace(/<br\s*\/?>/gm, '\n').replace(/<[^>]*>/g, ''), '―'))
+			.setDescription(turndown.turndown(this.safe(anime.description, '―')))
 			.addField('Type', `📺 **${anime.format}**`, true)
-			.addField('Genres', `🔣 ${anime.genres.map(g => `**${g}**`).join(', ')}`, true)
+			.addField('Genres', `🔣 ${anime.genres.map(g => `**${g}**`).join(',').toString()}`, true)
 			.addField('Episodes', `🎥 **${this.safe(anime.episodes)}**`, true)
-			.addField('Score', `⭐ **${this.safe(anime.averageScore, '―')}**`, true)
+			.addField('Score', `⭐ **${this.safe(anime.averageScore!)}** / 100`, true)
 			.setThumbnail(anime.coverImage.extraLarge)
 			.setFooter(`${this.safe(startYear)}/${this.safe(startMonth)}/${this.safe(startDay)} to ${this.safe(endYear)}/${this.safe(endMonth)}/${this.safe(endDay)}`, 'https://i.imgur.com/b7xjPhF.png')
 			.setColor('ORANGE');
