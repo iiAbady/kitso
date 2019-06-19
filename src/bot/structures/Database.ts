@@ -11,7 +11,7 @@ connectionManager.create({
 	name: 'kitso',
 	type: 'postgres',
 	url: process.env.DATABASE_URL,
-	entities: [User]
+	entities: [Setting, Tag, Case, Reminder, User]
 });
 
 
