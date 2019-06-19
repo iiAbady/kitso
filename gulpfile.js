@@ -8,7 +8,6 @@ const project = ts.createProject('tsconfig.json');
 async function build() {
 	await Promise.all([
 		fsn.emptydir('dist'),
-		fsn.emptydir('typings')
 	]);
 
 	const result = project.src()
@@ -16,7 +15,6 @@ async function build() {
 		.pipe(project());
 
 	return merge([
-		result.dts.pipe(gulp.dest('typings')),
 		result.js.pipe(sourcemaps.write('.', { sourceRoot: '../src' })).pipe(gulp.dest('dist'))
 	]);
 }
