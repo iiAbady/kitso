@@ -49,7 +49,7 @@ export default class BanCommand extends Command {
 	}
 
 	public async exec(message: Message, { member, days, reason }: { member: GuildMember; days: number; reason: string }): Promise<Message | Message[] | void> {
-		if (!member) return message.reply(':x: Please mention/type the member you want to ban');
+		if (member.hasPermission('MANAGE_GUILD')) return;
 		if (member.id === message.author!.id) {
 			return message.reply('REALLLLLLLLLY?');
 		}
