@@ -59,7 +59,8 @@ export default class MuteCommand extends Command {
 	public async exec(message: Message, { member, duration, reason }: { member: GuildMember; duration: number; reason: string }): Promise<Message | Message[]> {
 		const muteRole = '562125212976545817';
 		if (!muteRole) return message.reply('I cannot find the mute role.');
-		if (member.roles.has('553879901531406358') || message.member!.hasPermission('MANAGE_GUILD')) {
+
+		if (member.hasPermission('MANAGE_GUILD')) {
 			message.reply('do you wanna get fked?');
 		}
 
