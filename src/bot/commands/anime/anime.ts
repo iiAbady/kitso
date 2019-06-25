@@ -51,7 +51,7 @@ export default class ANISYNCCOMMAND extends Command {
 			body: JSON.stringify({
 				query: `{
                     Page(perPage: 1) {
-                      media(search: "${query}", isAdult: false) {
+                      media(search: "${query}", isAdult: false, type: ANIME) {
                         genres
                         format
                         siteUrl
