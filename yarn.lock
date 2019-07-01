@@ -3891,10 +3891,10 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simple-youtube-api@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/simple-youtube-api/-/simple-youtube-api-5.2.0.tgz#abc5f436cc123141b9b28bb452f8b669db315d9c"
-  integrity sha512-fF9mas0QzgVrO0mKBK57hHjer9ABzNJwK3R2Ayl1IGKTcA1T8VWfFq7OI4WmeH1FwKx9tkEFQHN8Q9AN5MqNpA==
+simple-youtube-api@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/simple-youtube-api/-/simple-youtube-api-5.2.1.tgz#d1f6efb941ce404f50ce56e0c5e6bff249fcac6a"
+  integrity sha512-vmndP9Bkh35tifn2OwY+th2imSsfYtmDqczgdOW5yEARFzvSoR8VSQFsivJnctfV5QHQUL6VrOpNdbmDRLh9Bg==
   dependencies:
     iso8601-duration "^1.2.0"
     node-fetch "^2.6.0"
