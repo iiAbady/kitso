@@ -98,7 +98,7 @@ export default class KitsoClient extends AkairoClient {
 			const tag = await tagsRepo.findOne({
 				where: [
 					{ name: phrase, guild: message.guild!.id },
-					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']`), guild: message.guild!.id }
+					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild!.id }
 				]
 			});
 
@@ -111,7 +111,7 @@ export default class KitsoClient extends AkairoClient {
 			const tag = await tagsRepo.findOne({
 				where: [
 					{ name: phrase, guild: message.guild!.id },
-					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']`), guild: message.guild!.id }
+					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild!.id }
 				]
 			});
 

@@ -33,7 +33,7 @@ export default class TagShowCommand extends Command {
 		const tag = await tagsRepo.findOne({
 			where: [
 				{ name, guild: message.guild!.id },
-				{ aliases: Raw(alias => `${alias} @> ARRAY['${name}']`), guild: message.guild!.id }
+				{ aliases: Raw(alias => `${alias} @> ARRAY['${name}']::varchar[]`), guild: message.guild!.id }
 			]
 		});
 
