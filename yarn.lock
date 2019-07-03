@@ -498,11 +498,6 @@ bindings@^1.2.1:
   dependencies:
     file-uri-to-path "1.0.0"
 
-bintrees@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.1.tgz#0e655c9b9c2435eaab68bf4027226d2b55a34524"
-  integrity sha1-DmVcm5wkNeqraL9AJyJtK1WjRSQ=
-
 blocksmc@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/blocksmc/-/blocksmc-3.6.0.tgz#edefab5a8079f20b9d4bd0b02edd7d4eafbbbe3c"
@@ -1111,12 +1106,10 @@ diff@^4.0.1:
 
 discord-akairo@1Computer1/discord-akairo:
   version "8.0.0-beta.8"
-  uid "817327e64546062353ac595d64b52924896d032a"
   resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/817327e64546062353ac595d64b52924896d032a"
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  uid b65a4f05da40a45e33f78fc43c9b8172a170a3df
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/b65a4f05da40a45e33f78fc43c9b8172a170a3df"
   dependencies:
     form-data "^2.3.3"
@@ -1244,7 +1237,6 @@ env-variable@0.0.x:
 
 erlpack@discordapp/erlpack:
   version "0.1.0"
-  uid "1df303c7f3719289ef07be6abae19c294169113f"
   resolved "https://codeload.github.com/discordapp/erlpack/tar.gz/1df303c7f3719289ef07be6abae19c294169113f"
   dependencies:
     bindings "^1.2.1"
@@ -3473,13 +3465,6 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-prom-client@^11.5.3:
-  version "11.5.3"
-  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-11.5.3.tgz#5fedfce1083bac6c2b223738e966d0e1643756f8"
-  integrity sha512-iz22FmTbtkyL2vt0MdDFY+kWof+S9UB/NACxSn2aJcewtw+EERsen0urSkZ2WrHseNdydsvcxCTAnPcSMZZv4Q==
-  dependencies:
-    tdigest "^0.1.1"
-
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -4192,13 +4177,6 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
-
-tdigest@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/tdigest/-/tdigest-0.1.1.tgz#2e3cb2c39ea449e55d1e6cd91117accca4588021"
-  integrity sha1-Ljyyw56kSeVdHmzZEReszKRYgCE=
-  dependencies:
-    bintrees "1.0.1"
 
 text-hex@1.0.x:
   version "1.0.0"

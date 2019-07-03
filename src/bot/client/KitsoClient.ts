@@ -7,7 +7,7 @@ import TypeORMProvider from '../structures/SettingsProvider';
 import MuteScheduler from '../structures/MuteScheduler';
 import RemindScheduler from '../structures/RemindScheduler';
 import { Setting } from '../models/Settings';
-import { Connection } from 'typeorm';
+import { Connection, Raw } from 'typeorm';
 import { Case } from '../models/Cases';
 import { Reminder } from '../models/Reminders';
 import { Tag } from '../models/Tags';
@@ -92,39 +92,28 @@ export default class KitsoClient extends AkairoClient {
 			disabledEvents: ['TYPING_START']
 		});
 
-		this.commandHandler.resolver.addType('tag', async (_, phrase): Promise<any> => {
+		this.commandHandler.resolver.addType('tag', async (message, phrase): Promise<any> => {
 			if (!phrase) return Flag.fail(phrase);
 			const tagsRepo = this.db.getRepository(Tag);
-			// TODO: remove this hack once I figure out how to OR operator this
-			const tags = await tagsRepo.find();
-			const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
-			/* const tag = await this.db.models.tags.findOne({
-				where: {
-					[Op.or]: [
-						{ name: phrase },
-						{ aliases: { [Op.contains]: [phrase] } }
-					],
-					guild: message.guild.id
-				}
-			}); */
+			const tag = await tagsRepo.findOne({
+				where: [
+					{ name: phrase, guild: message.guild!.id },
+					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']`), guild: message.guild!.id }
+				]
+			});
 
 			return tag || Flag.fail(phrase);
 		});
-		this.commandHandler.resolver.addType('existingTag', async (_, phrase): Promise<any> => {
+
+		this.commandHandler.resolver.addType('existingTag', async (message, phrase): Promise<any> => {
 			if (!phrase) return Flag.fail(phrase);
 			const tagsRepo = this.db.getRepository(Tag);
-			// TODO: remove this hack once I figure out how to OR operator this
-			const tags = await tagsRepo.find();
-			const [tag] = tags.filter((t): boolean => t.name === phrase || t.aliases.includes(phrase));
-			/* const tag = await this.db.models.tags.findOne({
-				where: {
-					[Op.or]: [
-						{ name: phrase },
-						{ aliases: { [Op.contains]: [phrase] } }
-					],
-					guild: message.guild.id
-				}
-			}); */
+			const tag = await tagsRepo.findOne({
+				where: [
+					{ name: phrase, guild: message.guild!.id },
+					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']`), guild: message.guild!.id }
+				]
+			});
 
 			return tag ? Flag.fail(phrase) : phrase;
 		});
