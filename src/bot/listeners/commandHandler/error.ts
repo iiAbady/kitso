@@ -1,7 +1,7 @@
 import { Listener, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { emojis } from '../../util/index';
-const Raven = require('raven'); // eslint-disable-line
+import { addBreadcrumb, captureException, Severity } from '@sentry/node';
 
 const RESPONSE = `${emojis.shocked} W-what?!?! That was unexpected. (Error: !{err})`;
 
@@ -16,9 +16,10 @@ export default class CommandErrorListener extends Listener {
 
 	public async exec(error: Error, message: Message, command: Command): Promise<Message | Message[]> {
 		this.client.logger.error(`[COMMAND ERROR] ${error.message}`, error.stack);
-		Raven.captureBreadcrumb({
+		addBreadcrumb({
 			message: 'command_errored',
 			category: command ? command.category.id : 'inhibitor',
+			level: Severity.Error,
 			data: {
 				user: {
 					id: message.author!.id,
@@ -29,7 +30,7 @@ export default class CommandErrorListener extends Listener {
 						id: message.guild.id,
 						name: message.guild.name
 					}
-				 : null,
+					: null,
 				command: command
 					? {
 						id: command.id,
@@ -43,7 +44,7 @@ export default class CommandErrorListener extends Listener {
 				}
 			}
 		});
-		Raven.captureException(error);
+		captureException(error);
 		return message.util!.send(
 			RESPONSE
 				.replace('!{err}', `${command.id}${error.message.length + command.id.length}`)
