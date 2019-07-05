@@ -21,6 +21,7 @@ export default class AddCaseCommand extends Command {
 				{
 					id: 'member',
 					type: Argument.union('member', async (_, phrase): Promise<{ id: string; user: User } | null> => {
+						if (!phrase) return null;
 						const m = await this.client.users.fetch(phrase);
 						if (m) return { id: m.id, user: m };
 						return null;

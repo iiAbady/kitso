@@ -22,6 +22,7 @@ export default class BanCommand extends Command {
 				{
 					id: 'member',
 					type: Argument.union('member', async (_, phrase): Promise<{ id: string; user: User } | null> => {
+						if (!phrase) return null;
 						const m = await this.client.users.fetch(phrase);
 						if (m) return { id: m.id, user: m };
 						return null;
@@ -35,7 +36,7 @@ export default class BanCommand extends Command {
 					'id': 'days',
 					'type': 'integer',
 					'match': 'option',
-					'flag': ['--days:', '-d:'],
+					'flag': ['--days=', '-d='],
 					'default': 0
 				},
 				{

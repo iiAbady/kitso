@@ -10,4 +10,3 @@ client
 	.on('warn', (warn): Logger => client.logger.warn(`[CLIENT WARN] ${warn}`));
 
 client.start();
-// client.metrics();
