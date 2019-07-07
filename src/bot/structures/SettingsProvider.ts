@@ -1,6 +1,6 @@
 import { Provider } from 'discord-akairo';
 import { Guild } from 'discord.js';
-import { Repository, DeleteResult } from 'typeorm';
+import { Repository, InsertResult, DeleteResult } from 'typeorm';
 import { Setting } from '../models/Settings';
 
 export default class TypeORMProvider extends Provider {
@@ -20,7 +20,7 @@ export default class TypeORMProvider extends Provider {
 	}
 
 	// eslint-disable-next-line
-	public get(guild: string | Guild, key: string, defaultValue: any) {
+	public get(guild: string | Guild, key: string, defaultValue: any): any {
 		const id = (this.constructor as typeof TypeORMProvider).getGuildId(guild);
 		if (this.items.has(id)) {
 			const value = this.items.get(id)[key];
@@ -30,7 +30,7 @@ export default class TypeORMProvider extends Provider {
 		return defaultValue;
 	}
 
-	public async set(guild: string | Guild, key: string, value: any): Promise<any> {
+	public async set(guild: string | Guild, key: string, value: any): Promise<InsertResult> {
 		const id = (this.constructor as typeof TypeORMProvider).getGuildId(guild);
 		const data = this.items.get(id) || {};
 		data[key] = value;
@@ -45,17 +45,17 @@ export default class TypeORMProvider extends Provider {
 			.execute();
 	}
 
-	public async delete(guild: string | Guild, key: string): Promise<any> {
+	public async delete(guild: string | Guild, key: string): Promise<InsertResult> {
 		const id = (this.constructor as typeof TypeORMProvider).getGuildId(guild);
 		const data = this.items.get(id) || {};
-		delete data[key]; // tslint:disable-line
+		delete data[key];
 
 		return this.repo.createQueryBuilder()
 			.insert()
 			.into(Setting)
 			.values({ guild: id, settings: data })
-			.onConflict('("guild") DO UPDATE SET "settings" =:settings')
-			.setParameter('settings', null)
+			.onConflict('("guild") DO UPDATE SET "settings" = :settings')
+			.setParameter('settings', data)
 			.execute();
 	}
 
