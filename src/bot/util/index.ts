@@ -17,9 +17,6 @@ const ACTIONS: Actions = ({
 	3: 'kick',
 	4: 'kick',
 	5: 'mute',
-	6: 'restriction',
-	7: 'restriction',
-	8: 'restriction',
 	9: 'warn'
 });
 
@@ -82,15 +79,14 @@ export default {
 			return count;
 		}, {});
 		const colors = [8450847, 10870283, 13091073, 14917123, 16152591, 16667430, 16462404];
-		const values = [footer.warn || 0, footer.restriction || 0, footer.mute || 0, footer.kick || 0, footer.ban || 0];
-		const [warn, restriction, mute, kick, ban] = values;
+		const values = [footer.warn || 0, footer.mute || 0, footer.kick || 0, footer.ban || 0];
+		const [warn, mute, kick, ban] = values;
 		const colorIndex = Math.min(values.reduce((a: number, b: number): number => a + b), colors.length - 1);
 
 		return new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(colors[colorIndex])
 			.setFooter(oneLine`${warn} warning${warn > 1 || warn === 0 ? 's' : ''},
-				${restriction} restriction${restriction > 1 || restriction === 0 ? 's' : ''},
 				${mute} mute${mute > 1 || mute === 0 ? 's' : ''},
 				${kick} kick${kick > 1 || kick === 0 ? 's' : ''},
 				and ${ban} ban${ban > 1 || ban === 0 ? 's' : ''}.
