@@ -39,7 +39,7 @@ export class Case {
 	public reason!: string;
 
 	@Column({ type: 'timestamptz', nullable: true })
-	public vaction_duration!: Date;
+	public action_duration!: Date;
 
 	@Index()
 	@Column({ 'default': true })

@@ -52,11 +52,6 @@
 		"merge2": "^1.2.3",
 		"typescript": "^3.5.3"
 	},
-	"optionalDependencies": {
-		"@discordjs/uws": "^11.149.1",
-		"erlpack": "discordapp/erlpack",
-		"zlib-sync": "^0.1.4"
-	},
 	"eslintConfig": {
 		"extends": "marine/node"
 	}
