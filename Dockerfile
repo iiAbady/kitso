@@ -20,5 +20,5 @@ ENV NODE_ENV= \
 	TOKEN= \
 	DATABASE_URL= \
 	SENTRY= \
-    YOUTUBE = \
+    YOUTUBE =
 CMD ["node", "dist/yukikaze.js"]
