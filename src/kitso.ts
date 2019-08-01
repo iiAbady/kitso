@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import KitsoClient from './bot/client/KitsoClient';
 import { Logger } from 'winston';
-// import './env';
+import './env';
 // TODO: make this like the old way: process.env.OWNERS only
 const client = new KitsoClient({ owner: ['171259176029257728', '298732816995319809', '323231064157847559'], token: process.env.TOKEN });
 

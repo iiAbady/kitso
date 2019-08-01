@@ -4,7 +4,7 @@ import { Tag } from '../models/Tags';
 import { Case } from '../models/Cases';
 import { Reminder } from '../models/Reminders';
 import { User } from '../models/Users';
-// import '../../env';
+import '../../env';
 
 const connectionManager = new ConnectionManager();
 connectionManager.create({
