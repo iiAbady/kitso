@@ -16,7 +16,7 @@
 		"@sentry/node": "^5.6.1",
 		"blocksmc": "^3.6.2",
 		"common-tags": "^1.8.0",
-		"dotenv": "^8.0.0",
+		"dotenv": "^8.1.0",
 		"diff": "^4.0.1",
 		"discord-akairo": "1Computer1/discord-akairo",
 		"discord.js": "discordjs/discord.js",
