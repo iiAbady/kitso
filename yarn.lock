@@ -556,10 +556,10 @@ binary-extensions@^1.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.13.0.tgz#9523e001306a32444b907423f1de2164222f6ab1"
   integrity sha512-EgmjVLMn22z7eGGv3kcnHwSnJXmFHjISTY9E/S5lIcTD3Oxw05QTcBLNkJFzcb3cNueUdF/IN4U+d78V0zO8Hw==
 
-blocksmc@^3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/blocksmc/-/blocksmc-3.6.2.tgz#dfe750dfc8c4cacdbbab1a4212d344dfe4894271"
-  integrity sha512-SioaPbPSV/0KblhwIsSjWbhITelDfYCUHhncwXEa7aOOlZy/2YKexiLRcHlrgtBG6ypOHfYyU4GGZxO/qi/PmA==
+blocksmc@^3.6.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/blocksmc/-/blocksmc-3.6.4.tgz#bdda3ce77120b5dd6d054fbd222a15baa23b9f74"
+  integrity sha512-jilf7DCOMCvjraZgqRdCe/4QNizHMtHx17Z3hhSgi3GlHPe3hc34GNgHXs6qCKvWa1hz/C+XC6YUT8JaLyOrUg==
   dependencies:
     cheerio "^1.0.0-rc.3"
     node-fetch "^2.6.0"
