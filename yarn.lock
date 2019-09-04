@@ -1158,8 +1158,8 @@ discord-akairo@1Computer1/discord-akairo:
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  uid cc488a8bd3dc39354967d132e34f63ff51e92b79
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/cc488a8bd3dc39354967d132e34f63ff51e92b79"
+  uid "89a3a3a6daa7b5e25bd277b4e2ec6bccb368f1df"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/89a3a3a6daa7b5e25bd277b4e2ec6bccb368f1df"
   dependencies:
     abort-controller "^3.0.0"
     form-data "^2.3.3"
