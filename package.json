@@ -50,7 +50,7 @@
 		"gulp-sourcemaps": "^2.6.4",
 		"gulp-typescript": "^5.0.0",
 		"merge2": "^1.2.4",
-		"typescript": "^3.5.3"
+		"typescript": "^3.6.3"
 	},
 	"eslintConfig": {
 		"extends": "marine/node"
