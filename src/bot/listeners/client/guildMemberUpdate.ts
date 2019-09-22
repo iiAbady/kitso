@@ -1,5 +1,5 @@
 import { Listener } from 'discord-akairo';
-import { GuildMember, TextChannel } from 'discord.js';
+import { Message, GuildMember, TextChannel } from 'discord.js';
 import { Case } from '../../models/Cases';
 import Util from '../../util';
 
@@ -51,7 +51,7 @@ export default class GuildMemberUpdateModerationListener extends Listener {
 				const embed = Util.logEmbed({ member: newMember, action: actionName, caseNum: totalCases, reason }).setColor(
 					Util.CONSTANTS.COLORS[color],
 				);
-				modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed);
+				modMessage = (await (this.client.channels.get(modLogChannel) as TextChannel).send(embed)) as Message;
 			}
 			const dbCase = new Case();
 			dbCase.guild = newMember.guild.id;

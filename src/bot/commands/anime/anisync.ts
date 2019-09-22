@@ -18,7 +18,7 @@ export default class ANISYNCCOMMAND extends Command {
 		});
 	}
 
-	public async exec(message: Message): Promise<Message | Message[]> {
+	public async exec(message: Message) {
 		const usersRepo = this.client.db.getRepository(User);
 		if (await usersRepo.findOne({ user: message.author.id })) {
 			return message.reply('You already synced.');
@@ -26,7 +26,7 @@ export default class ANISYNCCOMMAND extends Command {
 		const embed = new MessageEmbed()
 			.setDescription(`Please enter your [authentication code](${AUTH_URL})`)
 			.setFooter('Waiting for auth code to be entered...');
-		const msg = await message.util!.send({ embed });
+		const msg = (await message.util!.send({ embed })) as Message;
 		const responses = await message.channel.awaitMessages((Msg): boolean => Msg.author.id === message.author.id, {
 			max: 1,
 			time: 30000,

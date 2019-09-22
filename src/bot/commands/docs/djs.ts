@@ -3,7 +3,7 @@ import { Message, TextChannel } from 'discord.js';
 import fetch from 'node-fetch';
 import * as qs from 'querystring';
 
-const SOURCES = ['stable', 'master', 'rpc', 'commando', 'akairo', 'akairo-master'];
+const SOURCES = ['stable', 'master', 'rpc', 'commando', 'akairo', 'akairo-master', '11.5-dev'];
 
 export default class DocsCommand extends Command {
 	public constructor() {
@@ -55,7 +55,7 @@ export default class DocsCommand extends Command {
 		) {
 			return message.util!.send({ embed });
 		}
-		const msg = await message.util!.send({ embed });
+		const msg = (await message.util!.send({ embed })) as Message;
 		msg.react('🗑');
 		let react;
 		try {

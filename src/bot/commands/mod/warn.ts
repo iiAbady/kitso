@@ -62,7 +62,7 @@ export default class WarnCommand extends Command {
 			const embed = Util.logEmbed({ message, member, action: 'Warn', caseNum: totalCases, reason }).setColor(
 				Util.CONSTANTS.COLORS.WARN,
 			);
-			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed);
+			modMessage = (await (this.client.channels.get(modLogChannel) as TextChannel).send(embed)) as Message;
 		}
 
 		const casesRepo = this.client.db.getRepository(Case);

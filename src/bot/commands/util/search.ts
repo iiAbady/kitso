@@ -42,7 +42,7 @@ export default class Searchcommand extends Command {
 				'Search Results:',
 				`${videos.map((video: any): string => `**[${video.title}](${video.url})**`).join('\n')}`,
 			);
-		const msg = await message.util!.send({ embed });
+		const msg = (await message.util!.send({ embed })) as Message;
 		msg.react('🗑');
 		let react;
 		try {

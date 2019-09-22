@@ -47,10 +47,7 @@ export default class ANISYNCCOMMAND extends Command {
 		});
 	}
 
-	public async exec(
-		message: Message,
-		{ type, page, member }: { type: string; page: number; member: GuildMember },
-	): Promise<Message | Message[]> {
+	public async exec(message: Message, { type, page, member }: { type: string; page: number; member: GuildMember }) {
 		if (member.user.bot) {
 			return message.reply(`Didn't know that bots are weebs •_•`);
 		}

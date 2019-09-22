@@ -83,7 +83,7 @@ export default class BanCommand extends Command {
 
 		let sentMessage;
 		if (/^y(?:e(?:a|s)?)?$/i.test(response!.content)) {
-			sentMessage = await message.channel.send(`Banning **${member.user.tag}**...`);
+			sentMessage = (await message.channel.send(`Banning **${member.user.tag}**...`)) as Message;
 		} else {
 			this.client.cachedCases.delete(key);
 			return message.reply(':x: cancelled ban.');
@@ -126,7 +126,7 @@ export default class BanCommand extends Command {
 			const e = Util.logEmbed({ message, member, action: 'Ban', caseNum: totalCases, reason }).setColor(
 				Util.CONSTANTS.COLORS.BAN,
 			);
-			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(e);
+			modMessage = (await (this.client.channels.get(modLogChannel) as TextChannel).send(e)) as Message;
 		}
 
 		const dbCase = new Case();
