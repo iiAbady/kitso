@@ -13,6 +13,7 @@
 		],
 		"declaration": false,
 		"sourceMap": true,
+		"inlineSources": true,
 		"removeComments": false,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
