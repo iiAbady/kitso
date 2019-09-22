@@ -91,7 +91,7 @@ export default class MuteCommand extends Command {
 		let modMessage;
 		if (modLogChannel) {
 			const embed = Util.logEmbed({ message, member, action: 'Mute', duration, caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS.MUTE);
-			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed) as Message;
+			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed);
 		}
 
 		await this.client.muteScheduler.addMute({

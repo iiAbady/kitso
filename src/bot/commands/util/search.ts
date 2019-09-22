@@ -35,7 +35,7 @@ export default class Searchcommand extends Command {
 			.setAuthor('Youtube', 'http://mpadelgym.com/public/uploads/mionopadelgym2/icono-youtube1.png', 'https://www.youtube.com/')
 			.setColor('#FF0000')
 			.addField('Search Results:', `${videos.map((video: any): string => `**[${video.title}](${video.url})**`).join('\n')}`);
-		const msg = await message.util!.send({ embed }) as Message;
+		const msg = await message.util!.send({ embed });
 		msg.react('🗑');
 		let react;
 		try {

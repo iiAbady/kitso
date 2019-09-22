@@ -21,7 +21,6 @@ const ACTIONS: Actions = ({
 });
 
 export default {
-	/* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
 	CONSTANTS: {
 		ACTIONS: {
 			BAN: 1,

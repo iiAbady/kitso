@@ -63,7 +63,7 @@ export default class AddCaseCommand extends Command {
 		const casesRepo = this.client.db.getRepository(Case);
 		if (modLogChannel) {
 			const embed = Util.logEmbed({ message, member, action, caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS[action.toUpperCase()]);
-			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed) as Message;
+			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed);
 		}
 
 		const dbCase = new Case();

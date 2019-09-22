@@ -46,12 +46,12 @@ export default class ANISYNCCOMMAND extends Command {
 	}
 
 	public async exec(message: Message, { type, page, member }: { type: string; page: number; member: GuildMember }): Promise<Message | Message[]> {
-		if (member!.user.bot) {
+		if (member.user.bot) {
 			return message.reply(`Didn't know that bots are weebs •_•`);
 		}
 
 		const usersRepo = this.client.db.getRepository(User);
-		const user = await usersRepo.findOne({ user: member!.id });
+		const user = await usersRepo.findOne({ user: member.id });
 		if (!user) {
 			return message.reply(`Seems ${member.id === message.author!.id ? 'You' : member.user.username} are not synced yet.`);
 		}

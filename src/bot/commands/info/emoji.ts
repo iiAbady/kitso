@@ -24,21 +24,22 @@ export default class EmojiInfoCommand extends Command {
 				{
 					id: 'emoji',
 					match: 'content',
-					type: async (message, content): Promise<any> => {
+					type: async (message, content) => {
+						// eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
 						if (EMOJI_REGEX.test(content)) [, content] = content.match(EMOJI_REGEX)!;
 						if (!isNaN(content as any)) return message.guild!.emojis.get(content);
 						return emojis.find(content);
 					},
 					prompt: {
-						start: (message: Message): string => `${message.author}, what emoji would you like information about?`,
-						retry: (message: Message): string => `${message.author}, please provide a valid emoji!`
+						start: (message: Message) => `${message.author}, what emoji would you like information about?`,
+						retry: (message: Message) => `${message.author}, please provide a valid emoji!`
 					}
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { emoji }: { emoji: any }): Promise<Message | Message[]> {
+	public async exec(message: Message, { emoji }: { emoji: any }) {
 		const embed = new MessageEmbed()
 			.setColor(3447003);
 

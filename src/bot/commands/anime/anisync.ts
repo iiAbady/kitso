@@ -25,7 +25,7 @@ export default class ANISYNCCOMMAND extends Command {
 		const embed = new MessageEmbed()
 			.setDescription(`Please enter your [authentication code](${AUTH_URL})`)
 			.setFooter('Waiting for auth code to be entered...');
-		const msg = await message.util!.send({ embed }) as Message;
+		const msg = await message.util!.send({ embed });
 		const responses = await message.channel.awaitMessages((Msg): boolean => Msg.author.id === message.author!.id, {
 			max: 1,
 			time: 30000

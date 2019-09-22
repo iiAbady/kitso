@@ -101,7 +101,7 @@ export default class ANISYNCCOMMAND extends Command {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/promise-function-async
-	protected safe(value: any, nullIcon: string = '?'): any {
+	protected safe(value: any, nullIcon = '?'): any {
 		return Boolean(value) ? value : nullIcon;
 	}
 }
