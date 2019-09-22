@@ -21,7 +21,6 @@ typings/
 
 # Miscellaneous
 .tmp/
-.github/
 ormconfig.json
 
 # IDE
