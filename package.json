@@ -8,18 +8,18 @@
 	"private": true,
 	"scripts": {
 		"lint": "eslint src --ext .ts",
-		"test": "npm run lint",
-		"heroku-postbuild": "gulp"
+		"build": "tsc",
+		"heroku-postbuild": "yarn build"
 	},
 	"dependencies": {
 		"@naval-base/ms": "^2.2.1",
 		"@sentry/node": "^5.6.2",
 		"blocksmc": "^3.6.4",
 		"common-tags": "^1.8.0",
-		"dotenv": "^8.1.0",
 		"diff": "^4.0.1",
 		"discord-akairo": "1Computer1/discord-akairo",
 		"discord.js": "discordjs/discord.js",
+		"dotenv": "^8.1.0",
 		"moment": "^2.24.0",
 		"moment-duration-format": "^2.3.2",
 		"node-emoji": "^1.8.1",
@@ -39,17 +39,11 @@
 		"@types/moment-duration-format": "^2.2.2",
 		"@types/node": "^12.7.5",
 		"@types/node-emoji": "^1.8.1",
-		"@types/node-fetch": "^2.5.0",
-		"@types/ws": "^6.0.2",
-		"@typescript-eslint/eslint-plugin": "^1.13.0",
-		"@typescript-eslint/parser": "^1.13.0",
-		"eslint": "^5.16.0",
+		"@types/node-fetch": "^2.5.1",
+		"@typescript-eslint/eslint-plugin": "^2.3.0",
+		"@typescript-eslint/parser": "^2.3.0",
+		"eslint": "^6.4.0",
 		"eslint-config-marine": "^5.0.0",
-		"fs-nextra": "^0.4.5",
-		"gulp": "^4.0.2",
-		"gulp-sourcemaps": "^2.6.4",
-		"gulp-typescript": "^5.0.0",
-		"merge2": "^1.2.4",
 		"typescript": "^3.6.3"
 	},
 	"eslintConfig": {
