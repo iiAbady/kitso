@@ -30,7 +30,7 @@
 		"setimmediate": "^1.0.5",
 		"simple-youtube-api": "^5.2.1",
 		"turndown": "^5.0.3",
-		"typeorm": "^0.2.18",
+		"typeorm": "^0.2.19",
 		"winston": "^3.2.1"
 	},
 	"devDependencies": {
