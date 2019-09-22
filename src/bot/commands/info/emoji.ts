@@ -14,7 +14,7 @@ export default class EmojiInfoCommand extends Command {
 			description: {
 				content: 'Get information about an emoji.',
 				usage: '<emoji>',
-				examples: ['😂', ':joy:', '531541224512028684']
+				examples: ['😂', ':joy:', '531541224512028684'],
 			},
 			category: 'info',
 			channel: 'guild',
@@ -27,21 +27,20 @@ export default class EmojiInfoCommand extends Command {
 					type: async (message, content) => {
 						// eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
 						if (EMOJI_REGEX.test(content)) [, content] = content.match(EMOJI_REGEX)!;
-						if (!isNaN(content as any)) return message.guild!.emojis.get(content);
+						if (!isNaN(content as any)) return message.guild.emojis.get(content);
 						return emojis.find(content);
 					},
 					prompt: {
 						start: (message: Message) => `${message.author}, what emoji would you like information about?`,
-						retry: (message: Message) => `${message.author}, please provide a valid emoji!`
-					}
-				}
-			]
+						retry: (message: Message) => `${message.author}, please provide a valid emoji!`,
+					},
+				},
+			],
 		});
 	}
 
 	public async exec(message: Message, { emoji }: { emoji: any }) {
-		const embed = new MessageEmbed()
-			.setColor(3447003);
+		const embed = new MessageEmbed().setColor(3447003);
 
 		if (emoji instanceof GuildEmoji) {
 			embed.setDescription(`Info about ${emoji.name} (ID: ${emoji.id})`);
@@ -52,7 +51,7 @@ export default class EmojiInfoCommand extends Command {
 				• Identifier: \`<${emoji.identifier}>\`
 				• Creation Date: ${moment.utc(emoji.createdAt).format('YYYY/MM/DD hh:mm:ss')}
 				• URL: ${emoji.url}
-				`
+				`,
 			);
 		} else {
 			embed.setDescription(`Info about ${emoji.emoji}`);
@@ -61,8 +60,11 @@ export default class EmojiInfoCommand extends Command {
 				stripIndents`
 				• Name: \`${emoji.key}\`
 				• Raw: \`${emoji.emoji}\`
-				• Unicode: \`${punycode.ucs2.decode(emoji.emoji).map((e: any): string => `\\u${e.toString(16).toUpperCase()}`).join('')}\`
-				`
+				• Unicode: \`${punycode.ucs2
+					.decode(emoji.emoji)
+					.map((e: any): string => `\\u${e.toString(16).toUpperCase()}`)
+					.join('')}\`
+				`,
 			);
 		}
 

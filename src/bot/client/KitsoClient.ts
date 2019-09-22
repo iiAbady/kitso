@@ -40,12 +40,12 @@ export default class KitsoClient extends AkairoClient {
 			format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
 			format.printf((info: any): string => {
 				const { timestamp, level, message, ...rest } = info;
-				return `[${timestamp}] ${level}: ${message}${Object.keys(rest).length ? `\n${JSON.stringify(rest, null, 2)}` : ''}`;
-			})
+				return `[${timestamp}] ${level}: ${message}${
+					Object.keys(rest).length ? `\n${JSON.stringify(rest, null, 2)}` : ''
+				}`;
+			}),
 		),
-		transports: [
-			new transports.Console({ level: 'info' })
-		]
+		transports: [new transports.Console({ level: 'info' })],
 	});
 
 	public db!: Connection;
@@ -54,7 +54,7 @@ export default class KitsoClient extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', 'commands'),
-		prefix: (message: Message): string => this.settings.get(message.guild!, 'prefix', '?'),
+		prefix: (message: Message): string => this.settings.get(message.guild, 'prefix', '?'),
 		aliasReplacement: /-/g,
 		allowMention: true,
 		commandUtil: true,
@@ -68,10 +68,10 @@ export default class KitsoClient extends AkairoClient {
 				ended: ":x: You've used your 3/3 tries! **cancelled**",
 				cancel: ':x: Cancelled',
 				retries: 3,
-				time: 30000
+				time: 30000,
 			},
-			otherwise: ''
-		}
+			otherwise: '',
+		},
 	});
 
 	public inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
@@ -87,43 +87,55 @@ export default class KitsoClient extends AkairoClient {
 	public remindScheduler!: RemindScheduler;
 
 	public constructor(config: KitsoOptions) {
-		super({ ownerID: config.owner }, {
-			messageCacheMaxSize: 1000,
-			disableEveryone: true,
-			disabledEvents: ['TYPING_START']
-		});
+		super(
+			{ ownerID: config.owner },
+			{
+				messageCacheMaxSize: 1000,
+				disableEveryone: true,
+				disabledEvents: ['TYPING_START'],
+			},
+		);
 
-		this.commandHandler.resolver.addType('tag', async (message, phrase): Promise<any> => {
-			if (!phrase) return Flag.fail(phrase);
-			const tagsRepo = this.db.getRepository(Tag);
-			const tag = await tagsRepo.findOne({
-				where: [
-					{ name: phrase, guild: message.guild!.id },
-					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild!.id }
-				]
-			});
+		this.commandHandler.resolver.addType(
+			'tag',
+			async (message, phrase): Promise<any> => {
+				if (!phrase) return Flag.fail(phrase);
+				const tagsRepo = this.db.getRepository(Tag);
+				const tag = await tagsRepo.findOne({
+					where: [
+						{ name: phrase, guild: message.guild.id },
+						{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild.id },
+					],
+				});
 
-			return tag || Flag.fail(phrase);
-		});
+				return tag || Flag.fail(phrase);
+			},
+		);
 
-		this.commandHandler.resolver.addType('existingTag', async (message, phrase): Promise<any> => {
-			if (!phrase) return Flag.fail(phrase);
-			const tagsRepo = this.db.getRepository(Tag);
-			const tag = await tagsRepo.findOne({
-				where: [
-					{ name: phrase, guild: message.guild!.id },
-					{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild!.id }
-				]
-			});
+		this.commandHandler.resolver.addType(
+			'existingTag',
+			async (message, phrase): Promise<any> => {
+				if (!phrase) return Flag.fail(phrase);
+				const tagsRepo = this.db.getRepository(Tag);
+				const tag = await tagsRepo.findOne({
+					where: [
+						{ name: phrase, guild: message.guild.id },
+						{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild.id },
+					],
+				});
 
-			return tag ? Flag.fail(phrase) : phrase;
-		});
-		this.commandHandler.resolver.addType('tagContent', async (message, phrase): Promise<any> => {
-			if (!phrase) phrase = '';
-			if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
+				return tag ? Flag.fail(phrase) : phrase;
+			},
+		);
+		this.commandHandler.resolver.addType(
+			'tagContent',
+			async (message, phrase): Promise<any> => {
+				if (!phrase) phrase = '';
+				if (message.attachments.first()) phrase += `\n${message.attachments.first()!.url}`;
 
-			return phrase || Flag.fail(phrase);
-		});
+				return phrase || Flag.fail(phrase);
+			},
+		);
 
 		this.config = config;
 
@@ -131,10 +143,13 @@ export default class KitsoClient extends AkairoClient {
 			init({
 				dsn: process.env.SENTRY,
 				environment: process.env.NODE_ENV,
-				release: version
+				release: version,
 			});
 		} else {
-			process.on('unhandledRejection', (err: any): Logger => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			process.on(
+				'unhandledRejection',
+				(err: any): Logger => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack),
+			);
 		}
 
 		if (process.env.LOGS) {
@@ -148,7 +163,7 @@ export default class KitsoClient extends AkairoClient {
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			inhibitorHandler: this.inhibitorHandler,
-			listenerHandler: this.listenerHandler
+			listenerHandler: this.listenerHandler,
 		});
 
 		this.commandHandler.loadAll();

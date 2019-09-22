@@ -11,31 +11,34 @@ export default class CheckCommand extends Command {
 			description: {
 				content: 'Checks a member history.',
 				usage: '<member>',
-				examples: ['@Abady']
+				examples: ['@Abady'],
 			},
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES', 'EMBED_LINKS'],
 			ratelimit: 2,
 			args: [
 				{
-					'id': 'member',
-					'match': 'content',
-					'type': Argument.union('member', async (_, phrase): Promise<{ id: string; user: User } | null> => {
-						if (!phrase) return null;
-						const m = await this.client.users.fetch(phrase);
-						if (m) return { id: m.id, user: m };
-						return null;
-					}),
-					'default': (message: Message): GuildMember => message.member!
-				}
-			]
+					id: 'member',
+					match: 'content',
+					type: Argument.union(
+						'member',
+						async (_, phrase): Promise<{ id: string; user: User } | null> => {
+							if (!phrase) return null;
+							const m = await this.client.users.fetch(phrase);
+							if (m) return { id: m.id, user: m };
+							return null;
+						},
+					),
+					default: (message: Message): GuildMember => message.member,
+				},
+			],
 		});
 	}
 
 	// @ts-ignore
 	public userPermissions(message: Message): string | null {
 		const staffRole = '535380980521893918';
-		const hasStaffRole = message.member!.roles.has(staffRole) || message.member!.hasPermission('MANAGE_GUILD');
+		const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
 		if (!hasStaffRole) return 'Moderator';
 		return null;
 	}

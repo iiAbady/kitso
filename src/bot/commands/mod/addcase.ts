@@ -11,7 +11,7 @@ export default class AddCaseCommand extends Command {
 			description: {
 				content: 'Add a case',
 				usage: '<member> <action> <reason>',
-				examples: ['@Abady mute saying bad words']
+				examples: ['@Abady mute saying bad words'],
 			},
 			channel: 'guild',
 			userPermissions: ['MANAGE_GUILD'],
@@ -20,38 +20,44 @@ export default class AddCaseCommand extends Command {
 			args: [
 				{
 					id: 'member',
-					type: Argument.union('member', async (_, phrase): Promise<{ id: string; user: User } | null> => {
-						if (!phrase) return null;
-						const m = await this.client.users.fetch(phrase);
-						if (m) return { id: m.id, user: m };
-						return null;
-					}),
+					type: Argument.union(
+						'member',
+						async (_, phrase): Promise<{ id: string; user: User } | null> => {
+							if (!phrase) return null;
+							const m = await this.client.users.fetch(phrase);
+							if (m) return { id: m.id, user: m };
+							return null;
+						},
+					),
 					prompt: {
 						start: (message: Message): string => `${message.author}, what member do you want to add case to?`,
-						retry: (message: Message): string => `${message.author}, please mention a member.`
-					}
+						retry: (message: Message): string => `${message.author}, please mention a member.`,
+					},
 				},
 				{
 					id: 'action',
-					type: ['ban', 'mute', 'warn', 'kick']
+					type: ['ban', 'mute', 'warn', 'kick'],
 				},
 				{
-					'id': 'reason',
-					'match': 'rest',
-					'type': 'string',
-					'default': ''
-				}
-			]
+					id: 'reason',
+					match: 'rest',
+					type: 'string',
+					default: '',
+				},
+			],
 		});
 	}
 
 	// tslint:disable-next-line: no-empty
-	public async exec(message: Message, { member, action, reason }: { member: GuildMember; action: string; reason: string }): Promise<Message | Message[]> {
+	public async exec(
+		message: Message,
+		{ member, action, reason }: { member: GuildMember; action: string; reason: string },
+	): Promise<Message | Message[]> {
 		if (!member) {
 			return message.reply('Please mention the target member.');
 		}
 		if (!action) return message.reply('Choose one of these reasons: **ban, mute, warn, kick**.');
-		const totalCases = this.client.settings.get(message.guild!, 'caseTotal', 0) as number + 1;
+		const totalCases = (this.client.settings.get(message.guild, 'caseTotal', 0) as number) + 1;
 		if (!reason) {
 			// @ts-ignore
 			const prefix = this.handler.prefix(message);
@@ -62,18 +68,20 @@ export default class AddCaseCommand extends Command {
 		let modMessage;
 		const casesRepo = this.client.db.getRepository(Case);
 		if (modLogChannel) {
-			const embed = Util.logEmbed({ message, member, action, caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS[action.toUpperCase()]);
+			const embed = Util.logEmbed({ message, member, action, caseNum: totalCases, reason }).setColor(
+				Util.CONSTANTS.COLORS[action.toUpperCase()],
+			);
 			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed);
 		}
 
 		const dbCase = new Case();
-		dbCase.guild = message.guild!.id;
+		dbCase.guild = message.guild.id;
 		if (modMessage) dbCase.message = modMessage.id;
 		dbCase.case_id = totalCases;
 		dbCase.target_id = member.id;
 		dbCase.target_tag = member.user.tag;
-		dbCase.mod_id = message.author!.id;
-		dbCase.mod_tag = message.author!.tag;
+		dbCase.mod_id = message.author.id;
+		dbCase.mod_tag = message.author.tag;
 		dbCase.action = Util.CONSTANTS.ACTIONS[action.toUpperCase()];
 		dbCase.reason = reason;
 		await casesRepo.save(dbCase);

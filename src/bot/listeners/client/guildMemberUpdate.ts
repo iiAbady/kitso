@@ -8,7 +8,7 @@ export default class GuildMemberUpdateModerationListener extends Listener {
 		super('guildMemberUpdateModeration', {
 			emitter: 'client',
 			event: 'guildMemberUpdate',
-			category: 'client'
+			category: 'client',
 		});
 	}
 
@@ -20,7 +20,9 @@ export default class GuildMemberUpdateModerationListener extends Listener {
 			if (!muteRole) return;
 			if (oldMember.roles.has(muteRole) && newMember.roles.has(muteRole)) return;
 			const modLogChannel = this.client.settings.get(newMember.guild, 'modLogChannel', undefined);
-			const role = newMember.roles.filter((r): boolean => r.id !== newMember.guild.id && !oldMember.roles.has(r.id)).first();
+			const role = newMember.roles
+				.filter((r): boolean => r.id !== newMember.guild.id && !oldMember.roles.has(r.id))
+				.first();
 			const casesRepo = this.client.db.getRepository(Case);
 			if (!role) {
 				if (oldMember.roles.has(muteRole) && !newMember.roles.has(muteRole)) {
@@ -34,7 +36,7 @@ export default class GuildMemberUpdateModerationListener extends Listener {
 			const action: number = Util.CONSTANTS.ACTIONS.MUTE;
 			const processed = false;
 
-			const totalCases = this.client.settings.get(newMember.guild, 'caseTotal', 0) as number + 1;
+			const totalCases = (this.client.settings.get(newMember.guild, 'caseTotal', 0) as number) + 1;
 			this.client.settings.set(newMember.guild, 'caseTotal', totalCases);
 
 			let modMessage;
@@ -42,8 +44,13 @@ export default class GuildMemberUpdateModerationListener extends Listener {
 				// @ts-ignore
 				const prefix = this.client.commandHandler.prefix({ guild: newMember.guild });
 				const reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
-				const color = Object.keys(Util.CONSTANTS.ACTIONS).find((key): boolean => Util.CONSTANTS.ACTIONS[key] === action)!.split(' ')[0].toUpperCase();
-				const embed = Util.logEmbed({ member: newMember, action: actionName, caseNum: totalCases, reason }).setColor(Util.CONSTANTS.COLORS[color]);
+				const color = Object.keys(Util.CONSTANTS.ACTIONS)
+					.find((key): boolean => Util.CONSTANTS.ACTIONS[key] === action)!
+					.split(' ')[0]
+					.toUpperCase();
+				const embed = Util.logEmbed({ member: newMember, action: actionName, caseNum: totalCases, reason }).setColor(
+					Util.CONSTANTS.COLORS[color],
+				);
 				modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(embed);
 			}
 			const dbCase = new Case();

@@ -21,7 +21,8 @@ export default class MuteScheduler {
 
 	public async addMute(mute: Case, reschedule = false): Promise<void> {
 		this.client.logger.info(`[MUTE] Muted ${mute.target_tag} on ${this.client.guilds.get(mute.guild)}`);
-		if (reschedule) this.client.logger.info(`[MUTE] Rescheduled mute on ${mute.target_id} on ${this.client.guilds.get(mute.guild)}`);
+		if (reschedule)
+			this.client.logger.info(`[MUTE] Rescheduled mute on ${mute.target_id} on ${this.client.guilds.get(mute.guild)}`);
 		if (!reschedule) {
 			const casesRepo = this.client.db.getRepository(Case);
 			const cs = new Case();
@@ -38,7 +39,7 @@ export default class MuteScheduler {
 			cs.reason = mute.reason;
 			mute = await casesRepo.save(cs);
 		}
-		if (mute.action_duration.getTime() < (Date.now() + this.checkRate)) {
+		if (mute.action_duration.getTime() < Date.now() + this.checkRate) {
 			this.queueMute(mute);
 		}
 	}
@@ -74,9 +75,12 @@ export default class MuteScheduler {
 	}
 
 	public queueMute(mute: Case): void {
-		this.queuedSchedules.set(mute.id, setTimeout((): void => {
-			this.cancelMute(mute);
-		}, mute.action_duration.getTime() - Date.now()));
+		this.queuedSchedules.set(
+			mute.id,
+			setTimeout((): void => {
+				this.cancelMute(mute);
+			}, mute.action_duration.getTime() - Date.now()),
+		);
 	}
 
 	public rescheduleMute(mute: Case): void {
@@ -94,7 +98,10 @@ export default class MuteScheduler {
 
 	private async _check(): Promise<void> {
 		const casesRepo = this.client.db.getRepository(Case);
-		const mutes = await casesRepo.find({ action_duration: LessThan(new Date(Date.now() + this.checkRate)), action_processed: false });
+		const mutes = await casesRepo.find({
+			action_duration: LessThan(new Date(Date.now() + this.checkRate)),
+			action_processed: false,
+		});
 		const now = new Date();
 
 		for (const mute of mutes) {

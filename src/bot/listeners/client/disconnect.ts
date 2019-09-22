@@ -5,11 +5,13 @@ export default class DisconnectListener extends Listener {
 		super('disconnect', {
 			emitter: 'client',
 			event: 'disconnect',
-			category: 'client'
+			category: 'client',
 		});
 	}
 
 	public exec(event: any): void {
-		this.client.logger.warn(`[DISCONNECT] Hmm, I have to hide the fact I was defeated... I'll let you go this time! (${event.code})`);
+		this.client.logger.warn(
+			`[DISCONNECT] Hmm, I have to hide the fact I was defeated... I'll let you go this time! (${event.code})`,
+		);
 	}
 }

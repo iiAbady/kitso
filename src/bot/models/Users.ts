@@ -6,7 +6,7 @@ export class User {
 	@PrimaryColumn({ type: 'bigint' })
 	public user!: string;
 
-    @Index()
-    @Column({ type: 'bigint' })
+	@Index()
+	@Column({ type: 'bigint' })
 	public ani!: string;
 }

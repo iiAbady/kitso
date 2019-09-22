@@ -6,11 +6,13 @@ export default class MissingPermissions extends Listener {
 		super('missingPermissions', {
 			event: 'missingPermissions',
 			emitter: 'commandHandler',
-			category: 'commandHandler'
+			category: 'commandHandler',
 		});
 	}
 
 	public async exec(message: Message, command: Command, reason: string): Promise<Message | Message[]> {
-		return message.channel.send(`:x: ${reason === 'clientPermissions' ? 'I' : 'You'} don't have permissions to do ${command.aliases[0]}!`);
+		return message.channel.send(
+			`:x: ${reason === 'clientPermissions' ? 'I' : 'You'} don't have permissions to do ${command.aliases[0]}!`,
+		);
 	}
 }

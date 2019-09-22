@@ -5,7 +5,7 @@ export default class ReconnectListener extends Listener {
 		super('reconnecting', {
 			emitter: 'client',
 			event: 'reconnecting',
-			category: 'client'
+			category: 'client',
 		});
 	}
 

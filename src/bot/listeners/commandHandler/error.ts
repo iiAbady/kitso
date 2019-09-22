@@ -10,7 +10,7 @@ export default class CommandErrorListener extends Listener {
 		super('error', {
 			emitter: 'commandHandler',
 			event: 'error',
-			category: 'commandHandler'
+			category: 'commandHandler',
 		});
 	}
 
@@ -22,32 +22,29 @@ export default class CommandErrorListener extends Listener {
 			level: Severity.Error,
 			data: {
 				user: {
-					id: message.author!.id,
-					username: message.author!.tag
+					id: message.author.id,
+					username: message.author.tag,
 				},
 				guild: message.guild
 					? {
-						id: message.guild.id,
-						name: message.guild.name
-					}
+							id: message.guild.id,
+							name: message.guild.name,
+					  }
 					: null,
 				command: command
 					? {
-						id: command.id,
-						aliases: command.aliases,
-						category: command.category.id
-					}
+							id: command.id,
+							aliases: command.aliases,
+							category: command.category.id,
+					  }
 					: null,
 				message: {
 					id: message.id,
-					content: message.content
-				}
-			}
+					content: message.content,
+				},
+			},
 		});
 		captureException(error);
-		return message.util!.send(
-			RESPONSE
-				.replace('!{err}', `${command.id}${error.message.length + command.id.length}`)
-		);
+		return message.util!.send(RESPONSE.replace('!{err}', `${command.id}${error.message.length + command.id.length}`));
 	}
 }

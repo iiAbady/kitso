@@ -8,7 +8,7 @@ export default class BlacklistCommand extends Command {
 			description: {
 				content: 'Prohibit/Allow a user from using Kitso.',
 				usage: '<user>',
-				examples: ['Abady', '@Abady', '171259176029257728']
+				examples: ['Abady', '@Abady', '171259176029257728'],
 			},
 			category: 'util',
 			ownerOnly: true,
@@ -19,10 +19,10 @@ export default class BlacklistCommand extends Command {
 					match: 'content',
 					type: 'user',
 					prompt: {
-						start: (message: Message): string => `${message.author}, who would you like to blacklist/unblacklist?`
-					}
-				}
-			]
+						start: (message: Message): string => `${message.author}, who would you like to blacklist/unblacklist?`,
+					},
+				},
+			],
 		});
 	}
 

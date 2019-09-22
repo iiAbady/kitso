@@ -1,4 +1,3 @@
-
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
@@ -39,12 +38,12 @@ export default class TagCommand extends Command {
 					'info Test',
 					'search Test',
 					'list @Abady',
-					'download Abady'
-				]
+					'download Abady',
+				],
 			},
 			category: 'tags',
 			channel: 'guild',
-			ratelimit: 2
+			ratelimit: 2,
 		});
 	}
 
@@ -60,7 +59,7 @@ export default class TagCommand extends Command {
 				['tag-info', 'info'],
 				['tag-search', 'search'],
 				['tag-list', 'list'],
-				['tag-download', 'download', 'dl']
+				['tag-download', 'download', 'dl'],
 			],
 			otherwise: (msg: Message): string => {
 				// @ts-ignore
@@ -70,7 +69,7 @@ export default class TagCommand extends Command {
 					Check \`${prefix}help tag\` for more information.
 					Hmph, you probably wanted to use \`${prefix}tag show\` or something!
 				`;
-			}
+			},
 		};
 
 		return Flag.continue(method);

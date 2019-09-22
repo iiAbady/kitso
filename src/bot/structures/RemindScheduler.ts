@@ -29,7 +29,7 @@ export default class RemindScheduler {
 		rmd.trigger = reminder.trigger;
 		rmd.triggers_at = new Date(reminder.triggers_at);
 		const dbReminder = await remindersRepo.save(rmd);
-		if (dbReminder.triggers_at.getTime() < (Date.now() + this.checkRate)) {
+		if (dbReminder.triggers_at.getTime() < Date.now() + this.checkRate) {
 			this.queueReminder(dbReminder);
 		}
 	}
@@ -50,16 +50,19 @@ export default class RemindScheduler {
 	}
 
 	public queueReminder(reminder: Reminder): void {
-		this.queuedSchedules.set(reminder.id, setTimeout((): void => {
-			this.runReminder(reminder);
-		}, reminder.triggers_at.getTime() - Date.now()));
+		this.queuedSchedules.set(
+			reminder.id,
+			setTimeout((): void => {
+				this.runReminder(reminder);
+			}, reminder.triggers_at.getTime() - Date.now()),
+		);
 	}
 
 	public async runReminder(reminder: Reminder): Promise<void> {
 		try {
 			const reason = reminder.reason || `${reminder.channel ? 'y' : 'Y'}ou wanted me to remind you around this time!`;
 			const content = `${reminder.channel ? `<@${reminder.user}>, ` : ''} ${reason}\n\n<${reminder.trigger}>`;
-			const channel = reminder.channel && this.client.channels.get(reminder.channel) as TextChannel;
+			const channel = reminder.channel && (this.client.channels.get(reminder.channel) as TextChannel);
 
 			if (channel) {
 				await channel.send(content);

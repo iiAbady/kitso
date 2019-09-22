@@ -9,7 +9,7 @@ export default class TagShowCommand extends Command {
 			category: 'tags',
 			description: {
 				content: 'Displays a tag.',
-				usage: '<tag>'
+				usage: '<tag>',
 			},
 			channel: 'guild',
 			ratelimit: 2,
@@ -19,10 +19,10 @@ export default class TagShowCommand extends Command {
 					match: 'content',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message): string => `${message.author}, what tag would you like to see?`
-					}
-				}
-			]
+						start: (message: Message): string => `${message.author}, what tag would you like to see?`,
+					},
+				},
+			],
 		});
 	}
 
@@ -32,9 +32,9 @@ export default class TagShowCommand extends Command {
 		const tagsRepo = this.client.db.getRepository(Tag);
 		const tag = await tagsRepo.findOne({
 			where: [
-				{ name, guild: message.guild!.id },
-				{ aliases: Raw(alias => `${alias} @> ARRAY['${name}']::varchar[]`), guild: message.guild!.id }
-			]
+				{ name, guild: message.guild.id },
+				{ aliases: Raw(alias => `${alias} @> ARRAY['${name}']::varchar[]`), guild: message.guild.id },
+			],
 		});
 
 		if (!tag) return;

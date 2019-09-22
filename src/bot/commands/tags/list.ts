@@ -8,7 +8,7 @@ export default class TagListCommand extends Command {
 			aliases: ['tags'],
 			category: 'tags',
 			description: {
-				content: 'Lists all server tags.'
+				content: 'Lists all server tags.',
 			},
 			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
@@ -16,18 +16,18 @@ export default class TagListCommand extends Command {
 			args: [
 				{
 					id: 'member',
-					type: 'member'
-				}
-			]
+					type: 'member',
+				},
+			],
 		});
 	}
 
 	public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message | Message[]> {
 		const tagsRepo = this.client.db.getRepository(Tag);
 		if (member) {
-			const tags = await tagsRepo.find({ user: member.id, guild: message.guild!.id });
+			const tags = await tagsRepo.find({ user: member.id, guild: message.guild.id });
 			if (!tags.length) {
-				if (member.id === message.author!.id) return message.util!.reply("you don't have any tags.");
+				if (member.id === message.author.id) return message.util!.reply("you don't have any tags.");
 				return message.util!.reply(`**${member.displayName}** doesn't have any tags.`);
 			}
 			const embed = new MessageEmbed()
@@ -37,13 +37,13 @@ export default class TagListCommand extends Command {
 					tags
 						.map((tag): string => `\`${tag.name}\``)
 						.sort()
-						.join(', ')
+						.join(', '),
 				);
 
 			return message.util!.send(embed);
 		}
-		const tags = await tagsRepo.find({ guild: message.guild!.id });
-		if (!tags.length) return message.util!.send(`**${message.guild!.name}** doesn't have any tags. Why not add some?`);
+		const tags = await tagsRepo.find({ guild: message.guild.id });
+		if (!tags.length) return message.util!.send(`**${message.guild.name}** doesn't have any tags. Why not add some?`);
 		const hoistedTags = tags
 			.filter((tag): boolean => tag.hoisted)
 			.map((tag): string => `\`${tag.name}\``)
@@ -51,15 +51,15 @@ export default class TagListCommand extends Command {
 			.join(', ');
 		const userTags = tags
 			.filter((tag): boolean => !tag.hoisted)
-			.filter((tag): boolean => tag.user === message.author!.id)
+			.filter((tag): boolean => tag.user === message.author.id)
 			.map((tag): string => `\`${tag.name}\``)
 			.sort()
 			.join(', ');
 		const embed = new MessageEmbed()
 			.setColor(0x30a9ed)
-			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL());
+			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
 		if (hoistedTags) embed.addField('❯ Tags', hoistedTags);
-		if (userTags) embed.addField(`❯ ${message.member!.displayName}'s tags`, userTags);
+		if (userTags) embed.addField(`❯ ${message.member.displayName}'s tags`, userTags);
 
 		return message.util!.send(embed);
 	}

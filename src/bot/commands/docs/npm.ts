@@ -12,24 +12,24 @@ export default class NPMCommand extends Command {
 			description: {
 				content: 'Show details about a package! use --heroku or -h to have its implementation in package.json',
 				usage: '<query>',
-				examples: ['discord.js', 'discord-akairo', 'node-fetch -h']
+				examples: ['discord.js', 'discord-akairo', 'node-fetch -h'],
 			},
 			clientPermissions: ['EMBED_LINKS'],
 			args: [
 				{
 					id: 'pkg',
 					prompt: {
-						start: (message: Message): string => `${message.author}, what would you like to search for?`
+						start: (message: Message): string => `${message.author}, what would you like to search for?`,
 					},
 					match: 'rest',
-					type: (_, pkg): string | null => pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null
+					type: (_, pkg): string | null => (pkg ? encodeURIComponent(pkg.replace(/ /g, '-')) : null),
 				},
 				{
-					 id: 'heroku',
-					 match: 'flag',
-					 flag: ['--heroku', '-h']
-				}
-			]
+					id: 'heroku',
+					match: 'flag',
+					flag: ['--heroku', '-h'],
+				},
+			],
 		});
 	}
 
@@ -49,7 +49,7 @@ export default class NPMCommand extends Command {
 		const maintainers = this._trimArray(body.maintainers.map((user: { name: string }): string => user.name));
 		const dependencies = version.dependencies ? this._trimArray(Object.keys(version.dependencies)) : null;
 		const embed = new MessageEmbed()
-			.setColor(0xCB0000)
+			.setColor(0xcb0000)
 			.setAuthor('NPM', 'https://i.imgur.com/ErKf5Y0.png', 'https://www.npmjs.com/')
 			.setTitle(body.name)
 			.setURL(`https://www.npmjs.com/package/${pkg}`)

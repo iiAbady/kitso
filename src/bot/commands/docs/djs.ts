@@ -12,7 +12,7 @@ export default class DocsCommand extends Command {
 			description: {
 				content: 'Searches discord.js docs and its related frameworks (akairo - commando).',
 				usage: '<query>',
-				examples: ['TextChannel', 'Client', 'ClientUser#setActivity master']
+				examples: ['TextChannel', 'Client', 'ClientUser#setActivity master'],
 			},
 			category: 'docs',
 			clientPermissions: ['EMBED_LINKS'],
@@ -23,19 +23,22 @@ export default class DocsCommand extends Command {
 					match: 'rest',
 					type: 'lowercase',
 					prompt: {
-						start: (message: Message): string => `${message.author}, what would you like to search?`
-					}
+						start: (message: Message): string => `${message.author}, what would you like to search?`,
+					},
 				},
 				{
 					id: 'force',
 					match: 'flag',
-					flag: ['--force', '-f']
-				}
-			]
+					flag: ['--force', '-f'],
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { query, force }: { query: string; force: boolean }): Promise<Message | Message[]> {
+	public async exec(
+		message: Message,
+		{ query, force }: { query: string; force: boolean },
+	): Promise<Message | Message[]> {
 		const q = query.split(' ');
 		const source = SOURCES.includes(q.slice(-1)[0]) ? q.pop() : 'stable';
 		const queryString = qs.stringify({ src: source, q: q.join(' '), force });
@@ -44,7 +47,12 @@ export default class DocsCommand extends Command {
 		if (!embed) {
 			return message.util!.reply("Kitso couldn't find the requested information.");
 		}
-		if (message.channel.type === 'dm' || !(message.channel as TextChannel).permissionsFor(message.guild!.me!)!.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)) {
+		if (
+			message.channel.type === 'dm' ||
+			!(message.channel as TextChannel)
+				.permissionsFor(message.guild.me)!
+				.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)
+		) {
 			return message.util!.send({ embed });
 		}
 		const msg = await message.util!.send({ embed });
@@ -52,8 +60,8 @@ export default class DocsCommand extends Command {
 		let react;
 		try {
 			react = await msg.awaitReactions(
-				(reaction, user): boolean => reaction.emoji.name === '🗑' && user.id === message.author!.id,
-				{ max: 1, time: 5000, errors: ['time'] }
+				(reaction, user): boolean => reaction.emoji.name === '🗑' && user.id === message.author.id,
+				{ max: 1, time: 5000, errors: ['time'] },
 			);
 		} catch (error) {
 			msg.reactions.removeAll();

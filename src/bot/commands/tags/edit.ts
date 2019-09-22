@@ -10,11 +10,11 @@ export default class TagEditCommand extends Command {
 			description: {
 				content: 'Edit a tag (Markdown can be used).',
 				usage: '<tag> [--hoist/--unhoist/--pin/--unpin] <content>',
-				examples: ['Test Some new content', '"Test 1" Some more new content', 'Test --hoist', '"Test 1" --unpin']
+				examples: ['Test Some new content', '"Test 1" Some more new content', 'Test --hoist', '"Test 1" --unpin'],
 			},
 			channel: 'guild',
 			ratelimit: 2,
-			flags: ['--hoist', '--pin', '--unhoist', '--unpin']
+			flags: ['--hoist', '--pin', '--unhoist', '--unpin'],
 		});
 	}
 
@@ -23,45 +23,49 @@ export default class TagEditCommand extends Command {
 			type: 'tag',
 			prompt: {
 				start: (message: Message): string => `${message.author}, what tag do you want to edit?`,
-				retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a tag with the name **${failure.value}** does not exist.`
-			}
+				retry: (message: Message, { failure }: { failure: { value: string } }): string =>
+					`${message.author}, a tag with the name **${failure.value}** does not exist.`,
+			},
 		};
 
 		const hoist = yield {
 			match: 'flag',
-			flag: ['--hoist', '--pin']
+			flag: ['--hoist', '--pin'],
 		};
 
 		const unhoist = yield {
 			match: 'flag',
-			flag: ['--unhoist', '--unpin']
+			flag: ['--unhoist', '--unpin'],
 		};
 
-		const content = yield (
-			hoist || unhoist
-				? {
+		const content = yield hoist || unhoist
+			? {
 					match: 'rest',
-					type: 'tagContent'
-				}
-				: {
+					type: 'tagContent',
+			  }
+			: {
 					match: 'rest',
 					type: 'tagContent',
 					prompt: {
-						start: (message: Message): string => `${message.author}, what should the new content be?`
-					}
-				}
-		);
+						start: (message: Message): string => `${message.author}, what should the new content be?`,
+					},
+			  };
 
 		return { tag, hoist, unhoist, content };
 	}
 
-	public async exec(message: Message, { tag, hoist, unhoist, content }: { tag: Tag; hoist: boolean; unhoist: boolean; content: string }): Promise<Message | Message[]> {
-		const staffRole = message.member!.roles.has(this.client.settings.get(message.guild!, 'modRole', undefined));
-		if (tag.user !== message.author!.id && !staffRole) {
+	public async exec(
+		message: Message,
+		{ tag, hoist, unhoist, content }: { tag: Tag; hoist: boolean; unhoist: boolean; content: string },
+	): Promise<Message | Message[]> {
+		const staffRole = message.member.roles.has(this.client.settings.get(message.guild, 'modRole', undefined));
+		if (tag.user !== message.author.id && !staffRole) {
 			return message.util!.reply('Losers are only allowed to edit their own tags.');
 		}
 		if (content && content.length >= 1950) {
-			return message.util!.reply('you must still have water behind your ears to not realize that messages have a limit of 2000 characters!');
+			return message.util!.reply(
+				'you must still have water behind your ears to not realize that messages have a limit of 2000 characters!',
+			);
 		}
 		const tagRepo = this.client.db.getRepository(Tag);
 		if (hoist) hoist = true;
@@ -71,7 +75,7 @@ export default class TagEditCommand extends Command {
 			content = Util.cleanContent(content, message);
 			tag.content = content;
 		}
-		tag.last_modified = message.author!.id;
+		tag.last_modified = message.author.id;
 		tag.updatedAt = moment.utc().toDate();
 		await tagRepo.save(tag);
 

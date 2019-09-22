@@ -5,11 +5,13 @@ export default class ResumeListener extends Listener {
 		super('resumed', {
 			emitter: 'client',
 			event: 'resumed',
-			category: 'client'
+			category: 'client',
 		});
 	}
 
 	public exec(events: number): void {
-		this.client.logger.info(`[RESUME] You made it out fine thanks to my luck! You ought to be thankful! (replayed ${events} events)`);
+		this.client.logger.info(
+			`[RESUME] You made it out fine thanks to my luck! You ought to be thankful! (replayed ${events} events)`,
+		);
 	}
 }
