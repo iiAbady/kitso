@@ -9,8 +9,7 @@
 	"scripts": {
 		"lint": "eslint src --ext .ts",
 		"build": "tsc",
-		"heroku-prebuild": "yarn cache clean",
-		"heroku-postbuild": "yarn build"
+		"heroku-postbuild": "yarn upgrade --latest && yarn build"
 	},
 	"dependencies": {
 		"@naval-base/ms": "^2.2.1",
