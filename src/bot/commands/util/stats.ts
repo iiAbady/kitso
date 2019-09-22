@@ -42,7 +42,7 @@ export default class StatsCommand extends Command {
 				true
 			)
 			.setThumbnail(this.client.user!.displayAvatarURL())
-			.setFooter(`© 2019 ${this.client.users.get('171259176029257728')!.tag} | Rewrited in TypeScript`);
+			.setFooter(`© 2019 ${this.client.users.get('171259176029257728')!.tag}`);
 		return message.util!.send(embed);
 	}
 }
