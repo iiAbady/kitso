@@ -33,7 +33,7 @@ export default class ANISYNCCOMMAND extends Command {
 				{
 					id: 'member',
 					type: 'member',
-					default: (message: Message): GuildMember => message.member,
+					default: (message: Message): GuildMember => message.member!,
 					unordered: true,
 				},
 				{
@@ -56,7 +56,7 @@ export default class ANISYNCCOMMAND extends Command {
 		const user = await usersRepo.findOne({ user: member.id });
 		if (!user) {
 			return message.reply(
-				`Seems ${member.id === message.author.id ? 'You' : member.user.username} are not synced yet.`,
+				`Seems ${member.id === message.author!.id ? 'You' : member.user.username} are not synced yet.`,
 			);
 		}
 		const {
@@ -96,7 +96,7 @@ export default class ANISYNCCOMMAND extends Command {
 		const list = lists[0].entries.slice((page - 1) * 10, page * 10);
 
 		const embed = new MessageEmbed()
-			.setAuthor(`${message.author.username}'s list`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author!.username}'s list`, message.author!.displayAvatarURL())
 			.setDescription(
 				stripIndents`
 							**${type.replace(/(\b\w)/gi, (lc): string => lc.toUpperCase())} List:**

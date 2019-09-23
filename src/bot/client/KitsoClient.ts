@@ -54,7 +54,7 @@ export default class KitsoClient extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', 'commands'),
-		prefix: (message: Message): string => this.settings.get(message.guild, 'prefix', '?'),
+		prefix: (message: Message): string => this.settings.get(message.guild!, 'prefix', '?'),
 		aliasReplacement: /-/g,
 		allowMention: true,
 		commandUtil: true,
@@ -103,8 +103,8 @@ export default class KitsoClient extends AkairoClient {
 				const tagsRepo = this.db.getRepository(Tag);
 				const tag = await tagsRepo.findOne({
 					where: [
-						{ name: phrase, guild: message.guild.id },
-						{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild.id },
+						{ name: phrase, guild: message.guild!.id },
+						{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild!.id },
 					],
 				});
 
@@ -119,8 +119,8 @@ export default class KitsoClient extends AkairoClient {
 				const tagsRepo = this.db.getRepository(Tag);
 				const tag = await tagsRepo.findOne({
 					where: [
-						{ name: phrase, guild: message.guild.id },
-						{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild.id },
+						{ name: phrase, guild: message.guild!.id },
+						{ aliases: Raw(alias => `${alias} @> ARRAY['${phrase}']::varchar[]`), guild: message.guild!.id },
 					],
 				});
 

@@ -37,9 +37,9 @@
 		"@types/dotenv": "^6.1.1",
 		"@types/moment-duration-format": "^2.2.2",
 		"@types/node": "^12.7.5",
-		"@types/ws": "^6.0.3",
 		"@types/node-emoji": "^1.8.1",
 		"@types/node-fetch": "^2.5.1",
+		"@types/ws": "^6.0.3",
 		"@typescript-eslint/eslint-plugin": "^2.3.0",
 		"@typescript-eslint/parser": "^2.3.0",
 		"eslint": "^6.4.0",
@@ -50,6 +50,9 @@
 		"typescript": "^3.6.3"
 	},
 	"eslintConfig": {
-		"extends": "marine/prettier/node"
+		"extends": "marine/prettier/node",
+		"globals": {
+			"BigInt": true
+		}
 	}
 }

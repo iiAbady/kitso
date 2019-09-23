@@ -50,17 +50,17 @@ export default class DocsCommand extends Command {
 		if (
 			message.channel.type === 'dm' ||
 			!(message.channel as TextChannel)
-				.permissionsFor(message.guild.me)!
+				.permissionsFor(message.guild!.me!)!
 				.has(['ADD_REACTIONS', 'MANAGE_MESSAGES'], false)
 		) {
 			return message.util!.send({ embed });
 		}
-		const msg = (await message.util!.send({ embed })) as Message;
+		const msg = await message.util!.send({ embed });
 		msg.react('🗑');
 		let react;
 		try {
 			react = await msg.awaitReactions(
-				(reaction, user): boolean => reaction.emoji.name === '🗑' && user.id === message.author.id,
+				(reaction, user): boolean => reaction.emoji.name === '🗑' && user.id === message.author!.id,
 				{ max: 1, time: 5000, errors: ['time'] },
 			);
 		} catch (error) {

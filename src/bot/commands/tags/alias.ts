@@ -78,7 +78,7 @@ export default class TagAliasCommand extends Command {
 			return message.util!.reply('you have to either supply `--add` or `--del.`');
 		}
 		const tagsRepo = this.client.db.getRepository(Tag);
-		first.last_modified = message.author.id;
+		first.last_modified = message.author!.id;
 		await tagsRepo.save(first);
 
 		return message.util!.reply(

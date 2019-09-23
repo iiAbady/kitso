@@ -57,10 +57,10 @@ export default class BanCommand extends Command {
 		{ member, days, reason }: { member: GuildMember; days: number; reason: string },
 	): Promise<Message | Message[] | void> {
 		if (member.hasPermission('MANAGE_GUILD')) return;
-		if (member.id === message.author.id) {
+		if (member.id === message.author!.id) {
 			return message.reply('REALLLLLLLLLY?');
 		}
-		const key = `${message.guild.id}:${member.id}:BAN`;
+		const key = `${message.guild!.id}:${member.id}:BAN`;
 		if (this.client.cachedCases.has(key)) {
 			return message.reply('User is getting the law by someone else.');
 		}
@@ -70,7 +70,7 @@ export default class BanCommand extends Command {
 		const dbCases = await casesRepo.find({ target_id: member.id });
 		const embed = Util.historyEmbed(member, dbCases);
 		await message.channel.send('You sure you want me to ban this dude? (yes/anything)', { embed });
-		const responses = await message.channel.awaitMessages((msg): boolean => msg.author.id === message.author.id, {
+		const responses = await message.channel.awaitMessages((msg): boolean => msg.author.id === message.author!.id, {
 			max: 1,
 			time: 10000,
 		});
@@ -83,28 +83,28 @@ export default class BanCommand extends Command {
 
 		let sentMessage;
 		if (/^y(?:e(?:a|s)?)?$/i.test(response!.content)) {
-			sentMessage = (await message.channel.send(`Banning **${member.user.tag}**...`)) as Message;
+			sentMessage = await message.channel.send(`Banning **${member.user.tag}**...`);
 		} else {
 			this.client.cachedCases.delete(key);
 			return message.reply(':x: cancelled ban.');
 		}
 
-		const totalCases = (this.client.settings.get(message.guild, 'caseTotal', 0) as number) + 1;
+		const totalCases = (this.client.settings.get(message.guild!, 'caseTotal', 0) as number) + 1;
 
 		try {
 			try {
 				await member.send(stripIndents`
-					**You have been banned from ${message.guild.name}**
+					**You have been banned from ${message.guild!.name}**
 					${reason ? `\n**Reason:** ${reason}\n` : ''}
 					Want to appeal? DM البيماني#6399 or xRokz#0555
 				`);
 			} catch {}
-			await member.ban({ days, reason: `Banned by ${message.author.tag} | Case #${totalCases}` });
+			await member.ban({ days, reason: `Banned by ${message.author!.tag} | Case #${totalCases}` });
 		} catch {
 			try {
-				await message.guild.members.ban(member.id, {
+				await message.guild!.members.ban(member.id, {
 					days,
-					reason: `Banned by ${message.author.tag} | Case #${totalCases}`,
+					reason: `Banned by ${message.author!.tag} | Case #${totalCases}`,
 				});
 			} catch (error) {
 				this.client.cachedCases.delete(key);
@@ -112,7 +112,7 @@ export default class BanCommand extends Command {
 			}
 		}
 
-		this.client.settings.set(message.guild, 'caseTotal', totalCases);
+		this.client.settings.set(message.guild!, 'caseTotal', totalCases);
 
 		if (!reason) {
 			// @ts-ignore
@@ -126,17 +126,17 @@ export default class BanCommand extends Command {
 			const e = Util.logEmbed({ message, member, action: 'Ban', caseNum: totalCases, reason }).setColor(
 				Util.CONSTANTS.COLORS.BAN,
 			);
-			modMessage = (await (this.client.channels.get(modLogChannel) as TextChannel).send(e)) as Message;
+			modMessage = await (this.client.channels.get(modLogChannel) as TextChannel).send(e);
 		}
 
 		const dbCase = new Case();
-		dbCase.guild = message.guild.id;
+		dbCase.guild = message.guild!.id;
 		if (modMessage) dbCase.message = modMessage.id;
 		dbCase.case_id = totalCases;
 		dbCase.target_id = member.id;
 		dbCase.target_tag = member.user.tag;
-		dbCase.mod_id = message.author.id;
-		dbCase.mod_tag = message.author.tag;
+		dbCase.mod_id = message.author!.id;
+		dbCase.mod_tag = message.author!.tag;
 		dbCase.action = Util.CONSTANTS.ACTIONS.BAN;
 		dbCase.reason = reason;
 		await casesRepo.save(dbCase);

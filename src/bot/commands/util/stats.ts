@@ -22,8 +22,8 @@ export default class StatsCommand extends Command {
 	public async exec(message: Message): Promise<Message | Message[]> {
 		const embed = new MessageEmbed()
 			.setColor(3447003)
-			.setDescription(`**${this.client.user.username} ${version} Stats**`)
-			.addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)
+			.setDescription(`**${this.client.user!.username} ${version} Stats**`)
+			.addField('❯ Uptime', moment.duration(this.client.uptime!).format('d[d ]h[h ]m[m ]s[s]'), true)
 			.addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)
 			.addField(
 				'❯ General Stats',
@@ -41,7 +41,7 @@ export default class StatsCommand extends Command {
 				`,
 				true,
 			)
-			.setThumbnail(this.client.user.displayAvatarURL())
+			.setThumbnail(this.client.user!.displayAvatarURL())
 			.setFooter(`© 2019 ${this.client.users.get('171259176029257728')!.tag}`);
 		return message.util!.send(embed);
 	}

@@ -27,7 +27,7 @@ export default class EmojiInfoCommand extends Command {
 					type: async (message, content) => {
 						// eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
 						if (EMOJI_REGEX.test(content)) [, content] = content.match(EMOJI_REGEX)!;
-						if (!isNaN(content as any)) return message.guild.emojis.get(content);
+						if (!isNaN(content as any)) return message.guild!.emojis.get(content);
 						return emojis.find(content);
 					},
 					prompt: {

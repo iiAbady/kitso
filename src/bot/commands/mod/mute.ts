@@ -51,7 +51,7 @@ export default class MuteCommand extends Command {
 	// @ts-ignore
 	public userPermissions(message: Message): string | null {
 		const staffRole = '553879901531406358';
-		const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+		const hasStaffRole = message.member!.roles.has(staffRole) || message.member!.hasPermission('MANAGE_GUILD');
 		if (!hasStaffRole) return 'Moderator';
 		return null;
 	}
@@ -67,22 +67,22 @@ export default class MuteCommand extends Command {
 			message.reply('do you wanna get fked?');
 		}
 
-		const key = `${message.guild.id}:${member.id}:MUTE`;
+		const key = `${message.guild!.id}:${member.id}:MUTE`;
 		if (this.client.cachedCases.has(key)) {
 			return message.reply('User is getting the law by someone else.');
 		}
 		this.client.cachedCases.add(key);
 
-		const totalCases = (this.client.settings.get(message.guild, 'caseTotal', 0) as number) + 1;
+		const totalCases = (this.client.settings.get(message.guild!, 'caseTotal', 0) as number) + 1;
 
 		try {
-			await member.roles.add(muteRole, `Muted by ${message.author.tag} | Case #${totalCases}`);
+			await member.roles.add(muteRole, `Muted by ${message.author!.tag} | Case #${totalCases}`);
 		} catch (error) {
 			this.client.cachedCases.delete(key);
 			return message.reply(`Error occur while muting this member: \`${error}\``);
 		}
 
-		this.client.settings.set(message.guild, 'caseTotal', totalCases);
+		this.client.settings.set(message.guild!, 'caseTotal', totalCases);
 
 		if (!reason) {
 			// @ts-ignore
@@ -101,14 +101,14 @@ export default class MuteCommand extends Command {
 
 		// @ts-ignore
 		await this.client.muteScheduler.addMute({
-			guild: message.guild.id,
+			guild: message.guild!.id,
 			// @ts-ignore
 			message: modMessage ? modMessage.id : null,
 			case_id: totalCases,
 			target_id: member.id,
 			target_tag: member.user.tag,
-			mod_id: message.author.id,
-			mod_tag: message.author.tag,
+			mod_id: message.author!.id,
+			mod_tag: message.author!.tag,
 			action: Util.CONSTANTS.ACTIONS.MUTE,
 			action_duration: new Date(Date.now() + duration),
 			action_processed: false,

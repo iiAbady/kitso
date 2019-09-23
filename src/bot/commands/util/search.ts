@@ -42,12 +42,12 @@ export default class Searchcommand extends Command {
 				'Search Results:',
 				`${videos.map((video: any): string => `**[${video.title}](${video.url})**`).join('\n')}`,
 			);
-		const msg = (await message.util!.send({ embed })) as Message;
+		const msg = await message.util!.send({ embed });
 		msg.react('🗑');
 		let react;
 		try {
 			react = await msg.awaitReactions(
-				(reaction, user): boolean => reaction.emoji.name === '🗑' && user.id === message.author.id,
+				(reaction, user): boolean => reaction.emoji.name === '🗑' && user.id === message.author!.id,
 				{ max: 1, time: 5000, errors: ['time'] },
 			);
 		} catch (error) {

@@ -49,7 +49,7 @@ export default class CaseCommand extends Command {
 	}
 
 	public async exec(message: Message, { caseNum }: { caseNum: number | string }): Promise<Message | Message[]> {
-		const totalCases = this.client.settings.get(message.guild, 'caseTotal', 0);
+		const totalCases = this.client.settings.get(message.guild!, 'caseTotal', 0);
 		const caseToFind = caseNum === 'latest' || caseNum === 'l' ? totalCases : caseNum;
 		if (isNaN(caseToFind)) return message.reply('cases are numbers, dummy');
 		const casesRepo = this.client.db.getRepository(Case);
@@ -57,7 +57,7 @@ export default class CaseCommand extends Command {
 		if (!dbCase) {
 			return message.reply("I couldn't find a case with that ID");
 		}
-		const moderator = await message.guild.members.fetch(dbCase.mod_id);
+		const moderator = await message.guild!.members.fetch(dbCase.mod_id);
 		const color = Object.keys(Util.CONSTANTS.ACTIONS)
 			.find((key): boolean => Util.CONSTANTS.ACTIONS[key] === dbCase.action)!
 			.split(' ')[0]

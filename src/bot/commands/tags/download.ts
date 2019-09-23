@@ -24,7 +24,7 @@ export default class TagDownloadCommand extends Command {
 	}
 
 	public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message | Message[] | void> {
-		const where = member ? { user: member.id, guild: message.guild.id } : { guild: message.guild.id };
+		const where = member ? { user: member.id, guild: message.guild!.id } : { guild: message.guild!.id };
 		const tagsRepo = this.client.db.getRepository(Tag);
 		const tags = await tagsRepo.find(where);
 		if (!tags.length) return;

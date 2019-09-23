@@ -29,7 +29,7 @@ export default class CheckCommand extends Command {
 							return null;
 						},
 					),
-					default: (message: Message): GuildMember => message.member,
+					default: (message: Message): GuildMember => message.member!,
 				},
 			],
 		});
@@ -38,7 +38,7 @@ export default class CheckCommand extends Command {
 	// @ts-ignore
 	public userPermissions(message: Message): string | null {
 		const staffRole = '535380980521893918';
-		const hasStaffRole = message.member.roles.has(staffRole) || message.member.hasPermission('MANAGE_GUILD');
+		const hasStaffRole = message.member!.roles.has(staffRole) || message.member!.hasPermission('MANAGE_GUILD');
 		if (!hasStaffRole) return 'Moderator';
 		return null;
 	}

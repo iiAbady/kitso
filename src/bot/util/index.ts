@@ -48,7 +48,7 @@ export default {
 	reminderEmbed: (message: Message, reminders: any): MessageEmbed => {
 		const truncate = (str: string, len: number): string => (str.length > len ? `${str.slice(0, len)}…` : str);
 		return new MessageEmbed()
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL())
 			.setColor(0x30a9ed)
 			.setDescription(
 				reminders.length
@@ -84,7 +84,7 @@ export default {
 	}): MessageEmbed => {
 		const embed = new MessageEmbed();
 		if (message) {
-			embed.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
+			embed.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL());
 		}
 		embed
 			.setDescription(

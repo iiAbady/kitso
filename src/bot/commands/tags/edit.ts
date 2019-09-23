@@ -58,8 +58,8 @@ export default class TagEditCommand extends Command {
 		message: Message,
 		{ tag, hoist, unhoist, content }: { tag: Tag; hoist: boolean; unhoist: boolean; content: string },
 	): Promise<Message | Message[]> {
-		const staffRole = message.member.roles.has(this.client.settings.get(message.guild, 'modRole', undefined));
-		if (tag.user !== message.author.id && !staffRole) {
+		const staffRole = message.member!.roles.has(this.client.settings.get(message.guild!, 'modRole', undefined));
+		if (tag.user !== message.author!.id && !staffRole) {
 			return message.util!.reply('Losers are only allowed to edit their own tags.');
 		}
 		if (content && content.length >= 1950) {
@@ -75,7 +75,7 @@ export default class TagEditCommand extends Command {
 			content = Util.cleanContent(content, message);
 			tag.content = content;
 		}
-		tag.last_modified = message.author.id;
+		tag.last_modified = message.author!.id;
 		tag.updatedAt = moment.utc().toDate();
 		await tagRepo.save(tag);
 
