@@ -34,7 +34,7 @@
 	},
 	"devDependencies": {
 		"@types/common-tags": "^1.8.0",
-		"@types/dotenv": "^6.1.1",
+		"@types/dotenv": "^8.2.0",
 		"@types/moment-duration-format": "^2.2.2",
 		"@types/node": "^12.11.1",
 		"@types/node-emoji": "^1.8.1",
