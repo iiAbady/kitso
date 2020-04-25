@@ -9,8 +9,8 @@ export default class TagAddCommand extends Command {
 			category: 'tags',
 			description: {
 				content: 'Adds a tag, usable for everyone on the server (Markdown can be used).',
-				usage: '[--hoisted] <tag> <content>',
-				examples: ['Test Test', '--hoisted "Test 2" Test2', '"Test 3" "Some more text" --hoisted'],
+				usage: '<tag> <content>',
+				examples: ['Test Test'],
 			},
 			channel: 'guild',
 			ratelimit: 2,
@@ -32,32 +32,23 @@ export default class TagAddCommand extends Command {
 						start: (message: Message): string => `${message.author}, what should the content of the tag be?`,
 					},
 				},
-				{
-					id: 'hoist',
-					match: 'flag',
-					flag: ['--hoist', '--pin'],
-				},
 			],
 		});
 	}
 
-	public async exec(
-		message: Message,
-		{ name, content, hoist }: { name: any; content: string; hoist: boolean },
-	): Promise<Message | Message[]> {
+	public async exec(message: Message, { name, content }: { name: any; content: string }): Promise<Message | Message[]> {
 		if (name && name.length >= 50) {
 			return message.util!.reply('Tags names have a limit of **50** characters only!');
 		}
 		if (content && content.length >= 1950) {
 			return message.util!.reply('Tags contents have a limit of **1950** characters only!');
 		}
-		const staffRole = message.member!.hasPermission(['MANAGE_GUILD']);
 		const tagsRepo = this.client.db.getRepository(Tag);
 		const tag = new Tag();
 		tag.user = message.author!.id;
 		tag.guild = message.guild!.id;
 		tag.name = name;
-		tag.hoisted = hoist && staffRole ? true : false;
+		tag.hoisted = true;
 		tag.content = content;
 		await tagsRepo.save(tag);
 

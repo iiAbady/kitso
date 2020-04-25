@@ -48,13 +48,15 @@ export default class TagListCommand extends Command {
 			.filter((tag): boolean => tag.hoisted)
 			.map((tag): string => `\`${tag.name}\``)
 			.sort()
-			.join(', ');
+			.join(', ')
+			.slice(0, 1023);
 		const userTags = tags
 			.filter((tag): boolean => !tag.hoisted)
 			.filter((tag): boolean => tag.user === message.author!.id)
 			.map((tag): string => `\`${tag.name}\``)
 			.sort()
-			.join(', ');
+			.join(', ')
+			.slice(0, 1023);
 		const embed = new MessageEmbed()
 			.setColor(0x30a9ed)
 			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL());
