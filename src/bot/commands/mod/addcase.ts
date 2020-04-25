@@ -64,7 +64,7 @@ export default class AddCaseCommand extends Command {
 			reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
 		}
 
-		const modLogChannel = '559070713181372446';
+		const modLogChannel = process.env.MOD_CHANNEL;
 		let modMessage;
 		const casesRepo = this.client.db.getRepository(Case);
 		if (modLogChannel) {

@@ -120,7 +120,7 @@ export default class BanCommand extends Command {
 			reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
 		}
 
-		const modLogChannel = '559070713181372446';
+		const modLogChannel = process.env.MOD_CHANNEL;
 		let modMessage;
 		if (modLogChannel) {
 			const e = Util.logEmbed({ message, member, action: 'Ban', caseNum: totalCases, reason }).setColor(

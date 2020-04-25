@@ -61,7 +61,7 @@ export default class ReasonCommand extends Command {
 			return message.reply("appears you can't do this boy.");
 		}
 
-		const modLogChannel = '559070713181372446';
+		const modLogChannel = process.env.MOD_CHANNEL;
 		if (modLogChannel) {
 			const caseEmbed = await (this.client.channels.get(modLogChannel) as TextChannel).messages.fetch(dbCase.message);
 			if (!caseEmbed) return message.reply("looks like the message doesn't exist anymore!");

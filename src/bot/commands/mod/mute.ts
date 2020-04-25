@@ -90,7 +90,7 @@ export default class MuteCommand extends Command {
 			reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
 		}
 
-		const modLogChannel = '559070713181372446';
+		const modLogChannel = process.env.MOD_CHANNEL;
 		let modMessage;
 		if (modLogChannel) {
 			const embed = Util.logEmbed({ message, member, action: 'Mute', duration, caseNum: totalCases, reason }).setColor(
