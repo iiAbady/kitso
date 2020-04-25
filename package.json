@@ -19,7 +19,7 @@
 		"diff": "^4.0.1",
 		"discord-akairo": "1Computer1/discord-akairo",
 		"discord.js": "discordjs/discord.js",
-		"dotenv": "^8.1.0",
+		"dotenv": "^8.2.0",
 		"moment": "^2.24.0",
 		"moment-duration-format": "^2.3.2",
 		"node-emoji": "^1.8.1",
@@ -29,7 +29,7 @@
 		"reflect-metadata": "^0.1.13",
 		"simple-youtube-api": "^5.2.1",
 		"turndown": "^5.0.3",
-		"typeorm": "^0.2.19",
+		"typeorm": "^0.2.20",
 		"winston": "^3.2.1"
 	},
 	"devDependencies": {
