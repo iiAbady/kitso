@@ -45,13 +45,13 @@ export default class TagListCommand extends Command {
 		const tags = await tagsRepo.find({ guild: message.guild!.id });
 		if (!tags.length) return message.util!.send(`**${message.guild!.name}** doesn't have any tags. Why not add some?`);
 		const hoistedTags = tags
-			.filter((tag): boolean => tag.hoisted)
+			
 			.map((tag): string => `\`${tag.name}\``)
 			.sort()
 			.join(', ')
 			.slice(0, 1023);
 		const userTags = tags
-			.filter((tag): boolean => !tag.hoisted)
+			
 			.filter((tag): boolean => tag.user === message.author!.id)
 			.map((tag): string => `\`${tag.name}\``)
 			.sort()
