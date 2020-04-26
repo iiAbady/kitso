@@ -1,5 +1,6 @@
-import { Command } from 'discord-akairo';
+import { Command } from 'discord-akairo'; 
 import { Message } from 'discord.js';
+
 import { stripIndents } from 'common-tags';
 
 const RESPONSES: string[] = [
