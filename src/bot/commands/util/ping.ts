@@ -15,7 +15,7 @@ export default class PingCommand extends Command {
 		super('ping', {
 			aliases: ['ping'],
 			description: {
-				content: 'Shows the bot ping.',
+				content: 'Shows the bot ping.!',
 			},
 			category: 'util',
 			ratelimit: 2,
