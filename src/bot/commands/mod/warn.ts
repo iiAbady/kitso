@@ -56,7 +56,7 @@ export default class WarnCommand extends Command {
 			reason = `Use \`${prefix}reason ${totalCases} <...reason>\` to set a reason for this case`;
 		}
 
-		const modLogChannel = this.client.settings.get(message.guild!, 'modLogChannel', undefined);
+		const modLogChannel = this.client.settings.get(message.guild!, 'modLogChannel', process.env.MOD_CHANNEL);
 		let modMessage;
 		if (modLogChannel) {
 			const embed = Util.logEmbed({ message, member, action: 'Warn', caseNum: totalCases, reason }).setColor(
