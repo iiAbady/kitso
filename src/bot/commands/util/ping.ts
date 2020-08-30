@@ -4,11 +4,11 @@ import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 
 const RESPONSES: string[] = [
-	'Try again lover ~_~',
-	'Nope',
-	"5$ and I'll show you the ping?",
+	'Try again lover ~_~.',
+	'Nope.',
+	"5$ and I'll show you the ping?.",
 	stripIndents`:ping_pong: Pong! \`$(ping)ms\`
-		Heartbeat: \`$(heartbeat)ms\``,
+		Heartbeat: \`$(heartbeat)ms\`.`,
 ];
 
 export default class PingCommand extends Command {
