@@ -876,18 +876,17 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-aqua@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-aqua/-/eslint-config-aqua-7.0.1.tgz#67f70d39f3d14b53b423dba50fd2b9f9a0dbec45"
-  integrity sha512-+wZY14nAsgcO+FDyHREWBHW4W13+E8X1jDvwFaLmDtjkrPqX7VneZMQC4QTP97WJQ0uYBqAImlZG+BNi4EHPDA==
+eslint-config-aqua@^8.1.2:
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-aqua/-/eslint-config-aqua-8.1.2.tgz#a598ffdae280919ee50a76b3c6eb8383b678074b"
+  integrity sha512-npPUb/C3pwYhDsLk94ALHO02JMV8hjbFjoVEGliXprGhNDE+8VuGRC8Fmiy3vYHX18/hheQfpWrOmG37UwTLZQ==
 
-eslint-config-marine@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-marine/-/eslint-config-marine-5.1.0.tgz#274bc8762fe62697d499c8b3044d6a9307d43918"
-  integrity sha512-0kXF6/de9EIghm0gODZpk6rfH4ySevJGYsqxkMBQtK5a0Q1LuQfxb3muWFD6gf706V0h2DWlKq5JGX/8pWvAyQ==
+eslint-config-marine@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-marine/-/eslint-config-marine-8.3.2.tgz#a714a3b1ac206a077cafbb5ae7dbee79e44ca9af"
+  integrity sha512-2SLm43NdkMcHuUEkiS6NmVkSeywsE0+Uwiu6BqQkTpKlOKKOKrAR7+M8oHaialE4JpXjhbHAob3o1psSpCfq1w==
   dependencies:
-    eslint-config-aqua "^7.0.1"
-    eslint-plugin-promise "^4.2.1"
+    eslint-config-aqua "^8.1.2"
 
 eslint-config-prettier@^6.4.0:
   version "6.4.0"
@@ -902,11 +901,6 @@ eslint-plugin-prettier@^3.1.1:
   integrity sha512-A+TZuHZ0KU0cnn56/9mfR7/KjUJ9QNVXUhwvRFSR7PGPe0zQR6PTkmyqg1AtUUEOzTqeRsUwyKFh0oVZKVCrtA==
   dependencies:
     prettier-linter-helpers "^1.0.0"
-
-eslint-plugin-promise@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-4.2.1.tgz#845fd8b2260ad8f82564c1222fce44ad71d9418a"
-  integrity sha512-VoM09vT7bfA7D+upt+FjeBO5eHIJQBUWki1aPvB+vbNiHS3+oGIJGIeyBtKQTME6UPXXy3vV07OL1tHd3ANuDw==
 
 eslint-scope@^5.0.0:
   version "5.0.0"
