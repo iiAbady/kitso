@@ -1,13 +1,30 @@
-# Kitso <img src="https://i.imgur.com/4VL1lQr.jpg" align="right" width="256">
-> Stupid bitch
+# TypeScript Sapphire Bot example
 
-[![Build Status](https://dev.azure.com/yuki-base/Kitso/_apis/build/status/Kitso-CI?branchName=master)](https://dev.azure.com/yuki-base/Kitso/_build/latest?definitionId=1&branchName=master)
+This is a basic setup of a Discord bot using the [sapphire framework][sapphire] written in TypeScript
 
-# Notice
- This bot was mostly inspired by [**Yukikaze**](https://github.com/Naval-Base/yukikaze) which is maintained by [**iCrawl**](https://github.com/iCrawl) so thank's to him (:
+## How to use it?
 
-## Copyrights
+### Prerequisite
 
-**This fanart** © [あめがくる](https://www.pixiv.net/member.php?id=14632589) 
+```sh
+npm install
+```
 
-**Kitso** © [Abady](https://github.com/Abady321x123)
+### Development
+
+This example can be run with `tsc-watch` to watch the files and automatically restart your bot.
+
+```sh
+npm run watch:start
+```
+
+### Production
+
+You can also run the bot with `npm dev`, this will first build your code and then run `node ./dist/index.js`. But this is not the recommended way to run a bot in production.
+
+## License
+
+Dedicated to the public domain via the [Unlicense], courtesy of the Sapphire Community and its contributors.
+
+[sapphire]: https://github.com/sapphiredev/framework
+[unlicense]: https://github.com/sapphiredev/examples/blob/main/LICENSE.md
